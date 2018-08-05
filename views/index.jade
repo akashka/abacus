@@ -36,19 +36,64 @@ block content
                     button.mdl-button.mdl-button--icon.mdl-js-button.mdl-js-ripple-effect(ng-click="close_card()")
                         i.material-icons close
 
-            table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp.ng-hide(ng-controller="TableController", ng-show="loggedIn", ng-init="update_fruits()")
+            table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp.ng-hide(ng-controller="TableController", ng-show="loggedIn", ng-init="update_students()")
                 thead
                     tr
-                        th.mdl-data-table__cell--non-numeric ID
-                        th.mdl-data-table__cell--non-numeric !{t('index.table.name')}
-                        th.mdl-data-table__cell--non-numeric !{t('index.table.description')}
-                        th !{t('index.table.price')}
-                        th !{t('index.table.date')}
+                        th.mdl-data-table__cell--non-numeric CODE
+                        th.mdl-data-table__cell--non-numeric STATUS
+                        th.mdl-data-table__cell--non-numeric PHONE NO.
+                        th.mdl-data-table__cell--non-numeric E-MAIL
+                        th.mdl-data-table__cell--non-numeric NAME
+                        th.mdl-data-table__cell--non-numeric DATE OF BIRTH
+                        th.mdl-data-table__cell--non-numeric GENDER
+                        th.mdl-data-table__cell--non-numeric PARENT NAME
+                        //- th.mdl-data-table__cell--non-numeric ADDRESS
+                        //- th.mdl-data-table__cell--non-numeric T-SHIRT
+                        th.mdl-data-table__cell--non-numeric GROUP
+                        th.mdl-data-table__cell--non-numeric CATEGORY
+                        th.mdl-data-table__cell--non-numeric LEVEL
+                        //- th.mdl-data-table__cell--non-numeric PHOTO
+                        //- th.mdl-data-table__cell--non-numeric CENTER NAME
+                        //- th.mdl-data-table__cell--non-numeric CENTER CODE
+                        //- th.mdl-data-table__cell--non-numeric SCHOOL NAME
+                        //- th.mdl-data-table__cell--non-numeric REGISTERATION DATE
+                        //- th.mdl-data-table__cell--non-numeric LEVEL COMPLETED
+                        //- th.mdl-data-table__cell--non-numeric PRESENT LEVEL
+                        //- th.mdl-data-table__cell--non-numeric PRESENT WEEK
+                        //- th.mdl-data-table__cell--non-numeric EXAM DATE
+                        //- th.mdl-data-table__cell--non-numeric ENTRY TIME
+                        //- th.mdl-data-table__cell--non-numeric COMPETITION TIME
+                        //- th.mdl-data-table__cell--non-numeric VENUE
+                        //- th.mdl-data-table__cell--non-numeric CREATED ON
+                        //- th.mdl-data-table__cell--non-numeric LAST MODIFIED
+                        
                 tbody
-                tbody(ng-repeat="f in fruit_list")   
-                    tr(ng-click="fruitClick(f._id)")
-                        td(class="mdl-data-table__cell--non-numeric", id="id") {{f._id}}
+                tbody(ng-repeat="f in student_list")   
+                    tr(ng-click="studentClick(f._id)")
+                        td(class="mdl-data-table__cell--non-numeric") {{f.studentcode}}
+                        td(class="mdl-data-table__cell--non-numeric") {{f.status}}
+                        td(class="mdl-data-table__cell--non-numeric") {{f.phone}}
+                        td(class="mdl-data-table__cell--non-numeric") {{f.email}}
                         td(class="mdl-data-table__cell--non-numeric") {{f.name}}
-                        td(class="mdl-data-table__cell--non-numeric") {{f.description}}
-                        td {{f.price/100 | currency}}
-                        td {{f.dateCreated | date:"dd/MM/yyyy 'at' h:mma"}}
+                        td(class="mdl-data-table__cell--non-numeric") {{f.dateofbirth}}
+                        td(class="mdl-data-table__cell--non-numeric") {{f.gender}}
+                        td(class="mdl-data-table__cell--non-numeric") {{f.parentname}}
+                        //- td(class="mdl-data-table__cell--non-numeric") {{f.address}}
+                        //- td(class="mdl-data-table__cell--non-numeric") {{f.tshirtsize}}
+                        td(class="mdl-data-table__cell--non-numeric") {{f.group}}
+                        td(class="mdl-data-table__cell--non-numeric") {{f.category}}
+                        td(class="mdl-data-table__cell--non-numeric") {{f.level}}
+                        //- td(class="mdl-data-table__cell--non-numeric") {{f.photo}}
+                        //- td(class="mdl-data-table__cell--non-numeric") {{f.centername}}
+                        //- td(class="mdl-data-table__cell--non-numeric") {{f.centercode}}
+                        //- td(class="mdl-data-table__cell--non-numeric") {{f.schoolname}}
+                        //- td(class="mdl-data-table__cell--non-numeric") {{f.registrationdate}}
+                        //- td(class="mdl-data-table__cell--non-numeric") {{f.levelcompleted}}
+                        //- td(class="mdl-data-table__cell--non-numeric") {{f.presentlevel}}
+                        //- td(class="mdl-data-table__cell--non-numeric") {{f.presentweek}}
+                        //- td(class="mdl-data-table__cell--non-numeric") {{f.examdate}}
+                        //- td(class="mdl-data-table__cell--non-numeric") {{f.entrytime}}
+                        //- td(class="mdl-data-table__cell--non-numeric") {{f.competitiontime}}
+                        //- td(class="mdl-data-table__cell--non-numeric") {{f.venue}}
+                        //- td(class="mdl-data-table__cell--non-numeric") {{f.dateCreated}}
+                        //- td(class="mdl-data-table__cell--non-numeric") {{f.dateModified}}

@@ -18,7 +18,7 @@ router.post('/', function (req, res){
         userDAO.createUser({
                 username:   req.body.username,
                 password:   req.body.password,
-                phone:      req.body.phone
+                role:       req.body.role
             }, {
             success: function(user){
                 res.status(201).send({msg: 'User created succesfully: '+JSON.stringify(user), data: user});
@@ -87,7 +87,8 @@ router.put('/:id', function (req, res){
     d.run(function(){
         userDAO.updateUser(req.params.id, {
                 username:      req.body.username,
-                password:   req.body.password
+                password:      req.body.password,
+                role:          req.body.role
             }, {
             success: function(user){
                 res.status(200).send({msg:'User updated succesfully: '+JSON.stringify(user), data:user});
@@ -133,7 +134,7 @@ router.post('/login', function (req, res){
 
     d.run(function(){
         userDAO.loginUser({
-                username:      req.body.username,
+                username:   req.body.username,
                 password:   req.body.password
             }, {
             success: function(user){
@@ -145,5 +146,28 @@ router.post('/login', function (req, res){
         });
     });
 });
+
+// SEND OTP TO LOGIN
+router.post('/generateOTP', function(req, res){
+    var d = domain.create();
+
+    d.on('error', function(error){
+        if(!isInTest) console.log(error.stacktrace);
+        res.status(500).send({'error': error.message});
+    });
+
+    d.run(function(){
+        userDAO.generateOTP({
+                username:   req.body.username,
+            }, {
+            success: function(user){
+                res.status(200).send(user);
+            },
+            error: function(err){
+                res.status(403).send(err);
+            }
+        });
+    });
+})
 
 module.exports = router;

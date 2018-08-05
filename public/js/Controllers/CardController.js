@@ -1,5 +1,5 @@
-angular.module('FruitApp.CardController', [])
-.controller('CardController', ['$scope', 'fruitFactory', function ($scope, fruitFactory) {
+angular.module('StudentApp.CardController', [])
+.controller('CardController', ['$scope', 'studentFactory', function ($scope, studentFactory) {
     //Close card handler
     $scope.close_card = function(){
         $scope.$parent.editing = false;
@@ -11,7 +11,7 @@ angular.module('FruitApp.CardController', [])
         $scope.$parent.loading = true;
         if($scope.$parent.fruit._id === undefined){
             //Adding fruit -> POST
-            fruitFactory.save({
+            studentFactory.save({
                 name: $scope.$parent.fruit.name,
                 description: $scope.$parent.fruit.description,
                 price: $scope.$parent.fruit.price
@@ -26,7 +26,7 @@ angular.module('FruitApp.CardController', [])
 
         }else{
             //Editing fruit -> PUT
-            fruitFactory.update({id: $scope.$parent.fruit._id}, {
+            studentFactory.update({id: $scope.$parent.fruit._id}, {
                 name: $scope.$parent.fruit.name,
                 description: $scope.$parent.fruit.description,
                 price: $scope.$parent.fruit.price
@@ -44,7 +44,7 @@ angular.module('FruitApp.CardController', [])
     //Delete fruit button handler
     $scope.delete_card = function(id) {
         $scope.$parent.loading = true;
-        fruitFactory.delete({id: id},
+        studentFactory.delete({id: id},
         function(response) {
             console.log(response);
             $scope.$parent.editing = false;

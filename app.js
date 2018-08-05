@@ -9,7 +9,7 @@ var express = require('express'),
 
 var routes = require('./routes/index');
 var userAPI = require('./routes/api/0.1/userAPI');
-var fruitAPI = require('./routes/api/0.1/fruitAPI');
+var studentAPI = require('./routes/api/0.1/studentAPI');
 
 var dom = domain.create(),
     app = express();
@@ -40,7 +40,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/api/0.1/user', userAPI);
-app.use('/api/0.1/fruit', fruitAPI);
+app.use('/api/0.1/student', studentAPI);
 
 // error handlers
 app.use(function(error, req, res, next){

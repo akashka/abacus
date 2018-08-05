@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
 
 
     d.run(function(){
-        res.render('index', { title: 'fruit manager'});
+        res.render('index', { title: 'Aloha Karnataka'});
     });
 });
 

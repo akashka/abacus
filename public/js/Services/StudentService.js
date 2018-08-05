@@ -1,7 +1,7 @@
-angular.module('FruitApp.FruitService', [])
-.factory('fruitFactory', function ($resource) {
+angular.module('StudentApp.StudentService', [])
+.factory('studentFactory', function ($resource) {
     return $resource(
-        '/api/0.1/fruit/:id', {
+        '/api/0.1/student/:id', {
             id: '@id',
         }, {
             update: {

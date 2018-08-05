@@ -5,11 +5,12 @@ mixin custom_header(t, exit)
 mixin navbar(_t, exit)
     .navbar
         .container
-            h1= _t
+            a(ng-show='loggedIn', href='https://www.alohakarnataka.com')
+                img(alt='https://www.alohakarnataka.com', src='/img/logo.png')
             a(href='#', ng-show='loggedIn')
-                #add-fruit(ng-click="add_fruit()")
-                    i.zmdi.zmdi-plus.zmdi-3x
-                    | !{t('layout.navbar.add')}
+                #add-student(ng-click="add_student()")
+                    //- i.zmdi.zmdi-plus.zmdi-3x
+                    | !{t('Add Student')}
 
             a(ng-show='loggedIn', ng-click="logout($event)", href='')= exit
 
@@ -22,17 +23,30 @@ mixin custom_footer(about_txt)
 //- login
 mixin login_form
     form.login.ng-hide#login(ng-controller="LoginController", ng-hide="loggedIn")
-        p.title= 'fruit manager'
-        img(src="/android-chrome-96x96.png")
+        p.title= 'Welcome'
+        img(src="/img/logo.png")
         //- loader
 
         .login-wrapper#login-wrapper
-            input#username(tabindex="1", autocapitalize="off", autocorrect="off", type="text", placeholder="username", autofocus, , ng-model='username')
-            i.fa.fa-user
-            input#password(tabindex="2", type="password", placeholder="password", ng-model='password')
+            .info-message(ng-show="!otpSent")
+                h5= 'Please enter your 10 digit mobile number. Keep your phone handy to enter the OTP received on your number.' 
+            .info-message(ng-show="otpSent")
+                h5= 'Please enter the OTP we sent on your number.'
+
+            input#username(ng-show="!otpSent", tabindex="1", autocapitalize="off", autocorrect="off", type="number", placeholder="Phone Number", autofocus, , ng-model='username', min-length=10, max-length=10)
+            i.fa.fa-phone
+            input#password(ng-show="otpSent", tabindex="2", type="password", placeholder="password", ng-model='password')
             i.fa.fa-key
 
-            a(href="#")= 'Forgot your password?'
-            button(ng-click='send(username, password)')
-                i.spinner
+            a(ng-show="otpSent", href="#", ng-click='generateOTP(username)')= 'Resend OTP?' 
+            
+            .right-a
+                a(ng-show="otpSent", href="#", ng-click='tryDifferentNumber()')= 'Try different Number!' 
+
+            button(ng-show="!otpSent", ng-click='generateOTP(username)')
+                //- i.spinner
+                span.state= 'submit'
+          
+            button(ng-show="otpSent", ng-click='send(username, password)')
+                //- i.spinner
                 span.state= 'submit'

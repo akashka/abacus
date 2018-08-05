@@ -1,10 +1,10 @@
-angular.module('FruitApp.TableController', [])
-.controller('TableController', ['$scope', 'fruitFactory', function ($scope, fruitFactory) {
-    //Update fruits
-    $scope.$parent.update_fruits = function(){
+angular.module('StudentApp.TableController', [])
+.controller('TableController', ['$scope', 'studentFactory', function ($scope, studentFactory) {
+    //Update students
+    $scope.$parent.update_students = function(){
         $scope.$parent.loading = true;
         //Load fruits
-        fruitFactory.query().$promise.then(function(response) {
+        studentFactory.query().$promise.then(function(response) {
             //$('tbody').html('');
             $scope.$parent.fruit_list = response;
             $scope.$parent.loading = false;
@@ -12,7 +12,7 @@ angular.module('FruitApp.TableController', [])
             $scope.fruitClick =  function(id) {
                 $scope.$parent.loading = true;
                 $scope.$parent.editing = true;
-                fruitFactory.get({id: id},
+                studentFactory.get({id: id},
                     function(response) {
                         console.log(response);
                         $scope.$parent.fruit = response;

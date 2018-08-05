@@ -132,11 +132,21 @@ body {
     text-decoration: none;
 }
 
+.right-a {
+    float: right;
+    text-align: right;
+}
+
+.info-message h5 {
+    font-size: 14px;
+    color: #3a9788;
+}
+
 .login .title {
     color: #444;
     font-size: 1.2em;
     font-weight: bold;
-    margin: 10px 0 30px 0;
+    margin: 10px 0 20px 0;
     border-bottom: 1px solid #eee;
     padding-bottom: 20px;
 }
@@ -211,7 +221,7 @@ footer a:link {
 
 .login img{
     position: relative;
-    width: 75px;
+    width: 200px;
     margin: auto;
     display: block;
     margin-bottom: 20px;

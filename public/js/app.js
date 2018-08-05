@@ -1,14 +1,14 @@
-var app = angular.module('FruitApp', ['ngRoute', 'ngResource', 'FruitApp.FruitService', 'FruitApp.UserService', 'FruitApp.LoginController', 'FruitApp.TableController', 'FruitApp.CardController'])
+var app = angular.module('StudentApp', ['ngRoute', 'ngResource', 'StudentApp.StudentService', 'StudentApp.UserService', 'StudentApp.LoginController', 'StudentApp.TableController', 'StudentApp.CardController'])
 .controller('MainController',  ['$scope', '$http', function ($scope, $http) {
     //State vars initialization
     $scope.loading = true;
     $scope.loggedIn = getCookie('username') != "";
-    $scope.fruit={};
+    $scope.student={};
     $scope.editing = false;
 
-    //Add fruit button handler
-    $scope.add_fruit = function(){
-        $scope.fruit={};
+    //Add student button handler
+    $scope.add_student = function(){
+        $scope.student={};
         $scope.editing = true;
 
         //Floating label layout fix

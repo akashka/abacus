@@ -1,7 +1,9 @@
-angular.module('FruitApp.LoginController', [])
+angular.module('StudentApp.LoginController', [])
 .controller('LoginController', ['$scope', 'userFactory', function ($scope, userFactory) {
     //Login form listener
     var working = false;
+    $scope.otpSent = false;
+
     $scope.send = function(username, password){
         $("#login img").hide();
         if (working) return;
@@ -18,10 +20,11 @@ angular.module('FruitApp.LoginController', [])
             console.log(response);
             setTimeout(function() {
                 $this.addClass('ok');
-                $state.html('Welcome back!');
+                $state.html('Welcome!');
                 $(".fa.fa-sign-out").show();
                 setCookie("username", username, 14);
                 setCookie("password", password, 14);
+                setCookie("role", response.role, 14);
                 setTimeout(function() {
                     $state.html('Log in');
                     $this.removeClass('ok loading');
@@ -38,7 +41,7 @@ angular.module('FruitApp.LoginController', [])
             console.error(response);
             $scope.$parent.loggedIn = false;
             $this.addClass('ko');
-            $state.html('Wrong username or password!');
+            $state.html('Invalid OTP!');
             var i = setTimeout(function() {
                 $state.html('Log in');
                 $("#login img").show();
@@ -49,4 +52,20 @@ angular.module('FruitApp.LoginController', [])
             }, 1500);
         });
     };
-}]);
+
+    $scope.generateOTP = function(username) {
+        userFactory.generateOTP({
+            username: username
+        }, function(response) {
+            console.log(response);
+            $scope.otpSent = true;
+        }, function(response) {
+            $scope.otpSent = false;            
+        });
+    }
+
+    $scope.tryDifferentNumber = function() {
+        $scope.otpSent = false;        
+    }
+
+}]);    
