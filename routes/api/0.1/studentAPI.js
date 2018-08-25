@@ -26,6 +26,7 @@ router.post('/', function (req, res){
                 category: req.body.category,
                 level: req.body.level,
                 photo: req.body.photo,
+                birthcertificate: req.body.birthcertificate,
                 centername: req.body.centername,
                 centercode: req.body.centercode,
                 schoolname: req.body.schoolname,
@@ -38,7 +39,10 @@ router.post('/', function (req, res){
                 examdate: req.body.examdate,
                 entrytime: req.body.entrytime,
                 competitiontime: req.body.competitiontime,
-                venue: req.body.venue
+                venue: req.body.venue,
+                amountreceived: req.body.amountreceived,
+                amountreceivedfrom: req.body.amountreceivedfrom,
+                amountreceiveddate: req.body.amountreceiveddate
             }, {
             success: function(f){
                 res.status(201).send({msg: 'Student created succesfully: '+req.body.name, data: f});

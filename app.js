@@ -5,11 +5,22 @@ var express = require('express'),
     logger = require('morgan'),
     cookieParser = require('cookie-parser'),
     i18n = require("i18next"),
+    http = require('http'),
+    multer  = require('multer')
     bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var userAPI = require('./routes/api/0.1/userAPI');
 var studentAPI = require('./routes/api/0.1/studentAPI');
+
+var storage = multer.diskStorage({
+  destination: './uploads/',
+  filename: function (req, file, cb) {
+    cb(null, file.originalname.replace(path.extname(file.originalname), "") + '-' + Date.now() + path.extname(file.originalname))
+  }
+})
+
+var upload = multer({ storage: storage })
 
 var dom = domain.create(),
     app = express();
@@ -80,5 +91,9 @@ app.use(function(error, req, res, next){
     }
 });
 
+app.post('/savedata', upload.single('file'), function(req,res,next){
+    console.log('Uploade Successful ', req.file, req.body);
+    res.send(req.file);
+});
 
 module.exports = app;

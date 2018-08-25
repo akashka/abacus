@@ -5,6 +5,7 @@ var isInTest = typeof global.it === 'function';
 
 var Schema = mongoose.Schema;
 var StudentSchema = new Schema({
+    // Parent
     phone:              { type: String, required: true, unique: true },
     email:              { type: String, required: true },
     name:               { type: String, required: true },
@@ -12,26 +13,38 @@ var StudentSchema = new Schema({
     gender:             { type: String, required: true },
     parentname:         { type: String, required: true },
     address:            { type: String, required: true },
-    tshirtsize:         { type: String, required: true },
-    group:              { type: String, required: true },
-    category:           { type: String, required: true },
-    level:              { type: String, required: true },
+    programmename:      { type: String },
+    tshirtrequired:     { type: Boolean },
+    tshirtsize:         { type: String },
     photo:              { type: String },
+    birthcertificate:   { type: String },
     centername:         { type: String },
-    centercode:         { type: String },
+    centercode:         { type: String, required: true },
     schoolname:         { type: String },
+    status:             { type: String, required: true },
+    dateCreated:        { type: Date, required: true },
+    // Center
+    dateModified:       { type: Date},
+    group:              { type: String },
+    category:           { type: String },
+    level:              { type: String },
     registrationdate:   { type: String },
-    studentcode:        { type: String, required: true, unique: true },
-    levelcompleted:     { type: String },
+    studentcode:        { type: String },
     presentlevel:       { type: String },
     presentweek:        { type: String },
-    status:             { type: String, required: true },
+    classsection:       { type: String },
+    lastyearlevel:      { type: String },
+    // Payments
+    paymentdate:        { type: String },
+    transactionno:      { type: String },
+    paymentmode:        { type: String },
+    bankname:           { type: String },
+    // TASK
     examdate:           { type: String },
     entrytime:          { type: String },
     competitiontime:    { type: String },
     venue:              { type: String },
-    dateCreated:        { type: Date},
-    dateModified:       { type: Date}
+    admissioncardno:    { type: String }
 });
 
 StudentSchema.pre('save', function(next){
@@ -54,31 +67,21 @@ function createStudent(student, callbacks){
         gender:             student.gender,
         parentname:         student.parentname,
         address:            student.address,
+        tshirtrequired:     (student.tshirtsize != "" && student.tshirtsize != undefined ? true : false),
         tshirtsize:         student.tshirtsize,
-        group:              student.group,
-        category:           student.category,
-        level:              student.level,
         photo:              student.photo,
+        birthcertificate:   student.birthcertificate,
+        programmename:      (student.centername != undefined && student.centername != "" ? "Center Programme" : "School Programme"),
         centername:         student.centername,
         centercode:         student.centercode,
         schoolname:         student.schoolname,
-        registrationdate:   student.registrationdate,
-        studentcode:        student.studentcode,
-        levelcompleted:     student.levelcompleted,
-        presentlevel:       student.presentlevel,
-        presentweek:        student.presentweek,
-        status:             student.status,
-        examdate:           student.examdate,
-        entrytime:          student.entrytime,
-        competitiontime:    student.competitiontime,
-        venue:              student.venue,
-        dateCreated:        new Date(),
-        dateModified:       new Date()
+        status:             'open',
+        dateCreated:        new Date()
     });
 
     f.save(function (err) {
         if (!err) {
-            if(!isInTest) console.log("[ADD]   tudent created with id: " + f._id);
+            if(!isInTest) console.log("Student created with id: " + f._id);
             callbacks.success(f);
         } else {
             if(!isInTest) console.log(err);
@@ -116,32 +119,47 @@ function readStudentById(id, callbacks){
 
 //UPDATE student
 function updateStudent(id, student, callbacks){
+    console.log('id', id);
+    console.log('student', student);
     return StudentModel.findById(id, function (err, f) {
         if (!err) {
-            if (student.name) f.name = student.name;
-            if (student.email) f.email = student.email;
-            if (student.dateofbirth) f.dateofbirth = student.dateofbirth;
-            if (student.gender) f.gender = student.gender;
-            if (student.parentname) f.parentname = student.parentname;
-            if (student.address) f.address = student.address;
-            if (student.tshirtsize) f.tshirtsize = student.tshirtsize;
-            if (student.group) f.group = student.group;
-            if (student.category) f.category = student.category;
-            if (student.level) f.level = student.level;
-            if (student.photo) f.photo = student.photo;
-            if (student.centername) f.centername = student.centername;
-            if (student.centercode) f.centercode = student.centercode;
-            if (student.schoolname) f.schoolname = student.schoolname;
-            if (student.registrationdate) f.registrationdate = student.registrationdate;
-            if (student.levelcompleted) f.levelcompleted = student.levelcompleted;
-            if (student.presentlevel) f.presentlevel = student.presentlevel;
-            if (student.presentweek) f.presentweek = student.presentweek;
-            if (student.status) f.status = student.status;
-            if (student.examdate) f.examdate = student.examdate;
-            if (student.entrytime) f.entrytime = student.entrytime;
-            if (student.competitiontime) f.competitiontime = student.competitiontime;
-            if (student.venue) f.venue = student.venue;
+
+            f.phone = student.phone;
+            f.email = student.email;
+            f.name = student.name;
+            f.dateofbirth = student.dateofbirth;
+            f.gender = student.gender;
+            f.parentname = student.parentname;
+            f.address = student.address;
+            f.tshirtrequired = student.tshirtrequired;
+            f.tshirtsize = student.tshirtsize;
+            f.photo = student.photo;
+            f.birthcertificate = student.birthcertificate;
+            f.programmename = student.programmename;
+            f.centername = student.centername;
+            f.centercode = student.centercode;
+            f.schoolname = student.schoolname;
+            f.status = student.status;
+            // f.dateCreated = student.dateCreated;
             f.dateModified = new Date();
+            f.group = student.group;
+            f.category = student.category;
+            f.level = student.level;
+            f.registrationdate = student.registrationdate;
+            f.studentcode = student.studentcode;
+            f.presentlevel = student.presentlevel;
+            f.presentweek = student.presentweek;
+            f.classsection = student.classsection;
+            f.lastyearlevel = student.lastyearlevel;
+            f.paymentdate = student.paymentdate;
+            f.transactionno = student.transactionno;
+            f.paymentmode = student.paymentmode;
+            f.bankname = student.bankname;
+            f.examdate = student.examdate;
+            f.entrytime = student.entrytime;
+            f.competitiontime = student.competitiontime;
+            f.venue = student.venue;
+            f.admissioncardno = student.admissioncardno;
 
             return f.save(function (err) {
                 if (!err) {
@@ -192,6 +210,7 @@ function generateQRCode(text) {
     });
 }
 
+// GENERATING Hall ticket
 function generateHallTicket(id, callbacks) {
     return StudentModel.findById(id, function (err, f) {
         if (!err) {
@@ -208,3 +227,4 @@ module.exports.readStudents = readStudents;
 module.exports.readStudentById = readStudentById;
 module.exports.updateStudent = updateStudent;
 module.exports.deleteStudent = deleteStudent;
+module.exports.generateHallTicket = generateHallTicket;

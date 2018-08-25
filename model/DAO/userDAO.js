@@ -13,6 +13,7 @@ var UserSchema = new Schema({
     username:   { type: String, required: true, unique: true},
     password:   { type: String, required: true },
     role: { type: String, required: true },
+    center: { type: String },
     dateCreated:    { type: Date},
     dateModified:   { type: Date}
 });
@@ -154,7 +155,9 @@ function generateOTP(user, callbacks){
     var otp = otpGenerator.generate(6, { upperCase: false, specialChars: false, alphabets: false });
     return UserModel.find({'username': user.username }, function (err, u) {
         if (!err) {
+            console.log(u);
             if(u[0]){
+                console.log(u[0]);
                 var user = u[0];
                 user.password = otp;
                 return user.save(function (err) {
@@ -181,7 +184,7 @@ function generateOTP(user, callbacks){
                     } else {
                         console.log(err);
                         if(!isInTest) console.log(err);
-                        callbacks.error({msg: 'Invalid login parameters', data: u});
+                        callbacks.error({msg: 'There is no student registered with this phone number. Please Register!', data: null});
                     }
                 });
             }
