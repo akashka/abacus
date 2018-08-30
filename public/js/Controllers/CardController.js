@@ -69,7 +69,8 @@ angular.module('StudentApp.CardController', [])
 
         $scope.calculateAge = function () {
             var now = new Date();
-            var today = new Date(now.getYear(), now.getMonth(), now.getDate());
+            // var today = new Date(now.getYear(), now.getMonth(), now.getDate());
+            // To - Do: Set date to 31st sept 2018
             var yearNow = now.getYear();
             var monthNow = now.getMonth();
             var dateNow = now.getDate();

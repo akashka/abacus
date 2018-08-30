@@ -54,9 +54,11 @@ block content
                                 .panel.panel-default(style='margin-top:20px;')
                                     .panel-body(style='height:70vh; overflow-y:scroll; background-color:white;border-radius: 10px;padding: 15px;')
                                        div(ng-if="studentStatus.status == 'open'")
-                                            h5#swal2-title.swal2-title(style="color:#0080ff;margin:10px 20px;") Dear {{studentStatus.name}}
-                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Thankyou for the registration. Your current status is Open.
-                                            h4#swal2-title.swal2-title(style="color:red;margin:10px 20px;") Please make payment to the center / school for further processing!
+                                            h5#swal2-title.swal2-title(style="color:#0080ff;margin:10px 20px;") Dear {{studentStatus.name}} <br><br>
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Thankyou for the registration at Aloha. Your current status is <b> Open. </b> <br> <br>
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Please make payment of <b> Rs.550 (Rs.250 extra if taken T-Shirt) </b> to the School / Center. <br> (Please ignore if already done.) <br><br>
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Do not forget to come back after <b> 1st October 2018 </b> to print the hall ticket. <br><br>
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Wishing your kid all the best for the exam. <br><br>
                             
             //- Card for center to be updated
             .demo-card-wide.mdl-card.mdl-shadow--2dp(ng-controller="CardController", ng-show="$parent.editing")

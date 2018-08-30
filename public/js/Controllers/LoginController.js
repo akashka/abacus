@@ -135,66 +135,84 @@ angular.module('StudentApp.LoginController', [])
         $scope.tshirtsizeoptions = ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
         $scope.programmeoptions = ['Center Programme', 'School Programme'];
         $scope.centeroptions = [
-            { name: 'ABC Center', code: 'abc' },
-            { name: 'DEF Center', code: 'def' },
-            { name: 'GHI Center', code: 'ghi' },
-            { name: 'JKL Center', code: 'jkl' },
-            { name: 'MNOP', code: 'mno' },
-            { name: 'QRSTUVWX Y Z', code: 'xyz' }
+            { name: 'HEBBAL', code: '1367' },
+            { name: 'BEGUR', code: '1379' },
+            { name: 'KUMARAPARK', code: '1323' },
+            { name: 'KOLEEGALA', code: '1321' },
+            { name: 'HOSAKOTE', code: 'KA42' },
+            { name: 'R P D CROSS', code: '1357' },
+            { name: 'MALMARUTHI B G M', code: '1356' },
+            { name: 'KARKALA', code: '1344' },
+            { name: 'KUNJEEBETTU', code: '1359' },
+            { name: 'JALAHALLI', code: '1364' },
+            { name: 'MYSORE', code: '1400' },
+            { name: 'PRASHANTH NAGAR', code: '1378' }
         ];
         $scope.schooloptions = [
-            { name: 'ABC School', code: 'abc' },
-            { name: 'DEF School', code: 'def' },
-            { name: 'GHI School', code: 'ghi' },
-            { name: 'JKL School', code: 'jkl' },
-            { name: 'MNOP', code: 'mno' },
-            { name: 'QRSTUVWX Y Z', code: 'xyz' }
+            { name: 'Air Force Jalahalli', code: 'SCH1' },
+            { name: 'Euro School Chimney Hills', code: 'SCH2' },
+            { name: 'KMV Red Hills School', code: 'SCH3' },
+            { name: 'Vidya Soudha Public School Peenya', code: 'SCH4' }
         ];
         $scope.centergroups = ['MA', 'TT'];
         $scope.schoolgroups = ['MAS', 'TTS'];
         $scope.malevels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
         $scope.ttlevels = ["1", "2", "3", "4", "5", "6", "7", "8"];
 
-        //Save student button handler
-        $scope.save_student = function () {
-            $scope.uploadFile($scope.myFile);
-            $scope.uploadFile1($scope.myFile1);
-            $scope.$parent.loading = true;
-            if ($scope.student.centername != undefined && $scope.student.centername != "")
-                $scope.student.centername = $scope.student.centername.name;
-            if ($scope.student.schoolname != undefined && $scope.student.schoolname != "")
-                $scope.student.schoolname = $scope.student.schoolname.name;
-            $scope.student.status = 'center';
-            if ($scope.student.dateCreated == undefined) $scope.student.dateCreated = new Date();
-            if ($scope.student._id === undefined) {
-                //Adding Student -> POST
-                studentFactory.save($scope.student, function (response) {
-                    console.log(response);
-                    $scope.editing = false;
-                    $scope.dataSaved = true;
-                    $scope.savingSuccess = true;
-                    $scope.update_students();
-                }, function (response) {
-                    //error
-                    console.log(response);
-                    $scope.$parent.editing = false;
-                    $scope.dataSaved = true;
-                    $scope.savingSuccess = true;
-                    $scope.$parent.update_students();
-                });
+        $scope.termsAccepted = false;
+        $scope.onTCChange = function() {
+            $scope.termsAccepted = !$scope.termsAccepted;
+        }
 
+        //Save student button handler
+        $scope.msg = "";
+        $scope.save_student = function () {
+            $scope.msg = "";
+            if($scope.student.address == "" || $scope.student.dateofbirth == "" || $scope.student.email == "" ||
+                $scope.student.gender == "" || $scope.student.name == "" || $scope.student.parentname == "" || $scope.student.phone == "") {
+                    $scope.msg = "Invalid or Missing Data. Please make sure you have filled all the details correctly";
+            } else if(!$scope.termsAccepted) {
+                    $scope.msg = "Please refer to our terms and conditions document and agree to it!";
             } else {
-                //Editing Student -> PUT
-                studentFactory.update({ id: $scope.$parent.student._id }, $scope.$parent.student, function (response) {
-                    console.log(response);
-                    $scope.$parent.editing = false;
-                    $scope.$parent.update_students();
-                }, function (response) {
-                    //error
-                    console.log(response);
-                    $scope.$parent.editing = false;
-                    $scope.$parent.update_students();
-                });
+                $scope.uploadFile($scope.myFile);
+                $scope.uploadFile1($scope.myFile1);
+                $scope.$parent.loading = true;
+                if ($scope.student.centername != undefined && $scope.student.centername != "")
+                    $scope.student.centername = $scope.student.centername.name;
+                if ($scope.student.schoolname != undefined && $scope.student.schoolname != "")
+                    $scope.student.schoolname = $scope.student.schoolname.name;
+                $scope.student.status = 'center';
+                if ($scope.student.dateCreated == undefined) $scope.student.dateCreated = new Date();
+                if ($scope.student._id === undefined) {
+                    //Adding Student -> POST
+                    studentFactory.save($scope.student, function (response) {
+                        console.log(response);
+                        $scope.editing = false;
+                        $scope.dataSaved = true;
+                        $scope.savingSuccess = true;
+                        $scope.update_students();
+                    }, function (response) {
+                        //error
+                        console.log(response);
+                        $scope.$parent.editing = false;
+                        $scope.dataSaved = true;
+                        $scope.savingSuccess = true;
+                        $scope.$parent.update_students();
+                    });
+
+                } else {
+                    //Editing Student -> PUT
+                    studentFactory.update({ id: $scope.$parent.student._id }, $scope.$parent.student, function (response) {
+                        console.log(response);
+                        $scope.$parent.editing = false;
+                        $scope.$parent.update_students();
+                    }, function (response) {
+                        //error
+                        console.log(response);
+                        $scope.$parent.editing = false;
+                        $scope.$parent.update_students();
+                    });
+                }
             }
         };
 
@@ -370,5 +388,10 @@ angular.module('StudentApp.LoginController', [])
                 console.log(error);
             });
         };
+
+        $scope.programmeSelected = false;
+        $scope.onProgrammeChange = function() {
+            
+        }
 
     }]);    
