@@ -49,11 +49,13 @@ block content
                                     .panel-body(style='height:70vh; overflow-y:scroll; background-color:white;border-radius: 10px;padding: 15px;')
                                        div(ng-if="studentStatus.status == 'open'")
                                             h5#swal2-title.swal2-title(style="color:#0080ff;margin:10px 20px;") Dear {{studentStatus.name}} <br><br>
-                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Thankyou for the registration at Aloha. Your current status is <b> Open. </b> <br> <br>
-                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Please make payment of <b> Rs.550 (Rs.250 extra if taken T-Shirt) </b> to the School / Center. <br> (Please ignore if already done.) <br><br>
-                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Do not forget to come back after <b> 1st October 2018 </b> to print the hall ticket. <br><br>
-                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Wishing your kid all the best for the exam. <br><br>
-                            
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Thankyou for the registration at Aloha. Your current status is  Open. <br> <br>
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Please make a payment of <b> Rs.550 towards Registration and of Rs.250 if opted for T-Shirt </b> to the concerned authorities. <br><br>
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Do not forget to come back after <b> 20th October 2018 </b> to print the hall ticket. <br><br>
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Incase of any doubts, please mail us at aloha.karnataka@gmail.com <br><br>
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Wishing your kid all the very best! <br><br>
+                                            <a ng-href="{{file}}" target="_blank" style="color:blue;margin:20px;">Download Terms & Conditions</a>                                                                                             
+
             //- Card for center to be updated
             .demo-card-wide.mdl-card.mdl-shadow--2dp(ng-controller="CardController", ng-show="$parent.editing")
                 .mdl-card__supporting-text

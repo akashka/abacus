@@ -5,14 +5,14 @@ mixin custom_header(t, exit)
 mixin navbar(_t, exit)
     .navbar
         .container
-            a(href='https://www.alohakarnataka.com')
+            a(href='https://www.alohakarnataka.com',style="padding:10px 0;")
                 img(alt='https://www.alohakarnataka.com', src='/img/logo.png')
 
-            p(style="text-align:center;font-size:18px;color:white;position:absolute;padding-top:45px;padding-left:200px;text-shadow:3px 3px black;")
-                | 13th Karnataka State Level Aloha Abacus and Mental Arithmetic Competition 2018
+            p(style="text-align:center;font-size:20px;color:white;position:absolute;padding-top:40px;padding-left:170px;text-shadow:3px 3px black;font-weight:bolder;")
+                | 13th Karnataka State Level Aloha Abacus & Mental Arithmetic Competition 2018
 
             a(ng-show='loggedIn && selectMultiple', ng-click="pay_amount()", href='')
-                    | Pay ₹ {{total_amount}}
+                | Pay ₹ {{total_amount}}
                 
             a(href='#', ng-show='loggedIn && isCenter')
                 #add-student(ng-click="make_payment()",ng-show="!selectMultiple")
@@ -43,7 +43,7 @@ mixin login_form
                         br
                         | 3. The Parent / Guardian should read and understand the rules and regulation governing admission and undertake to be responsible at all times for the good conduct and behaviour of child/children.
                         br
-                        | 4. Registration fee or Rs. 550 /- should be paid to the Franchisee at the time of submission or Registration Form.
+                        | 4. Registration fee or Rs. 550/- should be paid to the Franchisee at the time of submission or Registration Form.
                         br
                         | 5. The registrations should be done online only throught our website.
                         br
@@ -57,7 +57,7 @@ mixin login_form
                         br
                         | 10. The student must observe the Aloha dress code. Students should wear Aloha T- Shirt.
                         br
-                        | 11. T-shirt cost is Rs. 250 /- (Inclusive of all Taxes)
+                        | 11. T-shirt cost is Rs. 250/-
                         br
                         | 12. T- Shirts has to be ordered in advance, so that participant can wear T-Shirt and attend the event.
                         br
@@ -82,11 +82,27 @@ mixin login_form
                         | 22. The prize distribution ceremony will be held soon after the competitions are over at the same venue and all parents are hereby invited to attend the same.
                         br
                         | 23. The decision of TASK will be final in all matters relating to the event.
+                        br
+                        br
+                        br
+                        | Note: Login using the registered Phone Number after 20th October for Hall Tickets
+                        br
+                        | <b> Date Of Exam - 28th October 2018 <b>
+                        br
+                        br
+                        | <b> Venue Of Exam: <b>
+                        br
+                        | Vidya Soudha Public School, <br> No. 9/1, 1st Main, Near Basaveshwara Bus Station, <br> 1st Stage Peenya, Bengaluru, <br> Karnataka 560058
+                        br
+                        br
+                        h5
+                            | To Download this, please click here - <a ng-href="{{file}}" target="_blank" style="color:blue;">Terms & Conditions</a>
 
 
             div(style='text-align:center;')
                 button.btn.btn-success(style='border-radius: 10px; margin:20px; color: #fff; background-color: #00C84F; border-color: #00C84F; cursor: pointer; box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);margin-bottom: .3125rem; font-size: 1rem; padding: 15px; font-weight: bolder; text-decoration: none; text-transform: uppercase; letter-spacing: 0; border: 0; outline: 0; transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1); will-change: box-shadow,transform;min-width:200px;', ng-click='register()') REGISTER
                 button.btn.btn-success(style='border-radius: 10px; margin:20px; color: #fff; background-color: #2bbbad; border-color: #2bbbad; cursor: pointer; box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);margin-bottom: .3125rem; font-size: 1rem; padding: 15px; font-weight: bolder; text-decoration: none; text-transform: uppercase; letter-spacing: 0; border: 0; outline: 0; transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1); will-change: box-shadow,transform;min-width:200px;', ng-click='checkStatus()') CHECK STATUS
+                button.btn.btn-success(style='border-radius: 10px; margin:20px; color: #fff; background-color: #7b1fa2; border-color: #7b1fa2; cursor: pointer; box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);margin-bottom: .3125rem; font-size: 1rem; padding: 15px; font-weight: bolder; text-decoration: none; text-transform: uppercase; letter-spacing: 0; border: 0; outline: 0; transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1); will-change: box-shadow,transform;min-width:200px;', ng-click='contact_us()') CONTACT US
                                 
         form.login#login(ng-show="showOTPForm")
             p.title= 'Welcome'
@@ -101,7 +117,7 @@ mixin login_form
 
                 input#username(ng-show="!otpSent", tabindex="1", autocapitalize="off", autocorrect="off", type="number", placeholder="Phone Number", autofocus, , ng-model='username', min-length=10, max-length=10)
                 i.fa.fa-phone
-                input#number(ng-show="otpSent", tabindex="2", type="password", placeholder="password", ng-model='password')
+                input#number(ng-show="otpSent", tabindex="2", type="number", placeholder="OTP", ng-model='password')
                 i.fa.fa-key
 
                 a(ng-show="otpSent", href="#", ng-click='generateOTP(username)')= 'Resend OTP?' 
@@ -132,10 +148,10 @@ mixin login_form
                                         div
 
                                             div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                                                span !{t('Select Programme')}
+                                                span !{t('Select Center Type')}
                                                 select.mdc-select__native-control(ng-model='student.programmename', ng-options='x for x in programmeoptions', ng-required="true")
                                                     option(value="" disabled selected)
-                                                        | Select Programme
+                                                        | Select Center Type
             
                                             .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'Center Programme' || student.programmename == 'School Programme'")
                                                 input.mdl-textfield__input(type="number", ng-model="student.phone", ng-minlength="10", ng-maxlength="10", ng-required="true", ng-change="onPhoneChange(student.phone)")
@@ -190,10 +206,12 @@ mixin login_form
                                                 label.mdl-textfield__label !{t('Do you want a T-Shirt?')}                                            
                                                 switch(ng-model="student.tshirtrequired",on="YES",off="NO",class="green")
 
-                                            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.tshirtrequired  && isOTPVerified && !isPhoneDuplicate")
-                                                select(ng-model='student.tshirtsize', ng-options='x for x in tshirtsizeoptions')
-                                                label.mdl-textfield__label !{t('T-Shirt Size')}
-
+                                            div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.tshirtrequired  && isOTPVerified && !isPhoneDuplicate")
+                                                span !{t('T-Shirt Size')}
+                                                select.mdc-select__native-control(ng-model='student.tshirtsize', ng-options='x for x in tshirtsizeoptions')
+                                                    option(value="" disabled selected)
+                                                        | Select T-Shirt Size 
+    
                                             .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="(student.programmename == 'Center Programme' || student.programmename == 'School Programme') && isOTPVerified && !isPhoneDuplicate")
                                                 span !{t('Upload Student Image')}  
                                                 input(type = 'file', file-model = 'myFile', ng-src='{{student.photo}}', accept="image/*")
@@ -203,10 +221,12 @@ mixin login_form
                                                 input(type = 'file', file-model = 'myFile1', ng-src='{{student.birthcertificate}}', accept="image/*")
 
                                             <br>
-                                            input(type="checkbox",name="termsAccepted",value="termsAccepted", style="width:8%;", ng-click="onTCChange()" ng-show="(student.programmename == 'Center Programme' || student.programmename == 'School Programme') && isOTPVerified && !isPhoneDuplicate")
-                                            p(ng-show="(student.programmename == 'Center Programme' || student.programmename == 'School Programme') && isOTPVerified && !isPhoneDuplicate", style="width: 20%;margin-left: 30px;float: left;")
+                                            input(type="checkbox",name="termsAccepted",value="termsAccepted", style="width:5%;zoom:2;", ng-click="onTCChange()" ng-show="(student.programmename == 'Center Programme' || student.programmename == 'School Programme') && isOTPVerified && !isPhoneDuplicate")
+                                            p(ng-show="(student.programmename == 'Center Programme' || student.programmename == 'School Programme') && isOTPVerified && !isPhoneDuplicate", style="width: 28%;margin-left: 30px;float: left;font-size: 20px;")
                                                 | I accept to the <a ng-href="{{file}}" target="_blank" style="color:blue;">Terms & Conditions</a>. <br>
-
+                                            br
+                                            p(ng-show="(student.programmename == 'Center Programme' || student.programmename == 'School Programme') && isOTPVerified && !isPhoneDuplicate", style="width: 28%;margin-left: -28%;float: left;")
+                                                | (Click above to Download the Terms & Conditions)
                                             p(style="text-align:center;color:red;font-weight:bolder;margin:0;padding:0;",ng-show="isPhoneDuplicate")
                                                 | Sorry! Phone number already registered.
 
@@ -239,9 +259,19 @@ mixin login_form
                                             h2#swal2-title.swal2-title(style="color:#0080ff;") Hurray! You successfully registered!
                                             #swal2-content.swal2-content(style='display: block;')
                                                 | Please make a payment of <b> Rs.550 towards Registration and of Rs.250 if opted for T-Shirt </b> to the concerned authorities. <br><br><br>
-                                                | Incase of any doubts, please mail us at aloha.karnataka@gmail.com <br><br><br>
-                                                | Do not forget to come back after <b> 1st October 2018 </b> to print the hall ticket.                                                
+                                                | Incase of any doubts, please mail us at aloha.karnataka@gmail.com <br><br>
+                                                | Do not forget to come back after <b> 20th October 2018 </b> to print the hall ticket.  <br><br>
+                                                | <a ng-href="{{file}}" target="_blank" style="color:blue;">Download Terms & Conditions</a>                                                                                             
                                             .swal2-buttonswrapper(style='display: block;')
                                             //- button.swal2-confirm.swal2-styled(type='button', style='background-color: rgb(48, 133, 214); border-left-color: rgb(48, 133, 214); border-right-color: rgb(48, 133, 214);') OK
                                             button.swal2-cancel.swal2-styled(type='button', style='display: none; background-color: rgb(170, 170, 170);') Cancel
             
+        .demo-card-wide.mdl-card.mdl-shadow--2dp.paymenting(ng-show="contactUs", style="background-color:silver;border-radius:10px;")
+            .mdl-card__supporting-text
+                h4(style="text-align:center;")
+                    | IF YOU HAVE ANY QUESTIONS, ISSUES OR CONCERNS, PLEASE CONTACT… <br> <br>
+                    | <b> aloha.karnataka@gmail.com </b>           
+
+            .mdl-card__menu
+                button.mdl-button.mdl-button--icon.mdl-js-button.mdl-js-ripple-effect(ng-click="contact_us()")
+                    i.material-icons close

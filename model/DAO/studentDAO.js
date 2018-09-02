@@ -32,7 +32,8 @@ var StudentSchema = new Schema({
     studentcode:        { type: String },
     presentlevel:       { type: String },
     presentweek:        { type: String },
-    classsection:       { type: String },
+    classsection:       { type: String }, 
+    // To-DO Section seperate
     lastyearlevel:      { type: String },
     // Payments
     paymentdate:        { type: String },
