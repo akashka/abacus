@@ -57,7 +57,11 @@ angular.module('StudentApp.TableController', [])
                         }
                     }
                     if (!isFound) $scope.$parent.selected.push(f);
-                    $scope.$parent.total_amount = $scope.$parent.selected.length * 500;
+                    $scope.$parent.total_amount = $scope.$parent.selected.length * 550;
+                    for(var t=0; t<$scope.$parent.selected.length; t++) {
+                        if($scope.$parent.selected[t].tshirtrequired == true)
+                            $scope.$parent.total_amount += 250;
+                    }
                 }
 
             }, function (response) {

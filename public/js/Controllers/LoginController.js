@@ -34,7 +34,7 @@ angular.module('StudentApp.LoginController', [])
                         $scope.$parent.center = response.center;
                         for (var s = 0; s < $scope.$parent.student_list.length; s++) {
                             if ($scope.$parent.student_list[s].centercode != $scope.$parent.center) {
-                                $scope.$parent.student_list.splice(s,1);
+                                $scope.$parent.student_list.splice(s, 1);
                                 s--;
                             }
                         }
@@ -78,8 +78,8 @@ angular.module('StudentApp.LoginController', [])
                     isPhoneExist = true;
             }
 
-            for(var u=0; u<$scope.$parent.user_list.length; u++) {
-                if($scope.$parent.user_list[u].username == username && $scope.$parent.user_list[u].role != 'student')
+            for (var u = 0; u < $scope.$parent.user_list.length; u++) {
+                if ($scope.$parent.user_list[u].username == username && $scope.$parent.user_list[u].role != 'student')
                     isCenterAdmin = true;
             }
 
@@ -103,15 +103,15 @@ angular.module('StudentApp.LoginController', [])
             }
         }
 
-        $scope.getStudentStatus = function(){
+        $scope.getStudentStatus = function () {
             var username = getCookie('username');
-            if(username != undefined && $scope.$parent.student_list != undefined) {
+            if (username != undefined && $scope.$parent.student_list != undefined) {
                 for (var s = 0; s < $scope.$parent.student_list.length; s++) {
                     if ($scope.$parent.student_list[s].phone == username) {
                         $scope.studentStatus = $scope.$parent.student_list[s];
                         $scope.showStudentStatus = true;
                         $scope.loading = false;
-                    }        
+                    }
                 };
             }
         }
@@ -160,61 +160,23 @@ angular.module('StudentApp.LoginController', [])
         $scope.ttlevels = ["1", "2", "3", "4", "5", "6", "7", "8"];
 
         $scope.termsAccepted = false;
-        $scope.onTCChange = function() {
+        $scope.onTCChange = function () {
             $scope.termsAccepted = !$scope.termsAccepted;
         }
 
         //Save student button handler
         $scope.msg = "";
         $scope.save_student = function () {
-            $scope.count++;
-            if($scope.count == 1) {
-                $scope.msg = "";
-                if($scope.student.address == "" || $scope.student.dateofbirth == "" || $scope.student.email == "" ||
-                    $scope.student.gender == "" || $scope.student.name == "" || $scope.student.parentname == "" || $scope.student.phone == "") {
-                        $scope.msg = "Invalid or Missing Data. Please make sure you have filled all the details correctly";
-                } else if(!$scope.termsAccepted) {
-                        $scope.msg = "Please refer to our terms and conditions document and agree to it!";
-                } else {
+            $scope.msg = "";
+            if ($scope.student.address == "" || $scope.student.dateofbirth == "" || $scope.student.email == "" ||
+                $scope.student.gender == "" || $scope.student.name == "" || $scope.student.parentname == "" || $scope.student.phone == "") {
+                $scope.msg = "Invalid or Missing Data. Please make sure you have filled all the details correctly";
+            } else if (!$scope.termsAccepted) {
+                $scope.msg = "Please refer to our terms and conditions document and agree to it!";
+            } else {
+                $scope.count++;
+                if ($scope.count == 1) {
                     $scope.uploadFile($scope.myFile);
-                    $scope.uploadFile1($scope.myFile1);
-                    $scope.$parent.loading = true;
-                    if ($scope.student.centername != undefined && $scope.student.centername != "")
-                        $scope.student.centername = $scope.student.centername.name;
-                    if ($scope.student.schoolname != undefined && $scope.student.schoolname != "")
-                        $scope.student.schoolname = $scope.student.schoolname.name;
-                    $scope.student.status = 'center';
-                    if ($scope.student.dateCreated == undefined) $scope.student.dateCreated = new Date();
-                    if ($scope.student._id === undefined) {
-                        //Adding Student -> POST
-                        studentFactory.save($scope.student, function (response) {
-                            console.log(response);
-                            $scope.editing = false;
-                            $scope.dataSaved = true;
-                            $scope.savingSuccess = true;
-                            $scope.update_students();
-                        }, function (response) {
-                            //error
-                            console.log(response);
-                            $scope.$parent.editing = false;
-                            $scope.dataSaved = true;
-                            $scope.savingSuccess = true;
-                            $scope.$parent.update_students();
-                        });
-
-                    } else {
-                        //Editing Student -> PUT
-                        studentFactory.update({ id: $scope.$parent.student._id }, $scope.$parent.student, function (response) {
-                            console.log(response);
-                            $scope.$parent.editing = false;
-                            $scope.$parent.update_students();
-                        }, function (response) {
-                            //error
-                            console.log(response);
-                            $scope.$parent.editing = false;
-                            $scope.$parent.update_students();
-                        });
-                    }
                 }
             }
         };
@@ -373,6 +335,7 @@ angular.module('StudentApp.LoginController', [])
                 headers: { 'Content-Type': undefined }
             }).success(function (response) {
                 $scope.student.photo = response.filename;
+                $scope.uploadFile1($scope.myFile1);
             }).error(function (error) {
                 console.log(error);
             });
@@ -388,14 +351,55 @@ angular.module('StudentApp.LoginController', [])
                 headers: { 'Content-Type': undefined }
             }).success(function (response) {
                 $scope.student.birthcertificate = response.filename;
+                $scope.save();
             }).error(function (error) {
                 console.log(error);
             });
         };
 
+        $scope.save = function () {
+            $scope.$parent.loading = true;
+            if ($scope.student.centername != undefined && $scope.student.centername != "")
+                $scope.student.centername = $scope.student.centername.name;
+            if ($scope.student.schoolname != undefined && $scope.student.schoolname != "")
+                $scope.student.schoolname = $scope.student.schoolname.name;
+            $scope.student.status = 'center';
+            if ($scope.student.dateCreated == undefined) $scope.student.dateCreated = new Date();
+            if ($scope.student._id === undefined) {
+                //Adding Student -> POST
+                studentFactory.save($scope.student, function (response) {
+                    console.log(response);
+                    $scope.editing = false;
+                    $scope.dataSaved = true;
+                    $scope.savingSuccess = true;
+                    $scope.update_students();
+                }, function (response) {
+                    //error
+                    console.log(response);
+                    $scope.$parent.editing = false;
+                    $scope.dataSaved = true;
+                    $scope.savingSuccess = true;
+                    $scope.$parent.update_students();
+                });
+
+            } else {
+                //Editing Student -> PUT
+                studentFactory.update({ id: $scope.$parent.student._id }, $scope.$parent.student, function (response) {
+                    console.log(response);
+                    $scope.$parent.editing = false;
+                    $scope.$parent.update_students();
+                }, function (response) {
+                    //error
+                    console.log(response);
+                    $scope.$parent.editing = false;
+                    $scope.$parent.update_students();
+                });
+            }
+        }
+
         $scope.programmeSelected = false;
-        $scope.onProgrammeChange = function() {
-            
+        $scope.onProgrammeChange = function () {
+
         }
 
         $scope.file = "./terms_conditions.pdf";

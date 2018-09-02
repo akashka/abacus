@@ -76,7 +76,7 @@ body header{
     float: left;
 }
 
-.navbar .container a:nth-child(2){
+.navbar .container a:nth-child(3){
     margin-top: 20px;
     background-color: #26a69a;
     min-width: 100px;
@@ -84,7 +84,7 @@ body header{
     background: darkkhaki;
 }
 
-.navbar .container a:nth-child(3){
+.navbar .container a:nth-child(4){
     margin-top: 20px;
     background-color: #26a69a;
     min-width: 100px;
@@ -92,7 +92,7 @@ body header{
     margin-left: 20px;
 }
 
-.navbar .container a:nth-child(4){
+.navbar .container a:nth-child(5){
     margin-top: 20px;
     background-color: #6200ee;
     min-width: 100px;
@@ -650,4 +650,10 @@ tbody tr{
     left:8px;
     top:12px;
     border: none;
+}
+
+.paymenting {
+    width: 50% !important;
+    left: 25% !important;
+    top: 25% !important;
 }

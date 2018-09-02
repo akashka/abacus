@@ -233,3 +233,7 @@ footer a:link {
         margin-top: 80px;
     }
 }
+
+.mdl-card__supporting-text .mdl-textfield {
+    width: 29.2%;
+}

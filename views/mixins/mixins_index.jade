@@ -8,16 +8,19 @@ mixin navbar(_t, exit)
             a(href='https://www.alohakarnataka.com')
                 img(alt='https://www.alohakarnataka.com', src='/img/logo.png')
 
+            p(style="text-align:center;font-size:18px;color:white;position:absolute;padding-top:45px;padding-left:200px;text-shadow:3px 3px black;")
+                | 13th Karnataka State Level Aloha Abacus and Mental Arithmetic Competition 2018
+
             a(ng-show='loggedIn && selectMultiple', ng-click="pay_amount()", href='')
                     | Pay ₹ {{total_amount}}
                 
             a(href='#', ng-show='loggedIn && isCenter')
                 #add-student(ng-click="make_payment()",ng-show="!selectMultiple")
-                    | !{t('Payment to TASK')}
+                    | !{t('Submit to TASK')}
                 #add-student(ng-click="make_payment()",ng-show="selectMultiple")
                     | !{t('Cancel')}
 
-            a(ng-click="logout($event)", href='')= exit
+            a(ng-click="logout($event)", href='', ng-hide="selectMultiple")= exit
 
 mixin custom_footer(about_txt)
     //- footer
@@ -54,11 +57,11 @@ mixin login_form
                         br
                         | 10. The student must observe the Aloha dress code. Students should wear Aloha T- Shirt.
                         br
-                        | 11. T-shirt cost is Rs. 250 /- (Including GST)
+                        | 11. T-shirt cost is Rs. 250 /- (Inclusive of all Taxes)
                         br
                         | 12. T- Shirts has to be ordered in advance, so that participant can wear T-Shirt and attend the event.
                         br
-                        | 13. Any appeal (complaints) should be lodged before 20 th Oct 2018 only via email to our email id aloha.karnataka@gmail.com, no other mean of communication will be entertained or recognized. Parents can print the admit card online. If any issues regarding the same, you can call either the respective Franchisor or TASK office, Phone no 8884012849 between 10:30 am &amp; 6:00 pm. However any phone complaint must be followed by an email to aloha.karnataka@gmail.com for action to be taken.
+                        | 13. Any appeal (complaints) should be lodged before 20th Oct 2018 only via email to our email id aloha.karnataka@gmail.com, no other mean of communication will be entertained or recognized. Parents can print the admit card online. If any issues regarding the same, you can call either the respective Franchisor or TASK office, Phone no 8884012849 between 10:30 am &amp; 6:00 pm. However any phone complaint must be followed by an email to aloha.karnataka@gmail.com for action to be taken.
                         br
                         | 14. The student must report 15 minutes before the Registration time mentioned in the Admit card at the venue.
                         br
@@ -168,7 +171,7 @@ mixin login_form
 
                                             .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="(student.programmename == 'Center Programme' || student.programmename == 'School Programme') && isOTPVerified && !isPhoneDuplicate")
                                                 span !{t('Date Of Birth')}                                                
-                                                input.mdl-textfield__input(type="date", ng-model="student.dateofbirth", ng-required="true")
+                                                input.mdl-textfield__input(type="date", ng-model="student.dateofbirth", ng-required="true",class="active")
 
                                             .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="(student.programmename == 'Center Programme' || student.programmename == 'School Programme') && isOTPVerified && !isPhoneDuplicate")
                                                 label.mdl-textfield__label !{t('Gender')}
@@ -187,18 +190,16 @@ mixin login_form
                                                 label.mdl-textfield__label !{t('Do you want a T-Shirt?')}                                            
                                                 switch(ng-model="student.tshirtrequired",on="YES",off="NO",class="green")
 
-                                            div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="(student.programmename == 'Center Programme' || student.programmename == 'School Programme') && isOTPVerified && !isPhoneDuplicate && student.tshirtrequired")
-                                                span !{t('T-Shirt Size')}
-                                                select.mdc-select__native-control(ng-model='student.tshirtsize', ng-options='x for x in tshirtsizeoptions')
-                                                    option(value="" disabled selected)
-                                                        | Select T-Shirt Size
+                                            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.tshirtrequired")
+                                                select(ng-model='student.tshirtsize', ng-options='x for x in tshirtsizeoptions')
+                                                label.mdl-textfield__label !{t('T-Shirt Size')}
 
                                             .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="(student.programmename == 'Center Programme' || student.programmename == 'School Programme') && isOTPVerified && !isPhoneDuplicate")
                                                 span !{t('Upload Student Image')}  
                                                 input(type = 'file', file-model = 'myFile', ng-src='{{student.photo}}', accept="image/*")
                                             
                                             .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="(student.programmename == 'Center Programme' || student.programmename == 'School Programme') && isOTPVerified && !isPhoneDuplicate")
-                                                span !{t('Upload Birth Certificate')}  
+                                                span !{t('Upload Birth Certificate / Aadhaar Card')}  
                                                 input(type = 'file', file-model = 'myFile1', ng-src='{{student.birthcertificate}}', accept="image/*")
 
                                             <br>
@@ -225,7 +226,8 @@ mixin login_form
                                                     span.swal2-x-mark-line-right
                                             h2#swal2-title.swal2-title Oops! Couldnot register!
                                             #swal2-content.swal2-content(style='display: block;')
-                                            | Please try again or contact the center office.
+                                                | Please try again or contact the center office. <br><br><br>
+                                                | Incase of any doubts, please mail us at aloha.karnataka@gmail.com <br><br><br>                                            
                                             .swal2-buttonswrapper(style='display: block;')
                                             button.swal2-confirm.swal2-styled(type='button', style='background-color: rgb(48, 133, 214); border-left-color: rgb(48, 133, 214); border-right-color: rgb(48, 133, 214);') OK
                                             button.swal2-cancel.swal2-styled(type='button', style='display: none; background-color: rgb(170, 170, 170);') Cancel
@@ -236,7 +238,8 @@ mixin login_form
                                                 div.checkmark_kick
                                             h2#swal2-title.swal2-title(style="color:#0080ff;") Hurray! You successfully registered!
                                             #swal2-content.swal2-content(style='display: block;')
-                                                | Please make payment of <b> Rs.550 (Rs.250 extra if taken T-Shirt) </b> to the School / Center. <br><br><br>
+                                                | Please make a payment of <b> Rs.550 towards Registration and of Rs.250 if opted for T-Shirt </b> to the concerned authorities. <br><br><br>
+                                                | Incase of any doubts, please mail us at aloha.karnataka@gmail.com <br><br><br>
                                                 | Do not forget to come back after <b> 1st October 2018 </b> to print the hall ticket.                                                
                                             .swal2-buttonswrapper(style='display: block;')
                                             //- button.swal2-confirm.swal2-styled(type='button', style='background-color: rgb(48, 133, 214); border-left-color: rgb(48, 133, 214); border-right-color: rgb(48, 133, 214);') OK

@@ -10,13 +10,14 @@ var isInTest = typeof global.it === 'function';
 
 var Schema = mongoose.Schema;
 var UserSchema = new Schema({
-    username:   { type: String, required: true, unique: true},
-    password:   { type: String, required: true },
-    role: { type: String, required: true },
-    center: { type: String },
+    username:       { type: String, required: true, unique: true},
+    password:       { type: String, required: true },
+    role:           { type: String, required: true },
+    center:         { type: String },
     dateCreated:    { type: Date},
     dateModified:   { type: Date}
 });
+
 UserSchema.pre('save', function(next){
     now = new Date();
     this.dateModified = now;

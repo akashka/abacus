@@ -14,7 +14,7 @@ var userAPI = require('./routes/api/0.1/userAPI');
 var studentAPI = require('./routes/api/0.1/studentAPI');
 
 var storage = multer.diskStorage({
-  destination: './uploads/',
+  destination: './public/uploads/',
   filename: function (req, file, cb) {
     cb(null, file.originalname.replace(path.extname(file.originalname), "") + '-' + Date.now() + path.extname(file.originalname))
   }
