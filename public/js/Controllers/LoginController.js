@@ -132,7 +132,10 @@ angular.module('StudentApp.LoginController', [])
 
         $scope.contactUs = false;
         $scope.contact_us = function() {
-            $scope.contactUs = !$scope.contactUs;
+            $scope.contactUs = true;
+        }
+        $scope.close_contact_us = function() {
+            $scope.contactUs = false;
         }
 
         $scope.dataSaved = false;
