@@ -190,7 +190,7 @@ mixin login_form
                                                 label.mdl-textfield__label !{t('Do you want a T-Shirt?')}                                            
                                                 switch(ng-model="student.tshirtrequired",on="YES",off="NO",class="green")
 
-                                            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.tshirtrequired")
+                                            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.tshirtrequired  && isOTPVerified && !isPhoneDuplicate")
                                                 select(ng-model='student.tshirtsize', ng-options='x for x in tshirtsizeoptions')
                                                 label.mdl-textfield__label !{t('T-Shirt Size')}
 
