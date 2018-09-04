@@ -1696,6 +1696,6 @@ angular.module('StudentApp.LoginController', [])
 
         }
 
-        $scope.$parent.file = "./terms_conditions.pdf";
+        $scope.$parent.file = "http://alohakarnataka.com/terms_conditions.pdf";
 
     }]);    
