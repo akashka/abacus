@@ -145,7 +145,7 @@ section.main table{
     /*
     max-width: 1000px;
     */
-    margin: 150px auto 0 auto;
+    margin: 100px auto;
 }
 
 section.main .left, section.main .right{
@@ -619,7 +619,7 @@ tbody tr{
     -ms-transform: rotate(45deg); /* IE 9 */
     -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
     transform: rotate(45deg);
-    zoom: 1000%;
+    zoom: 800%;
 }
 
 .checkmark_circle {

@@ -32,8 +32,8 @@ var StudentSchema = new Schema({
     studentcode:        { type: String },
     presentlevel:       { type: String },
     presentweek:        { type: String },
-    classsection:       { type: String }, 
-    // To-DO Section seperate
+    section:            { type: String }, 
+    class:              { type: String }, 
     lastyearlevel:      { type: String },
     // Payments
     paymentdate:        { type: String },
@@ -124,7 +124,6 @@ function updateStudent(id, student, callbacks){
     console.log('student', student);
     return StudentModel.findById(id, function (err, f) {
         if (!err) {
-
             f.phone = student.phone;
             f.email = student.email;
             f.name = student.name;
@@ -132,16 +131,15 @@ function updateStudent(id, student, callbacks){
             f.gender = student.gender;
             f.parentname = student.parentname;
             f.address = student.address;
-            f.tshirtrequired = student.tshirtrequired;
+            f.tshirtrequired = (student.tshirtsize != "" && student.tshirtsize != undefined ? true : false);
             f.tshirtsize = student.tshirtsize;
             f.photo = student.photo;
-            f.birthcertificate = student.birthcertificate;
-            f.programmename = student.programmename;
+            f.birthcertificate = (f.birthcertificate != "" && f.birthcertificate != undefined) ? f.birthcertificate : student.birthcertificate;
+            // f.programmename = (student.centername != undefined && student.centername != "" ? "Center Programme" : "School Programme");
             f.centername = student.centername;
             f.centercode = student.centercode;
             f.schoolname = student.schoolname;
             f.status = student.status;
-            // f.dateCreated = student.dateCreated;
             f.dateModified = new Date();
             f.group = student.group;
             f.category = student.category;
@@ -150,7 +148,8 @@ function updateStudent(id, student, callbacks){
             f.studentcode = student.studentcode;
             f.presentlevel = student.presentlevel;
             f.presentweek = student.presentweek;
-            f.classsection = student.classsection;
+            f.class = student.class;
+            f.section = student.section;
             f.lastyearlevel = student.lastyearlevel;
             f.paymentdate = student.paymentdate;
             f.transactionno = student.transactionno;

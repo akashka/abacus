@@ -27,21 +27,23 @@ angular.module('StudentApp.TableController', [])
                     }
                 }
 
-                $scope.studentClick = function (id) {
-                    $scope.$parent.loading = true;
-                    $scope.$parent.editing = true;
-                    studentFactory.get({ id: id },
-                        function (response) {
+                $scope.studentClick = function (status, id) {
+                    if(status == "admin") { } else {
+                        $scope.$parent.loading = true;
+                        $scope.$parent.editing = true;
+                        studentFactory.get({ id: id }, function (response) {
                             console.log(response);
                             $scope.$parent.student = response;
                             $scope.$parent.loading = false;
-
+                            $scope.$parent.isPhoto = ($scope.$parent.student.photo == "" || $scope.$parent.student.photo == undefined) ? false : true ;
+                            $scope.$parent.isBirthcertificate = ($scope.$parent.student.birthcertificate == "" || $scope.$parent.student.birthcertificate == undefined) ? false : true ;
                             //Floating label layout fix
                             $('.mdl-textfield').addClass('is-focused');
                         }, function (response) {
                             //error
                             console.error(response);
                         });
+                    }
                 };
 
                 $scope.$parent.total_amount = 0;

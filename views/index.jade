@@ -24,18 +24,18 @@ block content
                         th.mdl-data-table__cell--non-numeric T-SHIRT
                         th.mdl-data-table__cell--non-numeric(ng-show="!selectMultiple") CENTER CODE
                 tbody
-                tbody(ng-repeat="f in student_list")   
-                    tr
+                tbody   
+                    tr(ng-repeat="f in student_list", ng-style="f.status=='payment' && {'background-color':'burlywood'} || f.status=='admin' && {'background-color':'peachpuff'}")
                         th(class="mdl-data-table__cell--non-numeric",ng-show="selectMultiple") 
-                            input(type="checkbox",ng-model="f.checked",ng-change="selectedOneMultiple(f)")
-                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f._id)") {{f.phone}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f._id)") {{f.email}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f._id)") {{f.name}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f._id)") {{f.dateofbirth | date:'dd-MMM-yyyy'}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f._id)") {{f.gender}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f._id)") {{f.parentname}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f._id)") {{f.tshirtsize}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f._id)",ng-show="!selectMultiple") {{f.centercode}}
+                            input(type="checkbox",ng-model="f.checked",ng-change="selectedOneMultiple(f)",ng-show="f.status=='payment'")
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.phone}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.email}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.name}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.dateofbirth | date:'dd-MMM-yyyy'}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.gender}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.parentname}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.tshirtsize}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)",ng-show="!selectMultiple") {{f.centercode}}
 
             //- Student Form
             div(ng-controller="FormController", ng-show='loggedIn && isStudent', style='margin-top:100px;')
@@ -106,44 +106,50 @@ block content
                             label.mdl-textfield__label !{t('Address')}
 
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                            input.mdl-textfield__input(type="date", ng-model="student.dateofbirth", ng-required="true")
+                            input.mdl-textfield__input(type="text", ng-model="student.dateofbirth", ng-required="true", value="student.dateofbirth")
                             label.mdl-textfield__label !{t('Date Of Birth')}
 
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                             label.mdl-textfield__label !{t('Do you want a T-Shirt?')}                                            
                             switch(ng-model="student.tshirtrequired",on="YES",off="NO",class="green")
 
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.tshirtrequired")
-                            select(ng-model='student.tshirtsize', ng-options='x for x in tshirtsizeoptions')
-                            label.mdl-textfield__label !{t('T-Shirt Size')}
+                        div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.tshirtrequired")
+                            span !{t('T-Shirt Size')}
+                            select.mdc-select__native-control(ng-model='student.tshirtsize', ng-options='x for x in tshirtsizeoptions')
+                                option(value="" disabled selected)
+                                    | Select T-Shirt Size 
 
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'Center Programme'")
                             input.mdl-textfield__input(type="date", ng-model="student.registrationdate", ng-required="true")
                             label.mdl-textfield__label !{t('Date Of Student Registration at Aloha')}
 
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'Center Programme'")
-                            select(ng-model="student.group", ng-options='x for x in centergroups', ng-change="onGroupChange(student.group, 'Center')")
-                            label.mdl-textfield__label !{t('Group')}
+                        div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'School Programme'")
+                            span !{t('Group')}
+                            select.mdc-select__native-control(ng-model='student.group', ng-options='x for x in schoolgroups', ng-change="onGroupChange(student.group, 'School')")
+                                option(value="" disabled selected)
+                                    | Select Group 
 
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'School Programme'")
-                            select(ng-model="student.group", ng-options='x for x in schoolgroups', ng-change="onGroupChange(student.group, 'School')")
-                            label.mdl-textfield__label !{t('Group')}
+                        div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'Center Programme'")
+                            span !{t('Group')}
+                            select.mdc-select__native-control(ng-model='student.group', ng-options='x for x in getcentergroups(student)', ng-change="onGroupChange(student.group, 'Center')")
+                                option(value="" disabled selected)
+                                    | Select Group 
 
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                             input.mdl-textfield__input(type="text", ng-model="student.category", ng-disabled="true")
                             label.mdl-textfield__label !{t('Category')}
 
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.group == 'MA'")
-                            select.mdl-textfield__select(ng-model="student.level", ng-options='x for x in malevels')
-                            label.mdl-textfield__label !{t('Level Applying For')}
+                        div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.group == 'MA' || student.group == 'MAS'")
+                            span !{t('Level Applying For')}
+                            select.mdc-select__native-control(ng-model='student.level', ng-options='x for x in malevels')
+                                option(value="" disabled selected)
+                                    | Select Level Applying For 
 
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.group == 'TT'")
-                            select.mdl-textfield__select(ng-model="student.level", ng-options='x for x in ttlevels')
-                            label.mdl-textfield__label !{t('Level Applying For')}
-
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'Center Programme'")
-                            input.mdl-textfield__input(type="text", ng-model="student.studentcode", ng-change="onCodeChange(student.studentcode)")
-                            label.mdl-textfield__label !{t('Student Code')}
+                        div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.group == 'TT' || student.group == 'TTS'")
+                            span !{t('Level Applying For')}
+                            select.mdc-select__native-control(ng-model='student.level', ng-options='x for x in ttlevels')
+                                option(value="" disabled selected)
+                                    | Select Level Applying For 
 
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'Center Programme'")
                             input.mdl-textfield__input(type="text", ng-model="student.presentlevel")
@@ -154,16 +160,31 @@ block content
                             label.mdl-textfield__label !{t('Present Running Week')}
 
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'School Programme'")
-                            input.mdl-textfield__input(type="text", ng-model="student.classsection")
-                            label.mdl-textfield__label !{t('Class And Section Studying In')}
+                            input.mdl-textfield__input(type="text", ng-model="student.class")
+                            label.mdl-textfield__label !{t('Class Studying In')}
+
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'School Programme'")
+                            input.mdl-textfield__input(type="text", ng-model="student.section")
+                            label.mdl-textfield__label !{t('Section Studying In')}
 
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                             input.mdl-textfield__input(type="text", ng-model="student.lastyearlevel")
                             label.mdl-textfield__label !{t('If Participated Last Year, Which Level?')}
 
                     div(style="width:20%;float:left;")
-                        img(ng-src='{{student.photo}}', style="border:3px solid grey;width: 100%; height: auto;margin-top:50px;")
-                        img(ng-src='{{student.birthcertificate}}', style="border:3px solid grey;width: 100%; height: auto;margin-top:10px;")
+                        img(ng-src='/uploads/{{student.photo}}', style="border:3px solid grey;width: 100%; height: auto;margin-top:50px;", ng-if="student.photo != undefined")
+                        img(ng-src='/uploads/{{student.birthcertificate}}', style="border:3px solid grey;width: 100%; height: auto;margin-top:10px;", ng-if="student.birthcertificate != undefined")
+
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.photo == undefined", style="width:90%;margin-top: 50px;")
+                            span !{t('Upload Student Image')}  
+                            input(type = 'file', file-model = 'myFile', ng-src='{{student.photo}}', accept="image/*")
+                        
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.birthcertificate == undefined", style="width:90%;margin-top: 50px;")
+                            span !{t('Upload Birth Certificate / Aadhaar Card')}  
+                            input(type = 'file', file-model = 'myFile1', ng-src='{{student.birthcertificate}}', accept="image/*")
+
+                p(style="text-align:center;color:red;font-weight:bolder;margin:0;padding:0;")
+                    {{msg}}
 
                 .mdl-card__actions.mdl-card--border
                     a#save-btn.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored.mdl-js-ripple-effect(ng-click="save_student()")
