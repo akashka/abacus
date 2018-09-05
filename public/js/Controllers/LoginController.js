@@ -408,6 +408,7 @@ angular.module('StudentApp.LoginController', [])
                     };
                     $("#password").focus();                     return true;
                 }
+
                 if(phone == '1379111110') {
                     $scope.otpSent = true;
                     $scope.match = {
@@ -488,6 +489,7 @@ angular.module('StudentApp.LoginController', [])
                     };
                     $("#password").focus();                     return true;
                 }
+
                 if(phone == '1323111110') {
                     $scope.otpSent = true;
                     $scope.match = {
@@ -568,6 +570,7 @@ angular.module('StudentApp.LoginController', [])
                     };
                     $("#password").focus();                     return true;
                 }
+
                 if(phone == '1321111110') {
                     $scope.otpSent = true;
                     $scope.match = {
@@ -648,6 +651,7 @@ angular.module('StudentApp.LoginController', [])
                     };
                     $("#password").focus();                     return true;
                 }
+
                 if(phone == '4321111110') {
                     $scope.otpSent = true;
                     $scope.match = {
@@ -728,6 +732,7 @@ angular.module('StudentApp.LoginController', [])
                     };
                     $("#password").focus();                     return true;
                 }
+
                 if(phone == '1357111110') {
                     $scope.otpSent = true;
                     $scope.match = {
@@ -808,6 +813,7 @@ angular.module('StudentApp.LoginController', [])
                     };
                     $("#password").focus();                     return true;
                 }
+
                 if(phone == '1356111110') {
                     $scope.otpSent = true;
                     $scope.match = {
@@ -888,6 +894,7 @@ angular.module('StudentApp.LoginController', [])
                     };
                     $("#password").focus();                     return true;
                 }
+                
                 if(phone == '1344111110') {
                     $scope.otpSent = true;
                     $scope.match = {
@@ -968,6 +975,7 @@ angular.module('StudentApp.LoginController', [])
                     };
                     $("#password").focus();                     return true;
                 }
+
                 if(phone == '1359111110') {
                     $scope.otpSent = true;
                     $scope.match = {
@@ -1048,6 +1056,7 @@ angular.module('StudentApp.LoginController', [])
                     };
                     $("#password").focus();                     return true;
                 }
+
                 if(phone == '1364111110') {
                     $scope.otpSent = true;
                     $scope.match = {
@@ -1128,6 +1137,7 @@ angular.module('StudentApp.LoginController', [])
                     };
                     $("#password").focus();                     return true;
                 }
+
                 if(phone == '1400111110') {
                     $scope.otpSent = true;
                     $scope.match = {
@@ -1208,6 +1218,7 @@ angular.module('StudentApp.LoginController', [])
                     };
                     $("#password").focus();                     return true;
                 }
+
                 if(phone == '1378111110') {
                     $scope.otpSent = true;
                     $scope.match = {
@@ -1288,6 +1299,7 @@ angular.module('StudentApp.LoginController', [])
                     };
                     $("#password").focus();                     return true;
                 }
+
                 if(phone == '1111111110') {
                     $scope.otpSent = true;
                     $scope.match = {
@@ -1368,6 +1380,7 @@ angular.module('StudentApp.LoginController', [])
                     };
                     $("#password").focus();                     return true;
                 }
+
                 if(phone == '2222222210') {
                     $scope.otpSent = true;
                     $scope.match = {
@@ -1448,6 +1461,7 @@ angular.module('StudentApp.LoginController', [])
                     };
                     $("#password").focus();                     return true;
                 }
+
                 if(phone == '3333333310') {
                     $scope.otpSent = true;
                     $scope.match = {
@@ -1528,6 +1542,7 @@ angular.module('StudentApp.LoginController', [])
                     };
                     $("#password").focus();                     return true;
                 }
+                
                 if(phone == '4444444410') {
                     $scope.otpSent = true;
                     $scope.match = {

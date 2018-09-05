@@ -145,7 +145,7 @@ section.main table{
     /*
     max-width: 1000px;
     */
-    margin: 100px auto;
+    margin: 100px auto 0 auto;
 }
 
 section.main .left, section.main .right{

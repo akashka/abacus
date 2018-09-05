@@ -11,7 +11,7 @@ block content
             #blur.ng-hide(ng-show="editing && !loading")
             
             //- Table for Students for Center and Admin
-            table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp.ng-hide(ng-controller="TableController", ng-show="loggedIn && !isStudent", ng-init="update_students()", ng-table='tableParams', show-filter='true')
+            table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp.ng-hide(ng-controller="TableController", ng-show="loggedIn && !isStudent", ng-init="update_students()", ng-table='tableParams', show-filter='true', style="max-height:80vh;overflow-y:scroll;float:left;display:block;")
                 thead
                     tr
                         th.mdl-data-table__cell--non-numeric(ng-show="selectMultiple")
@@ -22,12 +22,14 @@ block content
                         th.mdl-data-table__cell--non-numeric GENDER
                         th.mdl-data-table__cell--non-numeric PARENT NAME
                         th.mdl-data-table__cell--non-numeric T-SHIRT
-                        th.mdl-data-table__cell--non-numeric(ng-show="!selectMultiple") CENTER CODE
+                        th.mdl-data-table__cell--non-numeric Status
+                        th.mdl-data-table__cell--non-numeric CENTER CODE
+                        th.mdl-data-table__cell--non-numeric Level
                 tbody
                 tbody   
                     tr(ng-repeat="f in student_list", ng-style="f.status=='payment' && {'background-color':'burlywood'} || f.status=='admin' && {'background-color':'peachpuff'}")
                         th(class="mdl-data-table__cell--non-numeric",ng-show="selectMultiple") 
-                            input(type="checkbox",ng-model="f.checked",ng-change="selectedOneMultiple(f)",ng-show="f.status=='payment'")
+                            input(type="checkbox",ng-model="f.checked",ng-change="selectedOneMultiple(f)",ng-show="f.status=='payment'",style="width:21px;height:21px;")
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.phone}}
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.email}}
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.name}}
@@ -35,7 +37,9 @@ block content
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.gender}}
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.parentname}}
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.tshirtsize}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)",ng-show="!selectMultiple") {{f.centercode}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.status}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.centercode}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.level}}
 
             //- Student Form
             div(ng-controller="FormController", ng-show='loggedIn && isStudent', style='margin-top:100px;')
@@ -197,21 +201,29 @@ block content
             //- Card for Payment details to be added
             .demo-card-wide.mdl-card.mdl-shadow--2dp.paymenting(ng-show="paymenting")
                 .mdl-card__supporting-text
-                    .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                        select(ng-model='payment.paymentmode', ng-options='x for x in paymentmodes', ng-required="true")
-                        label.mdl-textfield__label !{t('Select Payment Mode')}
+                    div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                        span !{t('Payment Mode')}
+                        select.mdc-select__native-control(ng-model='payment.paymentmode', ng-options='x for x in paymentmodes', ng-required="true")
+                            option(value="" disabled selected)
+                                | Select Payment Mode
 
-                    .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                        select(ng-model='payment.bankname', ng-options='x for x in banknames', ng-required="true")
-                        label.mdl-textfield__label !{t('Select Bank')}
+                    div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                        span !{t('Bank')}
+                        select.mdc-select__native-control(ng-model='payment.bankname', ng-options='x for x in banknames', ng-required="true")
+                            option(value="" disabled selected)
+                                | Select Bank
 
                     .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                         input.mdl-textfield__input(type="text", ng-model="payment.transactionno", ng-required="true")
                         label.mdl-textfield__label !{t('Transaction Number')}
 
                     .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                        span !{t('Payment / Cheque Date')}
                         input.mdl-textfield__input(type="date", ng-model="payment.paymentdate", ng-required="true")
-                        label.mdl-textfield__label !{t('Payment / Cheque Date')}
+                        //- label.mdl-textfield__label !{t('Payment / Cheque Date')}
+
+                p(style="text-align:center;color:red;font-weight:bolder;margin:0;padding:0;")
+                    {{msgs}}
 
                 .mdl-card__actions.mdl-card--border
                     a#save-btn.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored.mdl-js-ripple-effect(ng-click="save_payment()")

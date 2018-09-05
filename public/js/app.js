@@ -68,25 +68,34 @@ var app = angular.module('StudentApp', [
         "UCO Bank", "Union Bank of India", "United Bank of India", "Vijaya Bank", "Yes Bank Ltd", "Others"
     ];
 
+    $scope.msgs = "";
     $scope.save_payment = function() {
-        $scope.loading = true;
-        var count = 0;
-        for(i=0; i<$scope.selected.length; i++) {
-            $scope.selected[i].paymentdate = $scope.payment.paymentdate;
-            $scope.selected[i].transactionno = $scope.payment.transactionno;
-            $scope.selected[i].paymentmode = $scope.payment.paymentmode;
-            $scope.selected[i].bankname = $scope.payment.bankname;
-            $scope.selected[i].status = 'payment';
-            studentFactory.update({ id: $scope.selected[i]._id }, $scope.selected[i], function (response) {
-                count++;
-                if(count >= $scope.selected.length){
-                    $scope.paymenting = false;
-                    $scope.loading = false;
-                    $scope.update_students();
-                }
-            }, function (response) {
-                console.error(response);
-            });
+        if($scope.payment.paymentdate == undefined || $scope.payment.paymentdate == "" || 
+            $scope.payment.transactionno == undefined || $scope.payment.transactionno == "" ||         
+            $scope.payment.paymentmode == undefined || $scope.payment.paymentmode == "" ||         
+            $scope.payment.bankname == undefined || $scope.payment.bankname == ""       
+        ) {
+            $scope.msgs = "Please fill all data correctly.";
+        } else {
+            $scope.loading = true;
+            var count = 0;
+            for(i=0; i<$scope.selected.length; i++) {
+                $scope.selected[i].paymentdate = $scope.payment.paymentdate;
+                $scope.selected[i].transactionno = $scope.payment.transactionno;
+                $scope.selected[i].paymentmode = $scope.payment.paymentmode;
+                $scope.selected[i].bankname = $scope.payment.bankname;
+                $scope.selected[i].status = 'admin';
+                studentFactory.update({ id: $scope.selected[i]._id }, $scope.selected[i], function (response) {
+                    count++;
+                    if(count >= $scope.selected.length){
+                        $scope.paymenting = false;
+                        $scope.loading = false;
+                        $scope.update_students();
+                    }
+                }, function (response) {
+                    console.error(response);
+                });
+            }
         }
     }
 

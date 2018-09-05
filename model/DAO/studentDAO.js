@@ -23,8 +23,7 @@ var StudentSchema = new Schema({
     schoolname:         { type: String },
     status:             { type: String, required: true },
     dateCreated:        { type: Date, required: true },
-    // Center
-    dateModified:       { type: Date},
+    dateModified:       { type: Date },
     group:              { type: String },
     category:           { type: String },
     level:              { type: String },
@@ -35,12 +34,10 @@ var StudentSchema = new Schema({
     section:            { type: String }, 
     class:              { type: String }, 
     lastyearlevel:      { type: String },
-    // Payments
     paymentdate:        { type: String },
     transactionno:      { type: String },
     paymentmode:        { type: String },
     bankname:           { type: String },
-    // TASK
     examdate:           { type: String },
     entrytime:          { type: String },
     competitiontime:    { type: String },
