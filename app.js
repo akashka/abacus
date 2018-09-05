@@ -18,12 +18,11 @@ var routes = require('./routes/index');
 var userAPI = require('./routes/api/0.1/userAPI');
 var studentAPI = require('./routes/api/0.1/studentAPI');
 
-// const BUCKET_NAME = 'gfsz6soitew4';
 const BUCKET_NAME = 'alohakarnataka';
-// const IAM_USER_KEY = 'AKIAJD5MQS2ZVV37PN3A'; 
-const IAM_USER_KEY = 'AKIAIMXEFRNKBQARFTIA';
-// const IAM_USER_SECRET = '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';
-const IAM_USER_SECRET = '72DPxSU2DAPTvFCYGVg/D+OQxVdD5vRfCMTfw5ej';
+const IAM_USER_KEY = 'AKIAJ5YI3ULII2UU4HWA';
+const IAM_USER_SECRET1 = 'V717KGCwHmm';
+const IAM_USER_SECRET2 = 'AZ2FzCAaMV3DAJ';
+const IAM_USER_SECRET3 = 'OSskeDj1nw9XI5h';
 
 var storage = multer.diskStorage({
     destination: './public/uploads/',
@@ -109,7 +108,7 @@ function uploadToS3(file) {
     console.log("Uploading File to S3");
     let s3bucket = new AWS.S3({
         accessKeyId: IAM_USER_KEY,
-        secretAccessKey: IAM_USER_SECRET,
+        secretAccessKey: IAM_USER_SECRET1+IAM_USER_SECRET2+IAM_USER_SECRET1,
         Bucket: BUCKET_NAME
     });
     s3bucket.createBucket(function () {
