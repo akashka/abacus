@@ -1624,11 +1624,12 @@ angular.module('StudentApp.LoginController', [])
             var uploadUrl = "/savedata";
             var fd = new FormData();
             fd.append('file', file);
+            $scope.student.photo = myFile.name;
             $http.post(uploadUrl, fd, {
                 transformRequest: angular.identity,
                 headers: { 'Content-Type': undefined }
             }).success(function (response) {
-                $scope.student.photo = response.filename;
+                // $scope.student.photo = response.filename;
                 $scope.uploadFile1($scope.myFile1);
             }).error(function (error) {
                 console.log(error);
@@ -1640,11 +1641,12 @@ angular.module('StudentApp.LoginController', [])
             var uploadUrl = "/savedata";
             var fd = new FormData();
             fd.append('file', file);
+            $scope.student.birthcertificate = myFile.name;            
             $http.post(uploadUrl, fd, {
                 transformRequest: angular.identity,
                 headers: { 'Content-Type': undefined }
             }).success(function (response) {
-                $scope.student.birthcertificate = response.filename;
+                // $scope.student.birthcertificate = response.filename;
                 $scope.save();
             }).error(function (error) {
                 console.log(error);

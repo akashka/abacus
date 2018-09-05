@@ -172,8 +172,8 @@ block content
                             label.mdl-textfield__label !{t('If Participated Last Year, Which Level?')}
 
                     div(style="width:20%;float:left;")
-                        img(ng-src='/uploads/{{student.photo}}', style="border:3px solid grey;width: 100%; height: auto;margin-top:50px;", ng-if="student.photo != undefined")
-                        img(ng-src='/uploads/{{student.birthcertificate}}', style="border:3px solid grey;width: 100%; height: auto;margin-top:10px;", ng-if="student.birthcertificate != undefined")
+                        img(ng-src='https://s3.ap-south-1.amazonaws.com/alohakarnataka/{{student.photo}}', style="border:3px solid grey;width: 100%; height: auto;margin-top:50px;", ng-if="student.photo != undefined")
+                        img(ng-src='https://s3.ap-south-1.amazonaws.com/alohakarnataka/{{student.birthcertificate}}', style="border:3px solid grey;width: 100%; height: auto;margin-top:10px;", ng-if="student.birthcertificate != undefined")
 
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.photo == undefined", style="width:90%;margin-top: 50px;")
                             span !{t('Upload Student Image')}  

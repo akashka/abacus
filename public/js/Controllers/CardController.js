@@ -167,12 +167,13 @@ angular.module('StudentApp.CardController', [])
                 var file = myFile;
                 var uploadUrl = "/savedata";
                 var fd = new FormData();
+                $scope.student.photo = myFile.name;
                 fd.append('file', file);
                 $http.post(uploadUrl, fd, {
                     transformRequest: angular.identity,
                     headers: { 'Content-Type': undefined }
                 }).success(function (response) {
-                    $scope.$parent.student.photo = response.filename;
+                    // $scope.$parent.student.photo = response.filename;
                     $scope.uploadFile1($scope.myFile1);
                 }).error(function (error) {
                     console.log(error);
@@ -190,11 +191,12 @@ angular.module('StudentApp.CardController', [])
                 var uploadUrl = "/savedata";
                 var fd = new FormData();
                 fd.append('file', file);
+                $scope.student.birthcertificate = myFile.name;
                 $http.post(uploadUrl, fd, {
                     transformRequest: angular.identity,
                     headers: { 'Content-Type': undefined }
                 }).success(function (response) {
-                    $scope.$parent.student.birthcertificate = response.filename;
+                    // $scope.$parent.student.birthcertificate = response.filename;
                     $scope.save();
                 }).error(function (error) {
                     console.log(error);
