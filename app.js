@@ -108,9 +108,10 @@ function uploadToS3(file) {
     console.log("Uploading File to S3");
     let s3bucket = new AWS.S3({
         accessKeyId: IAM_USER_KEY,
-        secretAccessKey: IAM_USER_SECRET1+IAM_USER_SECRET2+IAM_USER_SECRET1,
+        secretAccessKey: IAM_USER_SECRET1+IAM_USER_SECRET2+IAM_USER_SECRET3,
         Bucket: BUCKET_NAME
     });
+    console.log(s3bucket);
     s3bucket.createBucket(function () {
         var params = {
             Bucket: BUCKET_NAME,
