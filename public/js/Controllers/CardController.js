@@ -26,8 +26,8 @@ angular.module('StudentApp.CardController', [])
         ];
         $scope.centergroups = ['MA', 'TT'];
         $scope.schoolgroups = ['MAS', 'TTS'];
-        $scope.malevels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
-        $scope.ttlevels = ["1", "2", "3", "4", "5", "6", "7", "8"];
+        $scope.ttlevels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+        $scope.malevels = ["1", "2", "3", "4", "5", "6", "7", "8"];
 
         //Save student button handler
         $scope.msg = "";
@@ -41,6 +41,14 @@ angular.module('StudentApp.CardController', [])
                 || $scope.$parent.student.email == undefined || $scope.$parent.student.gender == undefined || $scope.$parent.student.name == undefined 
                 || $scope.$parent.student.parentname == undefined || $scope.$parent.student.phone == undefined || $scope.$parent.student.group == undefined 
                 || $scope.$parent.student.category == undefined || $scope.$parent.student.level == undefined) {
+                    $scope.msg = "Invalid or Missing Data. Please make sure you have filled all the details correctly";
+            } else if ($scope.$parent.student.programmename == 'School Programme' && 
+                ($scope.$parent.student.class == undefined || $scope.$parent.student.class == '' ||
+                $scope.$parent.student.section == undefined || $scope.$parent.student.section == '')) {
+                    $scope.msg = "Invalid or Missing Data. Please make sure you have filled all the details correctly";
+            } else if ($scope.$parent.student.programmename == 'Center Programme' && 
+                ($scope.$parent.student.presentlevel == undefined || $scope.$parent.student.presentlevel == '' ||
+                $scope.$parent.student.presentweek == undefined || $scope.$parent.student.presentweek == '')) {
                     $scope.msg = "Invalid or Missing Data. Please make sure you have filled all the details correctly";
             } else {
                     $scope.uploadFile($scope.myFile);
@@ -81,13 +89,15 @@ angular.module('StudentApp.CardController', [])
             $scope.$parent.student.centercode = centername.code;
         }
 
+        $scope.age = {
+                years: -1,
+                months: -1,
+                days: -1
+        };
         $scope.calculateAge = function () {
-            var now = new Date();
-            // var today = new Date(now.getYear(), now.getMonth(), now.getDate());
-            // To - Do: Set date to 31st sept 2018
-            var yearNow = now.getYear();
-            var monthNow = now.getMonth();
-            var dateNow = now.getDate();
+            var yearNow = 118;
+            var monthNow = 8;
+            var dateNow = 30;
             var dob = new Date($scope.$parent.student.dateofbirth);
             var yearDob = dob.getYear();
             var monthDob = dob.getMonth();
@@ -116,7 +126,7 @@ angular.module('StudentApp.CardController', [])
                 months: monthAge,
                 days: dateAge
             };
-
+            $scope.age = age;
             return age;
         }
 
@@ -126,23 +136,23 @@ angular.module('StudentApp.CardController', [])
                 if(group == 'TT') {
                     if(age.years >= 5 && age.years < 7) $scope.$parent.student.category = 'A';
                     else if(age.years >= 7) $scope.$parent.student.category = 'B';
-                    else $scope.$parent.student.category = '';
+                    else $scope.$parent.student.category = 'Not Eligible';
                 } else {
                     if(age.years >= 7 && age.years < 9) $scope.$parent.student.category = 'A';
                     else if(age.years >= 9 && age.years < 11) $scope.$parent.student.category = 'B';
                     else if(age.years >= 11 && age.years < 13) $scope.$parent.student.category = 'C';
                     else if(age.years >= 13) $scope.$parent.student.category = 'D';
-                    else $scope.$parent.student.category = '';
+                    else $scope.$parent.student.category = 'Not Eligible';
                 }
             } else {
                 if(group == 'TTS') {
                     if(age.years >= 5 && age.years < 7) $scope.$parent.student.category = 'A1';
                     else if(age.years >= 7) $scope.$parent.student.category = 'B1';
-                    else $scope.$parent.student.category = '';
+                    else $scope.$parent.student.category = 'Not Eligible';
                 } else {
                     if(age.years >= 8 && age.years < 10) $scope.$parent.student.category = 'A1';
                     else if(age.years >= 10) $scope.$parent.student.category = 'B1';
-                    else $scope.$parent.student.category = '';
+                    else $scope.$parent.student.category = 'Not Eligible';
                 }
             }
         }
@@ -167,7 +177,7 @@ angular.module('StudentApp.CardController', [])
                 var file = myFile;
                 var uploadUrl = "/savedata";
                 var fd = new FormData();
-                $scope.student.photo = myFile.name;
+                $scope.student.photo = (myFile != undefined && myFile.name != undefined) ? myFile.name : "";
                 fd.append('file', file);
                 $http.post(uploadUrl, fd, {
                     transformRequest: angular.identity,
@@ -191,7 +201,7 @@ angular.module('StudentApp.CardController', [])
                 var uploadUrl = "/savedata";
                 var fd = new FormData();
                 fd.append('file', file);
-                $scope.student.birthcertificate = myFile.name;
+                $scope.student.birthcertificate = (myFile != undefined && myFile.name != undefined) ? myFile.name : "";
                 $http.post(uploadUrl, fd, {
                     transformRequest: angular.identity,
                     headers: { 'Content-Type': undefined }
@@ -203,5 +213,11 @@ angular.module('StudentApp.CardController', [])
                 });
             }
         };
+
+        $scope.getFileExtension = function(fileName) {
+            var ext = fileName.split('.').pop();
+            if(ext == 'jpg' || ext == 'png' || ext == 'jpeg') return true;
+            return false;
+        }
 
     }]);

@@ -5,7 +5,6 @@ var isInTest = typeof global.it === 'function';
 
 var Schema = mongoose.Schema;
 var StudentSchema = new Schema({
-    // Parent
     phone:              { type: String, required: true, unique: true },
     email:              { type: String, required: true },
     name:               { type: String, required: true },
@@ -42,7 +41,8 @@ var StudentSchema = new Schema({
     entrytime:          { type: String },
     competitiontime:    { type: String },
     venue:              { type: String },
-    admissioncardno:    { type: String }
+    admissioncardno:    { type: String },
+    paymentapproved:    { type: Boolean, default: false }
 });
 
 StudentSchema.pre('save', function(next){
@@ -65,18 +65,17 @@ function createStudent(student, callbacks){
         gender:             student.gender,
         parentname:         student.parentname,
         address:            student.address,
-        tshirtrequired:     (student.tshirtsize != "" && student.tshirtsize != undefined ? true : false),
+        tshirtrequired:     student.tshirtrequired,
         tshirtsize:         student.tshirtsize,
         photo:              student.photo,
         birthcertificate:   student.birthcertificate,
-        programmename:      (student.centername != undefined && student.centername != "" ? "Center Programme" : "School Programme"),
+        programmename:      student.programmename,
         centername:         student.centername,
         centercode:         student.centercode,
         schoolname:         student.schoolname,
         status:             'open',
         dateCreated:        new Date()
     });
-
     f.save(function (err) {
         if (!err) {
             if(!isInTest) console.log("Student created with id: " + f._id);
@@ -117,8 +116,6 @@ function readStudentById(id, callbacks){
 
 //UPDATE student
 function updateStudent(id, student, callbacks){
-    console.log('id', id);
-    console.log('student', student);
     return StudentModel.findById(id, function (err, f) {
         if (!err) {
             f.phone = student.phone;
@@ -128,10 +125,10 @@ function updateStudent(id, student, callbacks){
             f.gender = student.gender;
             f.parentname = student.parentname;
             f.address = student.address;
-            f.tshirtrequired = (student.tshirtsize != "" && student.tshirtsize != undefined ? true : false);
+            f.tshirtrequired = student.tshirtrequired;
             f.tshirtsize = student.tshirtsize;
             f.photo = student.photo;
-            f.birthcertificate = (f.birthcertificate != "" && f.birthcertificate != undefined) ? f.birthcertificate : student.birthcertificate;
+            f.birthcertificate = f.birthcertificate;
             // f.programmename = (student.centername != undefined && student.centername != "" ? "Center Programme" : "School Programme");
             f.centername = student.centername;
             f.centercode = student.centercode;
@@ -157,6 +154,7 @@ function updateStudent(id, student, callbacks){
             f.competitiontime = student.competitiontime;
             f.venue = student.venue;
             f.admissioncardno = student.admissioncardno;
+            f.paymentapproved = student.paymentapproved;
 
             return f.save(function (err) {
                 if (!err) {

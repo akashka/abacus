@@ -1,4 +1,5 @@
 angular.module('StudentApp.LoginController', [])
+    
     .controller('LoginController', ['$scope', 'userFactory', '$rootScope', 'studentFactory', 'fileUpload', '$http', function ($scope, userFactory, $rootScope, studentFactory, fileUpload, $http) {
         //Login form listener
         var working = false;
@@ -143,25 +144,27 @@ angular.module('StudentApp.LoginController', [])
         $scope.tshirtsizeoptions = ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
         $scope.programmeoptions = ['Center Programme', 'School Programme'];
         $scope.centeroptions = [
-            { name: 'HEBBAL', code: '1367' },
-            { name: 'BEGUR', code: '1379' },
-            { name: 'KUMARAPARK', code: '1323' },
-            { name: 'KOLEEGALA', code: '1321' },
-            { name: 'HOSAKOTE', code: 'KA42' },
-            { name: 'R P D CROSS', code: '1357' },
-            { name: 'MALMARUTHI B G M', code: '1356' },
-            { name: 'KARKALA', code: '1344' },
-            { name: 'KUNJEEBETTU', code: '1359' },
-            { name: 'JALAHALLI', code: '1364' },
-            { name: 'MYSORE', code: '1400' },
-            { name: 'PRASHANTH NAGAR', code: '1378' }
+            { name: 'HEBBAL', code: '1367' }, // 9886293723
+            { name: 'BEGUR', code: '1379' }, // 9886585107
+            { name: 'KUMARAPARK', code: '1323' }, //9900083766
+            { name: 'KOLEEGALA', code: '1321' }, // 9886017421, 7892331200
+            { name: 'HOSAKOTE', code: 'KA42' }, // 9986099408, 7259336864
+            { name: 'R P D CROSS', code: '1357' }, // 9845538279
+            { name: 'MALMARUTHI B G M', code: '1356' }, // 9844802955, 8867219679
+            { name: 'KARKALA', code: '1344' }, // 9980439868
+            { name: 'KUNJEEBETTU', code: '1359' }, // 9980983815
+            { name: 'JALAHALLI', code: '1364' }, // 8884012849
+            { name: 'MYSORE', code: '1400' }, // 
+            { name: 'PRASHANTH NAGAR', code: '1378' } // 
         ];
         $scope.schooloptions = [
-            { name: 'Air Force Jalahalli', code: 'SCH1' },
-            { name: 'Euro School Chimney Hills', code: 'SCH2' },
-            { name: 'KMV Red Hills School', code: 'SCH3' },
-            { name: 'Vidya Soudha Public School Peenya', code: 'SCH4' }
+            { name: 'Air Force Jalahalli', code: 'SCH1' }, // 9945179640
+            { name: 'Euro School Chimney Hills', code: 'SCH2' }, // 9591478791
+            { name: 'KMV Red Hills School', code: 'SCH3' }, // 8618576863, 9880632136, 8310810268, 7760262284
+            { name: 'Vidya Soudha Public School Peenya', code: 'SCH4' } // 9980555084, 9483047595
         ];
+
+        //admin - 9845679966
         $scope.centergroups = ['MA', 'TT'];
         $scope.schoolgroups = ['MAS', 'TTS'];
         $scope.malevels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
@@ -177,7 +180,10 @@ angular.module('StudentApp.LoginController', [])
         $scope.save_student = function () {
             $scope.msg = "";
             if ($scope.student.address == "" || $scope.student.dateofbirth == "" || $scope.student.email == "" ||
-                $scope.student.gender == "" || $scope.student.name == "" || $scope.student.parentname == "" || $scope.student.phone == "") {
+                $scope.student.gender == "" || $scope.student.name == "" || $scope.student.parentname == "" || $scope.student.phone == "" ||
+                $scope.student.address == undefined || $scope.student.dateofbirth == undefined || $scope.student.email == undefined ||
+                $scope.student.gender == undefined || $scope.student.name == undefined || $scope.student.parentname == undefined || $scope.student.phone == undefined       
+            ) {
                 $scope.msg = "Invalid or Missing Data. Please make sure you have filled all the details correctly";
             } else if (!$scope.termsAccepted) {
                 $scope.msg = "Please refer to our terms and conditions document and agree to it!";
@@ -1635,37 +1641,45 @@ angular.module('StudentApp.LoginController', [])
         }
 
         $scope.uploadFile = function (myFile) {
-            var file = myFile;
-            var uploadUrl = "/savedata";
-            var fd = new FormData();
-            fd.append('file', file);
-            $scope.student.photo = myFile.name;
-            $http.post(uploadUrl, fd, {
-                transformRequest: angular.identity,
-                headers: { 'Content-Type': undefined }
-            }).success(function (response) {
-                // $scope.student.photo = response.filename;
-                $scope.uploadFile1($scope.myFile1);
-            }).error(function (error) {
-                console.log(error);
-            });
+            if(myFile != undefined && myFile.name != undefined) {
+                var file = myFile;
+                var uploadUrl = "/savedata";
+                var fd = new FormData();
+                fd.append('file', file);
+                $scope.student.photo = (myFile != undefined && myFile.name != undefined) ? myFile.name : "";
+                $http.post(uploadUrl, fd, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                }).success(function (response) {
+                    // $scope.student.photo = response.filename;
+                    $scope.uploadFile1($scope.myFile1);
+                }).error(function (error) {
+                    console.log(error);
+                });
+            } else {
+                    $scope.uploadFile1($scope.myFile1);                
+            }
         };
 
         $scope.uploadFile1 = function (myFile) {
-            var file = myFile;
-            var uploadUrl = "/savedata";
-            var fd = new FormData();
-            fd.append('file', file);
-            $scope.student.birthcertificate = myFile.name;            
-            $http.post(uploadUrl, fd, {
-                transformRequest: angular.identity,
-                headers: { 'Content-Type': undefined }
-            }).success(function (response) {
-                // $scope.student.birthcertificate = response.filename;
-                $scope.save();
-            }).error(function (error) {
-                console.log(error);
-            });
+            if(myFile != undefined && myFile.name != undefined) {            
+                var file = myFile;
+                var uploadUrl = "/savedata";
+                var fd = new FormData();
+                fd.append('file', file);
+                $scope.student.birthcertificate = (myFile != undefined && myFile.name != undefined) ? myFile.name : "";            
+                $http.post(uploadUrl, fd, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                }).success(function (response) {
+                    // $scope.student.birthcertificate = response.filename;
+                    $scope.save();
+                }).error(function (error) {
+                    console.log(error);
+                });
+            } else {
+                   $scope.save();                
+            }
         };
 
         $scope.save = function () {
@@ -1715,4 +1729,19 @@ angular.module('StudentApp.LoginController', [])
 
         $scope.$parent.file = "http://alohakarnataka.com/terms_conditions.pdf";
 
-    }]);    
+    }])
+    
+    .directive('ngConfirmClick', [
+        function(){
+            return {
+                link: function (scope, element, attr) {
+                    var msg = attr.ngConfirmClick || "Are you sure?";
+                    var clickAction = attr.confirmedClick;
+                    element.bind('click',function (event) {
+                        if ( window.confirm(msg) ) {
+                            scope.$eval(clickAction)
+                        }
+                    });
+                }
+            };
+    }])

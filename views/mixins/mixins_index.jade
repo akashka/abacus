@@ -5,8 +5,8 @@ mixin custom_header(t, exit)
 mixin navbar(_t, exit)
     .navbar
         .container
-            a(href='https://www.alohakarnataka.com',style="padding:10px 0;")
-                img(alt='https://www.alohakarnataka.com', src='/img/logo.png')
+            a(href='http://www.alohakarnataka.com',style="padding:10px 0;")
+                img(alt='http://www.alohakarnataka.com', src='/img/logo.png')
 
             p(style="text-align:center;font-size:20px;color:white;position:absolute;padding-top:40px;padding-left:170px;text-shadow:3px 3px black;font-weight:bolder;")
                 | 13th Karnataka State Level Aloha Abacus & Mental Arithmetic Competition 2018
@@ -19,6 +19,9 @@ mixin navbar(_t, exit)
                     | !{t('Submit to TASK')}
                 #add-student(ng-click="make_payment()",ng-show="selectMultiple")
                     | !{t('Cancel')}
+
+            button(class="btn btn-download", csv-header="getDownloadHeader()",ng-csv="getDownloadTable()",filename="admin-reports.csv",field-separator=",",decimal-separator=".",ng-show='loggedIn && isAdmin')
+                | Export to CSV
 
             a(ng-click="logout($event)", href='', ng-hide="selectMultiple")= exit
 
@@ -189,7 +192,7 @@ mixin login_form
 
                                             .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="(student.programmename == 'Center Programme' || student.programmename == 'School Programme') && isOTPVerified && !isPhoneDuplicate")
                                                 span !{t('Date Of Birth')}                                                
-                                                input.mdl-textfield__input(type="date", ng-model="student.dateofbirth", ng-required="true",class="active")
+                                                input.mdl-textfield__input(type="date", ng-model="student.dateofbirth", ng-required="true", class="active", min="2003-09-30", max="2013-09-30")
 
                                             .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="(student.programmename == 'Center Programme' || student.programmename == 'School Programme') && isOTPVerified && !isPhoneDuplicate")
                                                 label.mdl-textfield__label !{t('Gender')}

@@ -28,15 +28,16 @@ angular.module('StudentApp.TableController', [])
                 }
 
                 $scope.studentClick = function (status, id) {
-                    if(status == "admin" || $scope.selectMultiple == true) { } else {
+                    if (status == "admin" || $scope.selectMultiple == true || $scope.isAdmin) { } else {
                         $scope.$parent.loading = true;
                         $scope.$parent.editing = true;
                         studentFactory.get({ id: id }, function (response) {
                             console.log(response);
                             $scope.$parent.student = response;
+                            $scope.$parent.student.dateofbirth = new Date($scope.$parent.student.dateofbirth);
                             $scope.$parent.loading = false;
-                            $scope.$parent.isPhoto = ($scope.$parent.student.photo == "" || $scope.$parent.student.photo == undefined) ? false : true ;
-                            $scope.$parent.isBirthcertificate = ($scope.$parent.student.birthcertificate == "" || $scope.$parent.student.birthcertificate == undefined) ? false : true ;
+                            $scope.$parent.isPhoto = ($scope.$parent.student.photo == "" || $scope.$parent.student.photo == undefined) ? false : true;
+                            $scope.$parent.isBirthcertificate = ($scope.$parent.student.birthcertificate == "" || $scope.$parent.student.birthcertificate == undefined) ? false : true;
                             //Floating label layout fix
                             $('.mdl-textfield').addClass('is-focused');
                         }, function (response) {
@@ -60,8 +61,8 @@ angular.module('StudentApp.TableController', [])
                     }
                     if (!isFound) $scope.$parent.selected.push(f);
                     $scope.$parent.total_amount = $scope.$parent.selected.length * 550;
-                    for(var t=0; t<$scope.$parent.selected.length; t++) {
-                        if($scope.$parent.selected[t].tshirtrequired == true)
+                    for (var t = 0; t < $scope.$parent.selected.length; t++) {
+                        if ($scope.$parent.selected[t].tshirtrequired == true)
                             $scope.$parent.total_amount += 250;
                     }
                 }
@@ -71,6 +72,30 @@ angular.module('StudentApp.TableController', [])
                 console.error(response);
             });
 
+            $scope.deleteStudent = function (deleted_id) {
+                studentFactory.delete({ id: deleted_id }, function (response) {
+                    $scope.update_students();
+                }, function (response) {
+                    console.error(response);
+                });
+            }
+
+            $scope.approveStudent = function (stu) {
+                stu.paymentapproved = true;
+                stu.status = "hallticket";
+                studentFactory.update({ id: stu._id }, stu, function (response) {
+                    $scope.$parent.update_students();
+                }, function (response) {
+                    console.error(response);
+                });
+            }
+
+            $scope.predicate = 'dateCreated';
+            $scope.reverse = true;
+            $scope.order = function (predicate) {
+                $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                $scope.predicate = predicate;
+            };
 
         };
     }]);
