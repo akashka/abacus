@@ -28,7 +28,7 @@ angular.module('StudentApp.TableController', [])
                 }
 
                 $scope.studentClick = function (status, id) {
-                    if (status == "admin" || $scope.selectMultiple == true || $scope.isAdmin) { } else {
+                    if ((status == "admin" || $scope.selectMultiple == true) && $scope.isCenter) { } else {
                         $scope.$parent.loading = true;
                         $scope.$parent.editing = true;
                         studentFactory.get({ id: id }, function (response) {

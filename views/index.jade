@@ -16,6 +16,7 @@ block content
                     tr
                         th.mdl-data-table__cell--non-numeric(ng-show="selectMultiple")
                         th.mdl-data-table__cell--non-numeric
+                        th.mdl-data-table__cell--non-numeric
                             <a href="" ng-click="order('phone')"> PHONE NO. </a>
                         th.mdl-data-table__cell--non-numeric 
                             <a href="" ng-click="order('email')"> E-MAIL </a>                            
@@ -58,6 +59,7 @@ block content
                 tbody   
                     tr
                         td.mdl-data-table__cell--non-numeric(ng-show="selectMultiple")
+                        td.mdl-data-table__cell--non-numeric
                         td
                             input(type="text",ng-model="search.phone") 
                         td
@@ -98,9 +100,10 @@ block content
                             input(type="text",ng-model="search.bankname") 
                         td(ng-show='isAdmin')
 
-                    tr(ng-repeat="f in student_list | orderBy:predicate:reverse | filter:search", ng-style="f.status=='payment' && {'background-color':'burlywood'} || f.status=='admin' && {'background-color':'peachpuff'}")
+                    tr(ng-repeat="f in student_list | orderBy:predicate:reverse | filter:search track by $index", ng-style="f.status=='payment' && {'background-color':'burlywood'} || f.status=='admin' && {'background-color':'peachpuff'}")
                         th(class="mdl-data-table__cell--non-numeric",ng-show="selectMultiple") 
                             input(type="checkbox",ng-model="f.checked",ng-change="selectedOneMultiple(f)",ng-show="f.status=='payment'",style="width:21px;height:21px;")
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{$index+1}}
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.phone}}
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.email}}
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.name}}
