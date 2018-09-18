@@ -670,3 +670,8 @@ tbody tr{
     left: 25% !important;
     top: 25% !important;
 }
+
+.mdl-data-table input {
+    min-width: 150px;
+    width: 100%;
+}

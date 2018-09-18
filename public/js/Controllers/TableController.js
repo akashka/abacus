@@ -28,7 +28,7 @@ angular.module('StudentApp.TableController', [])
                 }
 
                 $scope.studentClick = function (status, id) {
-                    if ((status == "admin" || $scope.selectMultiple == true) && $scope.isCenter) { } else {
+                    if ((status == "admin" || status == "hallticket" || status == "closed" || $scope.selectMultiple == true) && $scope.isCenter) { } else {
                         $scope.$parent.loading = true;
                         $scope.$parent.editing = true;
                         studentFactory.get({ id: id }, function (response) {
@@ -96,6 +96,28 @@ angular.module('StudentApp.TableController', [])
                 $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
                 $scope.predicate = predicate;
             };
+
+            $scope.$parent.adminediting = false;
+            $scope.enterHallTicket = function (id) {
+                $scope.$parent.adminediting = true;
+                studentFactory.get({ id: id }, function (response) {
+                    console.log(response);
+                    $scope.$parent.student = response;
+                    $scope.$parent.student.dateofbirth = new Date($scope.$parent.student.dateofbirth);
+                    $scope.$parent.isPhoto = ($scope.$parent.student.photo == "" || $scope.$parent.student.photo == undefined) ? false : true;
+                    $scope.$parent.isBirthcertificate = ($scope.$parent.student.birthcertificate == "" || $scope.$parent.student.birthcertificate == undefined) ? false : true;
+                    //Floating label layout fix
+                    $('.mdl-textfield').addClass('is-focused');
+                }, function (response) {
+                    //error
+                    console.error(response);
+                });
+            }
+
+            $scope.displayHallTicket = function (username) {
+                var fileurl = "/api/0.1/student/generateHallTicket/" + username;
+                window.open(fileurl, '_blank', '');
+            }
 
         };
     }]);

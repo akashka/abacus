@@ -37,25 +37,37 @@ angular.module('StudentApp.FormController', [])
         $scope.showStudentStatus = false;
         $scope.loading = true;
 
-        var getStudentStatus = function(){
+        var getStudentStatus = function () {
             var username = getCookie('username');
-            if(username != undefined && $scope.$parent.student_list != undefined) {
+            if (username != undefined && $scope.$parent.student_list != undefined) {
                 for (var s = 0; s < $scope.$parent.student_list.length; s++) {
                     if ($scope.$parent.student_list[s].phone == username) {
                         $scope.studentStatus = $scope.$parent.student_list[s];
                         $scope.showStudentStatus = true;
                         $scope.loading = false;
-                    }        
+                    }
                 };
             }
         }
 
-        $rootScope.$on('loggedin', function(){
+        $rootScope.$on('loggedin', function () {
             getStudentStatus();
         });
 
-        $timeout( function(){
+        $scope.downloadHallTicket = function () {
+            var username = getCookie('username');
+            var fileurl = "/api/0.1/student/generateHallTicket/" + username;
+            window.open(fileurl, '_blank', '');
+        }
+
+        $scope.downloadReceipt = function () {
+            var username = getCookie('username');
+            var fileurl = "/api/0.1/student/download/" + username;
+            window.open(fileurl, '_blank', '');
+        }
+
+        $timeout(function () {
             getStudentStatus();
-        }, 1000 );
+        }, 1000);
 
     }]);

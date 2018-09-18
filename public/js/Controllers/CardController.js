@@ -1,5 +1,5 @@
 angular.module('StudentApp.CardController', [])
-    .controller('CardController', ['$scope', 'studentFactory', '$http', function ($scope, studentFactory, $http) {
+    .controller('CardController', ['$scope', 'studentFactory', '$http', '$window', function ($scope, studentFactory, $http, $window) {
         //Close card handler
         $scope.close_card = function () {
             $scope.$parent.editing = false;
@@ -35,23 +35,23 @@ angular.module('StudentApp.CardController', [])
         $scope.save_student = function () {
             $scope.msg = "";
             if ($scope.$parent.student.address == "" || $scope.$parent.student.dateofbirth == "" || $scope.$parent.student.email == "" ||
-                $scope.$parent.student.gender == "" || $scope.$parent.student.name == "" || $scope.$parent.student.parentname == "" || 
-                $scope.$parent.student.phone == "" || $scope.$parent.student.group == "" || $scope.$parent.student.category == "" || 
-                $scope.$parent.student.level == "" || $scope.$parent.student.address == undefined || $scope.$parent.student.dateofbirth == undefined 
-                || $scope.$parent.student.email == undefined || $scope.$parent.student.gender == undefined || $scope.$parent.student.name == undefined 
-                || $scope.$parent.student.parentname == undefined || $scope.$parent.student.phone == undefined || $scope.$parent.student.group == undefined 
+                $scope.$parent.student.gender == "" || $scope.$parent.student.name == "" || $scope.$parent.student.parentname == "" ||
+                $scope.$parent.student.phone == "" || $scope.$parent.student.group == "" || $scope.$parent.student.category == "" ||
+                $scope.$parent.student.level == "" || $scope.$parent.student.address == undefined || $scope.$parent.student.dateofbirth == undefined
+                || $scope.$parent.student.email == undefined || $scope.$parent.student.gender == undefined || $scope.$parent.student.name == undefined
+                || $scope.$parent.student.parentname == undefined || $scope.$parent.student.phone == undefined || $scope.$parent.student.group == undefined
                 || $scope.$parent.student.category == undefined || $scope.$parent.student.level == undefined) {
-                    $scope.msg = "Invalid or Missing Data. Please make sure you have filled all the details correctly";
-            } else if ($scope.$parent.student.programmename == 'School Programme' && 
+                $scope.msg = "Invalid or Missing Data. Please make sure you have filled all the details correctly";
+            } else if ($scope.$parent.student.programmename == 'School Programme' &&
                 ($scope.$parent.student.class == undefined || $scope.$parent.student.class == '' ||
-                $scope.$parent.student.section == undefined || $scope.$parent.student.section == '')) {
-                    $scope.msg = "Invalid or Missing Data. Please make sure you have filled all the details correctly";
-            } else if ($scope.$parent.student.programmename == 'Center Programme' && 
+                    $scope.$parent.student.section == undefined || $scope.$parent.student.section == '')) {
+                $scope.msg = "Invalid or Missing Data. Please make sure you have filled all the details correctly";
+            } else if ($scope.$parent.student.programmename == 'Center Programme' &&
                 ($scope.$parent.student.presentlevel == undefined || $scope.$parent.student.presentlevel == '' ||
-                $scope.$parent.student.presentweek == undefined || $scope.$parent.student.presentweek == '')) {
-                    $scope.msg = "Invalid or Missing Data. Please make sure you have filled all the details correctly";
+                    $scope.$parent.student.presentweek == undefined || $scope.$parent.student.presentweek == '')) {
+                $scope.msg = "Invalid or Missing Data. Please make sure you have filled all the details correctly";
             } else {
-                    $scope.uploadFile($scope.myFile);
+                $scope.uploadFile($scope.myFile);
             }
         };
 
@@ -74,8 +74,8 @@ angular.module('StudentApp.CardController', [])
                 } else {
                     //Editing Student -> PUT
                     studentFactory.update({ id: $scope.$parent.student._id }, $scope.$parent.student, function (response) {
-                        console.log(response);
                         $scope.$parent.editing = false;
+                        $scope.count = 0;;
                         $scope.$parent.update_students();
                     }, function (response) {
                         //error
@@ -90,9 +90,9 @@ angular.module('StudentApp.CardController', [])
         }
 
         $scope.age = {
-                years: -1,
-                months: -1,
-                days: -1
+            years: -1,
+            months: -1,
+            days: -1
         };
         $scope.calculateAge = function () {
             var yearNow = 118;
@@ -132,47 +132,47 @@ angular.module('StudentApp.CardController', [])
 
         $scope.onGroupChange = function (group, program) {
             var age = $scope.calculateAge();
-            if(program == 'Center') {
-                if(group == 'TT') {
-                    if(age.years >= 5 && age.years < 7) $scope.$parent.student.category = 'A';
-                    else if(age.years >= 7) $scope.$parent.student.category = 'B';
+            if (program == 'Center') {
+                if (group == 'TT') {
+                    if (age.years >= 5 && age.years < 7) $scope.$parent.student.category = 'A';
+                    else if (age.years >= 7) $scope.$parent.student.category = 'B';
                     else $scope.$parent.student.category = 'Not Eligible';
                 } else {
-                    if(age.years >= 7 && age.years < 9) $scope.$parent.student.category = 'A';
-                    else if(age.years >= 9 && age.years < 11) $scope.$parent.student.category = 'B';
-                    else if(age.years >= 11 && age.years < 13) $scope.$parent.student.category = 'C';
-                    else if(age.years >= 13) $scope.$parent.student.category = 'D';
+                    if (age.years >= 7 && age.years < 9) $scope.$parent.student.category = 'A';
+                    else if (age.years >= 9 && age.years < 11) $scope.$parent.student.category = 'B';
+                    else if (age.years >= 11 && age.years < 13) $scope.$parent.student.category = 'C';
+                    else if (age.years >= 13) $scope.$parent.student.category = 'D';
                     else $scope.$parent.student.category = 'Not Eligible';
                 }
             } else {
-                if(group == 'TTS') {
-                    if(age.years >= 5 && age.years < 7) $scope.$parent.student.category = 'A1';
-                    else if(age.years >= 7) $scope.$parent.student.category = 'B1';
+                if (group == 'TTS') {
+                    if (age.years >= 5 && age.years < 7) $scope.$parent.student.category = 'A1';
+                    else if (age.years >= 7) $scope.$parent.student.category = 'B1';
                     else $scope.$parent.student.category = 'Not Eligible';
                 } else {
-                    if(age.years >= 8 && age.years < 10) $scope.$parent.student.category = 'A1';
-                    else if(age.years >= 10) $scope.$parent.student.category = 'B1';
+                    if (age.years >= 8 && age.years < 10) $scope.$parent.student.category = 'A1';
+                    else if (age.years >= 10) $scope.$parent.student.category = 'B1';
                     else $scope.$parent.student.category = 'Not Eligible';
                 }
             }
         }
 
         $scope.onCodeChange = function (studentcode) {
-            for(s=0; s<$scope.$parent.student_list.length; s++) {
-                if($scope.$parent.student_list[s].studentcode == studentcode)
+            for (s = 0; s < $scope.$parent.student_list.length; s++) {
+                if ($scope.$parent.student_list[s].studentcode == studentcode)
                     $scope.$parent.student.studentcode = '';
             }
         }
 
-        $scope.getcentergroups = function(student) {
-            if(student.centercode == 'SCH2') return ['MA0', 'TT0'];
+        $scope.getcentergroups = function (student) {
+            if (student.centercode == 'SCH2') return ['MA0', 'TT0'];
         }
 
         $scope.uploadFile = function (myFile) {
-            if($scope.$parent.isPhoto) {
+            if ($scope.$parent.isPhoto) {
                 $scope.uploadFile1($scope.myFile1);
-            } else if(myFile == "" || myFile == undefined) {
-                $scope.msg = "Upload Student Image";
+            } else if (myFile == undefined || myFile.name == undefined) {
+                $scope.uploadFile1($scope.myFile1);
             } else {
                 var file = myFile;
                 var uploadUrl = "/savedata";
@@ -192,10 +192,10 @@ angular.module('StudentApp.CardController', [])
         };
 
         $scope.uploadFile1 = function (myFile) {
-            if($scope.$parent.isBirthcertificate) {
+            if ($scope.$parent.isBirthcertificate) {
                 $scope.save();
-            } else if(myFile == "" || myFile == undefined) {
-                $scope.msg = "Upload Birth Certificate or Aadhaar Card";
+            } else if (myFile == undefined || myFile.name == undefined) {
+                $scope.save();
             } else {
                 var file = myFile;
                 var uploadUrl = "/savedata";
@@ -214,10 +214,50 @@ angular.module('StudentApp.CardController', [])
             }
         };
 
-        $scope.getFileExtension = function(fileName) {
+        $scope.getFileExtension = function (fileName) {
             var ext = fileName.split('.').pop();
-            if(ext == 'jpg' || ext == 'png' || ext == 'jpeg') return true;
+            if (ext == 'jpg' || ext == 'png' || ext == 'jpeg') return true;
             return false;
+        }
+
+        $scope.close_admincard = function () {
+            $scope.$parent.adminediting = false;
+        }
+
+        getNumberOfStudents = function () {
+            var count = 0;
+            for (var s = 0; s < $scope.$parent.student_list.length; s++) {
+                if ($scope.$parent.student_list[s].group == $scope.$parent.student.group &&
+                    $scope.$parent.student_list[s].category == $scope.$parent.student.category &&
+                    $scope.$parent.student_list[s].level == $scope.$parent.student.level)
+                    count++;
+            }
+            count = count.toString();
+            if (count < 10) count = "00" + count;
+            else if (count < 100) count = "0" + count;
+            return count;
+        }
+
+        $scope.save_adminstudent = function () {
+            $scope.msg = "";
+            if ($scope.$parent.student.entrytime == "" || $scope.$parent.student.entrytime == undefined ||
+                $scope.$parent.student.competitiontime == "" || $scope.$parent.student.competitiontime == undefined) {
+                $scope.msg = "Invalid or Missing Data. Please make sure you have filled all the details correctly";
+            } else {
+                $scope.$parent.student.examdate = "28-Oct-2018";
+                $scope.$parent.student.venue = "Vidya Soudha School \n 9/1, 1st Main Road, \n Peenya 1st Stage, \n Bangalore 560058";
+                $scope.$parent.student.status = "closed";
+                $scope.$parent.student.admissioncardno = $scope.$parent.student.centercode + "/" + $scope.$parent.student.group + "/" +
+                    $scope.$parent.student.category + "/" + $scope.$parent.student.level + "/";
+                $scope.$parent.student.admissioncardno += getNumberOfStudents();
+                studentFactory.update({ id: $scope.$parent.student._id }, $scope.$parent.student, function (response) {
+                    $scope.$parent.adminediting = false;
+                    $scope.$parent.update_students();
+                }, function (response) {
+                    //error
+                    console.error(response);
+                });
+            }
         }
 
     }]);

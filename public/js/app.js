@@ -117,7 +117,7 @@ var app = angular.module('StudentApp', [
                     tshirtsize: ($scope.student_list[d].tshirtsize != undefined) ? $scope.student_list[d].tshirtsize : "",
                     photo: ($scope.student_list[d].photo != undefined) ? ("https://s3.ap-south-1.amazonaws.com/alohakarnataka/" + $scope.student_list[d].photo) : "",
                     birthcertificate: ($scope.student_list[d].birthcertificate != undefined) ? ("https://s3.ap-south-1.amazonaws.com/alohakarnataka/" + $scope.student_list[d].birthcertificate) : "",
-                    centername: ($scope.student_list[d].centername != undefined) ? $scope.student_list[d].centername : $scope.student_list[d].schoolname,
+                    centername: (($scope.student_list[d].centername != undefined) ? $scope.student_list[d].centername : "") + ($scope.student_list[d].schoolname != undefined ? $scope.student_list[d].schoolname : ""),
                     status: ($scope.student_list[d].status != undefined) ? $scope.student_list[d].status : "",
                     dateCreated: ($scope.student_list[d].dateCreated != undefined) ? $scope.student_list[d].dateCreated : "",
                     group: ($scope.student_list[d].group != undefined) ? $scope.student_list[d].group : "",

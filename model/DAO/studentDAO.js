@@ -1,54 +1,59 @@
 var db = require('../../config/mongodb').init(),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    path = require('path'),
+    fs = require('fs'),
+    http = require('http'),
+    conversion = require("phantom-html-to-pdf")(),
+    QRCode = require('qrcode');
 
 var isInTest = typeof global.it === 'function';
 
 var Schema = mongoose.Schema;
 var StudentSchema = new Schema({
-    phone:              { type: String, required: true, unique: true },
-    email:              { type: String, required: true },
-    name:               { type: String, required: true },
-    dateofbirth:        { type: String, required: true },
-    gender:             { type: String, required: true },
-    parentname:         { type: String, required: true },
-    address:            { type: String, required: true },
-    programmename:      { type: String },
-    tshirtrequired:     { type: Boolean },
-    tshirtsize:         { type: String },
-    photo:              { type: String },
-    birthcertificate:   { type: String },
-    centername:         { type: String },
-    centercode:         { type: String, required: true },
-    schoolname:         { type: String },
-    status:             { type: String, required: true },
-    dateCreated:        { type: Date, required: true },
-    dateModified:       { type: Date },
-    group:              { type: String },
-    category:           { type: String },
-    level:              { type: String },
-    registrationdate:   { type: String },
-    studentcode:        { type: String },
-    presentlevel:       { type: String },
-    presentweek:        { type: String },
-    section:            { type: String }, 
-    class:              { type: String }, 
-    lastyearlevel:      { type: String },
-    paymentdate:        { type: String },
-    transactionno:      { type: String },
-    paymentmode:        { type: String },
-    bankname:           { type: String },
-    examdate:           { type: String },
-    entrytime:          { type: String },
-    competitiontime:    { type: String },
-    venue:              { type: String },
-    admissioncardno:    { type: String },
-    paymentapproved:    { type: Boolean, default: false }
+    phone: { type: String, required: true, unique: true },
+    email: { type: String, required: true },
+    name: { type: String, required: true },
+    dateofbirth: { type: String, required: true },
+    gender: { type: String, required: true },
+    parentname: { type: String, required: true },
+    address: { type: String, required: true },
+    programmename: { type: String },
+    tshirtrequired: { type: Boolean },
+    tshirtsize: { type: String },
+    photo: { type: String },
+    birthcertificate: { type: String },
+    centername: { type: String },
+    centercode: { type: String, required: true },
+    schoolname: { type: String },
+    status: { type: String, required: true },
+    dateCreated: { type: Date, required: true },
+    dateModified: { type: Date },
+    group: { type: String },
+    category: { type: String },
+    level: { type: String },
+    registrationdate: { type: String },
+    studentcode: { type: String },
+    presentlevel: { type: String },
+    presentweek: { type: String },
+    section: { type: String },
+    class: { type: String },
+    lastyearlevel: { type: String },
+    paymentdate: { type: String },
+    transactionno: { type: String },
+    paymentmode: { type: String },
+    bankname: { type: String },
+    examdate: { type: String },
+    entrytime: { type: String },
+    competitiontime: { type: String },
+    venue: { type: String },
+    admissioncardno: { type: String },
+    paymentapproved: { type: Boolean, default: false }
 });
 
-StudentSchema.pre('save', function(next){
+StudentSchema.pre('save', function (next) {
     now = new Date();
     this.dateModified = now;
-    if ( !this.dateCreated ) {
+    if (!this.dateCreated) {
         this.dateCreated = now;
     }
     next();
@@ -56,66 +61,66 @@ StudentSchema.pre('save', function(next){
 var StudentModel = db.model('Student', StudentSchema);
 
 //CREATE new student
-function createStudent(student, callbacks){
+function createStudent(student, callbacks) {
     var f = new StudentModel({
-        phone:              student.phone,
-        email:              student.email,
-        name:               student.name,
-        dateofbirth:        student.dateofbirth,
-        gender:             student.gender,
-        parentname:         student.parentname,
-        address:            student.address,
-        tshirtrequired:     student.tshirtrequired,
-        tshirtsize:         student.tshirtsize,
-        photo:              student.photo,
-        birthcertificate:   student.birthcertificate,
-        programmename:      student.programmename,
-        centername:         student.centername,
-        centercode:         student.centercode,
-        schoolname:         student.schoolname,
-        status:             'open',
-        dateCreated:        new Date()
+        phone: student.phone,
+        email: student.email,
+        name: student.name,
+        dateofbirth: student.dateofbirth,
+        gender: student.gender,
+        parentname: student.parentname,
+        address: student.address,
+        tshirtrequired: student.tshirtrequired,
+        tshirtsize: student.tshirtsize,
+        photo: student.photo,
+        birthcertificate: student.birthcertificate,
+        programmename: student.programmename,
+        centername: student.centername,
+        centercode: student.centercode,
+        schoolname: student.schoolname,
+        status: 'open',
+        dateCreated: new Date()
     });
     f.save(function (err) {
         if (!err) {
-            if(!isInTest) console.log("Student created with id: " + f._id);
+            if (!isInTest) console.log("Student created with id: " + f._id);
             callbacks.success(f);
         } else {
-            if(!isInTest) console.log(err);
+            if (!isInTest) console.log(err);
             callbacks.error(err);
         }
     });
 }
 
 //READ all Students
-function readStudents(skip, count, callbacks){
+function readStudents(skip, count, callbacks) {
     return StudentModel.find()
-    .sort('-dateCreated').skip(skip).limit(count).exec('find', function (err, students) {
-        if (!err) {
-            if(!isInTest) console.log('[GET]   Get students: ' + students.length);
-            callbacks.success(students);
-        } else {
-            if(!isInTest) console.log(err);
-            callbacks.error(err);
-        }
-    });
+        .sort('-dateCreated').skip(skip).limit(count).exec('find', function (err, students) {
+            if (!err) {
+                if (!isInTest) console.log('[GET]   Get students: ' + students.length);
+                callbacks.success(students);
+            } else {
+                if (!isInTest) console.log(err);
+                callbacks.error(err);
+            }
+        });
 }
 
 //READ student by id
-function readStudentById(id, callbacks){
+function readStudentById(id, callbacks) {
     return StudentModel.findById(id, function (err, student) {
         if (!err) {
-            if(!isInTest) console.log('[GET]   Get student: ' + student._id);
+            if (!isInTest) console.log('[GET]   Get student: ' + student._id);
             callbacks.success(student);
         } else {
-            if(!isInTest) console.log(err);
+            if (!isInTest) console.log(err);
             callbacks.error(err);
         }
     });
 }
 
 //UPDATE student
-function updateStudent(id, student, callbacks){
+function updateStudent(id, student, callbacks) {
     return StudentModel.findById(id, function (err, f) {
         if (!err) {
             f.phone = student.phone;
@@ -158,60 +163,86 @@ function updateStudent(id, student, callbacks){
 
             return f.save(function (err) {
                 if (!err) {
-                    if(!isInTest) console.log("[UDP]   Updated student: " + f._id);
+                    if (!isInTest) console.log("[UDP]   Updated student: " + f._id);
                     callbacks.success(f);
                 } else {
-                    if(!isInTest) console.log(err);
+                    if (!isInTest) console.log(err);
                     callbacks.error(err);
                 }
             });
         } else {
-            if(!isInTest) console.log(err);
+            if (!isInTest) console.log(err);
             callbacks.error(err);
         }
     });
 }
 
 //DELETE student
-function deleteStudent(id, callbacks){
+function deleteStudent(id, callbacks) {
     return StudentModel.findById(id, function (err, f) {
         if (!err) {
             return f.remove(function (err) {
                 if (!err) {
-                    if(!isInTest) console.log("[DEL]    Deleted student: " + f._id);
+                    if (!isInTest) console.log("[DEL]    Deleted student: " + f._id);
                     callbacks.success(f);
                 } else {
-                    if(!isInTest) console.log(err);
+                    if (!isInTest) console.log(err);
                     callbacks.error(err);
                 }
             });
         } else {
-            if(!isInTest) console.log(err);
+            if (!isInTest) console.log(err);
             callbacks.error(err);
         }
     });
 }
 
-// GENERATING QR Code
-function generateQRCode(text) {
-    console.log("Generating QR Code");
-    var formData = "frame_name=no-frame&qr_code_text="+text+"&frame_text=Scan+me&frame_icon_name=mobile&frame_color=%23000000&foreground_color=%23000000";
-    curl.request(formData, function optionalCallback(err, body) {
-      if (err) {
-        return console.error('Generating QR failed: ', err);
-      }
-      console.log('Successfully Generated QR Code');
-      return body;
+function downloadReceipt(username, callbacks) {
+    StudentModel.find({ phone: username.username }, function (err, student) {
+        if (!err) {
+            student = student[0];
+            var stringTemplate = fs.readFileSync(path.join(__dirname, '../../helpers') + '/receipt.html', "utf8");
+            stringTemplate = stringTemplate.replace('{{centerOrSchoolName}}', ((student.centername != undefined) ? student.centername : "") + (student.schoolname != undefined) ? student.schoolname : "");
+            stringTemplate = stringTemplate.replace('{{parentName}}', (student.parentname) ? student.parentname : "");
+            stringTemplate = stringTemplate.replace('{{tShirtDetails}}', (student.tshirtrequired) ? "and <b> Rs.250/- </b> &nbsp; for T-Shirt, &nbsp; <b>Total of Rs.800/- </b> &nbsp;" : "");
+            stringTemplate = stringTemplate.replace('{{studentName}}', (student.name) ? student.name : "");
+
+            conversion({ html: stringTemplate }, function (err, pdf) {
+                callbacks.success(pdf);
+            });
+
+        } else {
+            callbacks.error(err);
+        }
     });
 }
 
 // GENERATING Hall ticket
-function generateHallTicket(id, callbacks) {
-    return StudentModel.findById(id, function (err, f) {
+function generateHallTicket(username, callbacks) {
+    StudentModel.find({ phone: username.username }, function (err, student) {
         if (!err) {
-            var qrcode = generateQRCode(f.studentcode);
+            student = student[0];
+            var text = "Student Name: " + student.name + "\n";
+            text += "Roll No: " + student.admissioncardno + "\n";
+            text += "Competition Time: " + student.competitiontime + "\n";
+            QRCode.toDataURL(text, function (err, body) {
+                var qrImage = "";
+                if (!err) qrImage = body;
+                var stringTemplate = fs.readFileSync(path.join(__dirname, '../../helpers') + '/hallticket.html', "utf8");
+                stringTemplate = stringTemplate.replace('{{CenterOrSchoolName}}', ((student.centername != undefined) ? student.centername : "") + (student.schoolname != undefined) ? student.schoolname : "");
+                stringTemplate = stringTemplate.replace('{{StudentName}}', (student.name != undefined) ? student.name : "");
+                stringTemplate = stringTemplate.replace('{{EntryTime}}', (student.entrytime != undefined) ? student.entrytime : "");
+                stringTemplate = stringTemplate.replace('{{CompetitionTime}}', (student.competitiontime != undefined) ? student.competitiontime : "");
+                console.log(student.photo);
+                stringTemplate = stringTemplate.replace('{{StudentImage}}', (student.photo != undefined) ? ("https://s3.ap-south-1.amazonaws.com/alohakarnataka/" + student.photo) : "");
+                stringTemplate = stringTemplate.replace('{{StudentRollNumber}}', (student.admissioncardno != undefined) ? student.admissioncardno : "");
+                stringTemplate = stringTemplate.replace('{{StudentQRCode}}', (qrImage != undefined) ? qrImage : "");
+
+                conversion({ html: stringTemplate }, function (err, pdf) {
+                    callbacks.success(pdf);
+                });
+            });
         } else {
-            if(!isInTest) console.log(err);
             callbacks.error(err);
         }
     });
@@ -222,4 +253,5 @@ module.exports.readStudents = readStudents;
 module.exports.readStudentById = readStudentById;
 module.exports.updateStudent = updateStudent;
 module.exports.deleteStudent = deleteStudent;
+module.exports.downloadReceipt = downloadReceipt;
 module.exports.generateHallTicket = generateHallTicket;

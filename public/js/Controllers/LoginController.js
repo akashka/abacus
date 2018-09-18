@@ -179,12 +179,26 @@ angular.module('StudentApp.LoginController', [])
         $scope.msg = "";
         $scope.save_student = function () {
             $scope.msg = "";
-            if ($scope.student.address == "" || $scope.student.dateofbirth == "" || $scope.student.email == "" ||
-                $scope.student.gender == "" || $scope.student.name == "" || $scope.student.parentname == "" || $scope.student.phone == "" ||
-                $scope.student.address == undefined || $scope.student.dateofbirth == undefined || $scope.student.email == undefined ||
-                $scope.student.gender == undefined || $scope.student.name == undefined || $scope.student.parentname == undefined || $scope.student.phone == undefined       
-            ) {
-                $scope.msg = "Invalid or Missing Data. Please make sure you have filled all the details correctly";
+            if($scope.student.address == "" || $scope.student.address == undefined) {
+                $scope.msg = "Invalid or Missing Address. Please make sure you have entered correct Address";
+            }
+            else if($scope.student.dateofbirth == "" || $scope.student.dateofbirth == undefined) {
+                $scope.msg = "Invalid or Missing Date Of Birth. Please make sure you have entered correct Date Of Birth in format dd/mm/yyyy";
+            }
+            else if($scope.student.email == "" || $scope.student.email == undefined) {
+                $scope.msg = "Invalid or Missing Email Id. Please make sure you have entered correct Email Id";
+            }
+            else if($scope.student.gender == "" || $scope.student.gender == undefined) {
+                $scope.msg = "Invalid or Missing Gender. Please make sure you have selected a Gender";
+            }
+            else if($scope.student.name == "" || $scope.student.name == undefined) {
+                $scope.msg = "Invalid or Missing Student Number. Please make sure you have entered correct Student Number";
+            }
+            else if ($scope.student.parentname == "" || $scope.student.parentname == undefined) {
+                $scope.msg = "Invalid or Missing Parent Name. Please make sure you have entered correct Parent Name";
+            }
+            else if ($scope.student.phone == "" || $scope.student.phone == undefined) {
+                $scope.msg = "Invalid or Missing Phone Number. Please make sure you have entered correct Phone Number";
             } else if (!$scope.termsAccepted) {
                 $scope.msg = "Please refer to our terms and conditions document and agree to it!";
             } else {
