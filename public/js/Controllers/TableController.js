@@ -116,7 +116,7 @@ angular.module('StudentApp.TableController', [])
 
             $scope.displayHallTicket = function (username) {
                 var fileurl = "/api/0.1/student/generateHallTicket/" + username;
-                window.open(fileurl, '_blank', '');
+                window.open(fileurl, '_self', '');
             }
 
         };
