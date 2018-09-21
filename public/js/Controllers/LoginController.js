@@ -1,5 +1,5 @@
 angular.module('StudentApp.LoginController', [])
-    
+
     .controller('LoginController', ['$scope', 'userFactory', '$rootScope', 'studentFactory', 'fileUpload', '$http', function ($scope, userFactory, $rootScope, studentFactory, fileUpload, $http) {
         //Login form listener
         var working = false;
@@ -132,10 +132,10 @@ angular.module('StudentApp.LoginController', [])
         }
 
         $scope.contactUs = false;
-        $scope.contact_us = function() {
+        $scope.contact_us = function () {
             $scope.contactUs = true;
         }
-        $scope.close_contact_us = function() {
+        $scope.close_contact_us = function () {
             $scope.contactUs = false;
         }
 
@@ -168,7 +168,7 @@ angular.module('StudentApp.LoginController', [])
         $scope.centergroups = ['MA', 'TT'];
         $scope.schoolgroups = ['MAS', 'TTS'];
         $scope.malevels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
-        $scope.ttlevels = ["1", "2", "3", "4", "5", "6", "7", "8"];
+        $scope.ttlevels = ["pre", "1", "2", "3", "4", "5", "6", "7", "8"];
 
         $scope.termsAccepted = false;
         $scope.onTCChange = function () {
@@ -178,20 +178,25 @@ angular.module('StudentApp.LoginController', [])
         //Save student button handler
         $scope.msg = "";
         $scope.save_student = function () {
+            if ($('#datepicker')[0].type != 'date') {
+                    var parts = $('#datepicker')[0].value.split('/');
+                    var mydate = new Date(parts[2], parts[1] - 1, parts[0]);
+                    $scope.student.dateofbirth = mydate;
+            }
             $scope.msg = "";
-            if($scope.student.address == "" || $scope.student.address == undefined) {
+            if ($scope.student.address == "" || $scope.student.address == undefined) {
                 $scope.msg = "Invalid or Missing Address. Please make sure you have entered correct Address";
             }
-            else if($scope.student.dateofbirth == "" || $scope.student.dateofbirth == undefined) {
+            else if ($scope.student.dateofbirth == "" || $scope.student.dateofbirth == undefined) {
                 $scope.msg = "Invalid or Missing Date Of Birth. Please make sure you have entered correct Date Of Birth in format dd/mm/yyyy";
             }
-            else if($scope.student.email == "" || $scope.student.email == undefined) {
+            else if ($scope.student.email == "" || $scope.student.email == undefined) {
                 $scope.msg = "Invalid or Missing Email Id. Please make sure you have entered correct Email Id";
             }
-            else if($scope.student.gender == "" || $scope.student.gender == undefined) {
+            else if ($scope.student.gender == "" || $scope.student.gender == undefined) {
                 $scope.msg = "Invalid or Missing Gender. Please make sure you have selected a Gender";
             }
-            else if($scope.student.name == "" || $scope.student.name == undefined) {
+            else if ($scope.student.name == "" || $scope.student.name == undefined) {
                 $scope.msg = "Invalid or Missing Student Number. Please make sure you have entered correct Student Number";
             }
             else if ($scope.student.parentname == "" || $scope.student.parentname == undefined) {
@@ -346,1316 +351,1316 @@ angular.module('StudentApp.LoginController', [])
             }
         }
 
-        $scope.checkNumbers = function(phone) {
-                if(phone == '1367111110') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013670',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1367111111') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013671',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                    return true;
-                }
-                if(phone == '1367111112') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013672',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1367111113') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013673',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1367111114') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013674',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1367111115') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013675',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1367111116') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013676',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1367111117') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013677',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1367111118') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013678',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1367111119') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013679',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
+        $scope.checkNumbers = function (phone) {
+            if (phone == '1367111110') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013670',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1367111111') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013671',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+                return true;
+            }
+            if (phone == '1367111112') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013672',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1367111113') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013673',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1367111114') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013674',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1367111115') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013675',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1367111116') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013676',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1367111117') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013677',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1367111118') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013678',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1367111119') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013679',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
 
-                if(phone == '1379111110') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013790',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1379111111') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013791',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1379111112') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013792',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1379111113') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013793',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1379111114') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013794',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1379111115') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013795',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1379111116') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013796',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1379111117') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013797',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1379111118') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013798',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1379111119') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013799',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
+            if (phone == '1379111110') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013790',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1379111111') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013791',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1379111112') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013792',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1379111113') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013793',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1379111114') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013794',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1379111115') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013795',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1379111116') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013796',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1379111117') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013797',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1379111118') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013798',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1379111119') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013799',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
 
-                if(phone == '1323111110') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013230',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1323111111') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013231',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1323111112') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013232',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1323111113') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013233',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1323111114') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013234',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1323111115') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013235',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1323111116') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013236',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1323111117') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013237',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1323111118') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013238',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1323111119') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013239',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
+            if (phone == '1323111110') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013230',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1323111111') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013231',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1323111112') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013232',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1323111113') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013233',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1323111114') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013234',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1323111115') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013235',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1323111116') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013236',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1323111117') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013237',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1323111118') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013238',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1323111119') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013239',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
 
-                if(phone == '1321111110') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013210',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1321111111') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013211',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1321111112') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013212',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1321111113') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013213',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1321111114') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013214',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1321111115') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013215',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1321111116') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013216',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1321111117') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013217',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1321111118') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013218',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1321111119') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013219',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
+            if (phone == '1321111110') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013210',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1321111111') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013211',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1321111112') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013212',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1321111113') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013213',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1321111114') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013214',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1321111115') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013215',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1321111116') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013216',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1321111117') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013217',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1321111118') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013218',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1321111119') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013219',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
 
-                if(phone == '4321111110') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '043210',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '4321111111') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '043211',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '4321111112') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '043212',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '4321111113') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '043213',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '4321111114') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '043214',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '4321111115') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '043215',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '4321111116') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '043216',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '4321111117') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '043217',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '4321111118') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '043218',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '4321111119') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '043219',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
+            if (phone == '4321111110') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '043210',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '4321111111') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '043211',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '4321111112') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '043212',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '4321111113') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '043213',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '4321111114') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '043214',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '4321111115') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '043215',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '4321111116') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '043216',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '4321111117') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '043217',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '4321111118') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '043218',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '4321111119') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '043219',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
 
-                if(phone == '1357111110') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013570',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1357111111') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013571',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1357111112') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013572',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1357111113') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013573',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1357111114') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013574',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1357111115') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013575',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1357111116') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013576',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1357111117') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013577',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1357111118') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013578',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1357111119') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013579',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
+            if (phone == '1357111110') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013570',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1357111111') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013571',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1357111112') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013572',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1357111113') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013573',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1357111114') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013574',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1357111115') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013575',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1357111116') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013576',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1357111117') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013577',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1357111118') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013578',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1357111119') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013579',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
 
-                if(phone == '1356111110') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013560',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1356111111') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013561',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1356111112') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013562',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1356111113') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013563',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1356111114') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013564',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1356111115') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013565',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1356111116') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013566',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1356111117') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013567',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1356111118') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013568',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1356111119') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013569',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                
-                if(phone == '1344111110') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013440',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1344111111') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013441',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1344111112') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013442',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1344111113') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013443',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1344111114') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013444',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1344111115') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013445',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1344111116') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013446',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1344111117') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013447',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1344111118') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013448',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1344111119') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013449',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
+            if (phone == '1356111110') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013560',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1356111111') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013561',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1356111112') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013562',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1356111113') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013563',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1356111114') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013564',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1356111115') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013565',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1356111116') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013566',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1356111117') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013567',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1356111118') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013568',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1356111119') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013569',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
 
-                if(phone == '1359111110') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013590',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1359111111') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013591',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1359111112') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013592',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1359111113') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013593',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1359111114') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013594',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1359111115') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013595',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1359111116') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013596',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1359111117') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013597',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1359111118') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013598',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1359111119') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013599',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
+            if (phone == '1344111110') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013440',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1344111111') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013441',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1344111112') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013442',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1344111113') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013443',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1344111114') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013444',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1344111115') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013445',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1344111116') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013446',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1344111117') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013447',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1344111118') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013448',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1344111119') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013449',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
 
-                if(phone == '1364111110') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013640',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1364111111') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013641',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1364111112') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013642',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1364111113') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013643',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1364111114') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013644',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1364111115') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013645',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1364111116') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013646',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1364111117') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013647',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1364111118') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013648',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1364111119') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013649',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
+            if (phone == '1359111110') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013590',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1359111111') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013591',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1359111112') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013592',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1359111113') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013593',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1359111114') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013594',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1359111115') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013595',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1359111116') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013596',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1359111117') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013597',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1359111118') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013598',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1359111119') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013599',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
 
-                if(phone == '1400111110') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '014000',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1400111111') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '014001',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1400111112') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '014002',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1400111113') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '014003',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1400111114') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '014004',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1400111115') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '014005',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1400111116') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '014006',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1400111117') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '014007',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1400111118') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '014008',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1400111119') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '014009',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
+            if (phone == '1364111110') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013640',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1364111111') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013641',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1364111112') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013642',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1364111113') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013643',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1364111114') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013644',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1364111115') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013645',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1364111116') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013646',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1364111117') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013647',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1364111118') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013648',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1364111119') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013649',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
 
-                if(phone == '1378111110') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013780',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1378111111') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013781',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1378111112') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013782',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1378111113') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013783',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1378111114') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013784',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1378111115') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013785',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1378111116') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013786',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1378111117') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013787',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1378111118') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013788',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1378111119') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '013789',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
+            if (phone == '1400111110') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '014000',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1400111111') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '014001',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1400111112') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '014002',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1400111113') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '014003',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1400111114') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '014004',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1400111115') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '014005',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1400111116') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '014006',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1400111117') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '014007',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1400111118') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '014008',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1400111119') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '014009',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
 
-                if(phone == '1111111110') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '011110',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1111111111') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '011111',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1111111112') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '011112',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1111111113') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '011113',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1111111114') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '011114',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1111111115') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '011115',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1111111116') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '011116',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1111111117') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '011117',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1111111118') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '011118',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '1111111119') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '011119',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
+            if (phone == '1378111110') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013780',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1378111111') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013781',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1378111112') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013782',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1378111113') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013783',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1378111114') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013784',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1378111115') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013785',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1378111116') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013786',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1378111117') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013787',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1378111118') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013788',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1378111119') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '013789',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
 
-                if(phone == '2222222210') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '022220',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '2222222211') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '022221',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '2222222212') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '022222',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '2222222213') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '022223',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '2222222214') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '022224',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '2222222215') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '022225',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '2222222216') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '022226',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '2222222217') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '022227',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '2222222218') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '022228',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '2222222219') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '022229',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
+            if (phone == '1111111110') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '011110',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1111111111') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '011111',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1111111112') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '011112',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1111111113') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '011113',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1111111114') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '011114',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1111111115') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '011115',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1111111116') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '011116',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1111111117') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '011117',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1111111118') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '011118',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '1111111119') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '011119',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
 
-                if(phone == '3333333310') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '033330',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '3333333311') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '033331',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '3333333312') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '033332',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '3333333313') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '033333',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '3333333314') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '033334',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '3333333315') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '033335',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '3333333316') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '033336',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '3333333317') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '033337',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '3333333318') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '033338',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '3333333319') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '033339',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                
-                if(phone == '4444444410') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '044440',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '4444444411') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '044441',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '4444444412') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '044442',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '4444444413') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '044443',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '4444444414') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '044444',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '4444444415') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '044445',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '4444444416') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '044446',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '4444444417') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '044447',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '4444444418') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '044448',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
-                if(phone == '4444444419') {
-                    $scope.otpSent = true;
-                    $scope.match = {
-                        password: '044449',
-                        username: phone
-                    };
-                    $("#password").focus();                     return true;
-                }
+            if (phone == '2222222210') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '022220',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '2222222211') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '022221',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '2222222212') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '022222',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '2222222213') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '022223',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '2222222214') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '022224',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '2222222215') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '022225',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '2222222216') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '022226',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '2222222217') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '022227',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '2222222218') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '022228',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '2222222219') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '022229',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+
+            if (phone == '3333333310') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '033330',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '3333333311') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '033331',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '3333333312') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '033332',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '3333333313') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '033333',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '3333333314') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '033334',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '3333333315') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '033335',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '3333333316') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '033336',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '3333333317') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '033337',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '3333333318') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '033338',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '3333333319') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '033339',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+
+            if (phone == '4444444410') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '044440',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '4444444411') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '044441',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '4444444412') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '044442',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '4444444413') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '044443',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '4444444414') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '044444',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '4444444415') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '044445',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '4444444416') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '044446',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '4444444417') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '044447',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '4444444418') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '044448',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
+            if (phone == '4444444419') {
+                $scope.otpSent = true;
+                $scope.match = {
+                    password: '044449',
+                    username: phone
+                };
+                $("#password").focus(); return true;
+            }
         }
 
         $scope.isOTPVerified = false;
         $scope.onPwdChange = function (otp) {
             console.log($scope.$parent.student_list);
             $scope.isOTPVerified = false;
-            if(otp < 100000) otp = "0" + otp.toString();
+            if (otp < 100000) otp = "0" + otp.toString();
             if ($scope.match.username == $scope.student.phone && $scope.match.password == otp)
                 $scope.isOTPVerified = true;
         }
 
         $scope.uploadFile = function (myFile) {
-            if(myFile != undefined && myFile.name != undefined) {
+            if (myFile != undefined && myFile.name != undefined) {
                 var file = myFile;
                 var uploadUrl = "/savedata";
                 var fd = new FormData();
@@ -1671,17 +1676,17 @@ angular.module('StudentApp.LoginController', [])
                     console.log(error);
                 });
             } else {
-                    $scope.uploadFile1($scope.myFile1);                
+                $scope.uploadFile1($scope.myFile1);
             }
         };
 
         $scope.uploadFile1 = function (myFile) {
-            if(myFile != undefined && myFile.name != undefined) {            
+            if (myFile != undefined && myFile.name != undefined) {
                 var file = myFile;
                 var uploadUrl = "/savedata";
                 var fd = new FormData();
                 fd.append('file', file);
-                $scope.student.birthcertificate = (myFile != undefined && myFile.name != undefined) ? myFile.name : "";            
+                $scope.student.birthcertificate = (myFile != undefined && myFile.name != undefined) ? myFile.name : "";
                 $http.post(uploadUrl, fd, {
                     transformRequest: angular.identity,
                     headers: { 'Content-Type': undefined }
@@ -1692,7 +1697,7 @@ angular.module('StudentApp.LoginController', [])
                     console.log(error);
                 });
             } else {
-                   $scope.save();                
+                $scope.save();
             }
         };
 
@@ -1742,20 +1747,21 @@ angular.module('StudentApp.LoginController', [])
         }
 
         $scope.$parent.file = "http://alohakarnataka.com/terms_conditions.pdf";
+        $scope.$parent.center_file = "http://alohakarnataka.com/center_terms_conditions.pdf";
 
     }])
-    
+
     .directive('ngConfirmClick', [
-        function(){
+        function () {
             return {
                 link: function (scope, element, attr) {
                     var msg = attr.ngConfirmClick || "Are you sure?";
                     var clickAction = attr.confirmedClick;
-                    element.bind('click',function (event) {
-                        if ( window.confirm(msg) ) {
+                    element.bind('click', function (event) {
+                        if (window.confirm(msg)) {
                             scope.$eval(clickAction)
                         }
                     });
                 }
             };
-    }])
+        }])

@@ -10,8 +10,375 @@ block content
                 
             #blur.ng-hide(ng-show="editing && !loading")
             
+            //- Terms & Conditions for Center
+            form(name='admintandc', ng-show="loggedIn && !isStudent && !$parent.center_terms_agreed", ng-controller="TableController")
+                .panel.panel-default(style='margin-top:100px;')
+                    .panel-body(style='height:70vh; overflow-y:scroll; background-color:white;border-radius: 10px;padding:30px;')
+                        h4(style="text-decoration:underline;margin:0;margin-bottom:25px;text-align:center;")
+                            | TERMS & CONDITIONS FOR CENTERS
+                        p(align='justify', style='margin-bottom: 0cm; line-height: 115%')
+                            font(color='#000000')
+                                font(size='3', style='font-size: 12pt')
+                                    u
+                                        b ELIGIBILITY:   
+                        p(align='justify', style='margin-bottom: 0cm; line-height: 115%')
+                            br                     
+                        ol
+                            li
+                                p(align='justify', style='margin-bottom: 0cm; line-height: 115%')
+                                font(color='#000000')
+                                    font(size='3', style='font-size: 12pt') The student should have completed at least 7 weeks in the current level as on 30th September 2018
+                            li
+                                p(align='justify', style='margin-bottom: 0cm; line-height: 115%')
+                                font(color='#000000')
+                                    font(size='3', style='font-size: 12pt') The student should be presently studying in ALOHA.
+                            li
+                                p(align='justify', style='margin-bottom: 0cm; line-height: 115%')
+                                font(color='#000000')
+                                    font(size='3', style='font-size: 12pt') The student should have paid full tution fee upto current level.
+                            li
+                                p(style='margin-bottom: 0cm; line-height: 115%')
+                                font(color='#000000')
+                                    font(size='3', style='font-size: 12pt')
+                                    span(style='font-weight: normal')
+                                        | The
+                                        | student must wear the Aloha T – Shirt for the competition
+                            li
+                                p(style='margin-bottom: 0cm; line-height: 115%')
+                                font(color='#000000')
+                                    font(size='3', style='font-size: 12pt')
+                                    span(style='font-weight: normal')
+                                        | Cost
+                                        | for each T Shirt of sizes is Rs.
+                                font(face='Rupee Foradian, serif')
+                                    font(size='3', style='font-size: 12pt')
+                                    span(style='font-weight: normal')
+                                font(color='#000000')
+                                    font(size='3', style='font-size: 12pt')
+                                    span(style='font-weight: normal')
+                                        | 250
+                                        | /-
+                            li
+                                p(align='justify', style='margin-bottom: 0cm; line-height: 115%')
+                                font(color='#000000')
+                                    font(size='3', style='font-size: 12pt')
+                                    span(style='font-weight: normal')
+                                        | T-
+                                        | Shirt has to be ordered in advance.   
+
+                        p(align='justify', style='margin-left: 1.27cm; margin-bottom: 0cm; font-weight: normal; line-height: 115%')
+                            br
+                        p(align='justify', style='margin-bottom: 0cm; line-height: 115%')
+                            font(color='#000000')
+                                font(size='3', style='font-size: 12pt')
+                                    u
+                                        b
+                                            | CLASSIFICATION OF GROUPS & LEVELS
+                        table(cellpadding='7', cellspacing='0', style="margin-top:15px;")
+                            tbody
+                                tr(valign='bottom')
+                                    td(colspan='2', height='5', bgcolor='#ffffff', style='border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
+                                        p.western(align='center')
+                                            font(color='#000000')
+                                                font(face='Calibri, serif')
+                                                    b
+                                                        | Tiny Tots Center Programme
+                                    td(rowspan='1', colspan='1', bgcolor='#ffffff', style='border: none; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
+                                        p.western(align='center')
+                                            font(color='#000000')  
+                                    td(colspan='4', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
+                                        p.western(align='center')
+                                            font(color='#000000')
+                                                font(face='Calibri, serif')
+                                                b
+                                                    | Tiny Tots School Programme
+                                tr
+                                    td(height='6', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
+                                        p.western
+                                            font(color='#000000')
+                                                font(face='Calibri, serif')
+                                                    b A
+                                    td(valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
+                                        p.western
+                                            font(color='#000000')
+                                                font(face='Calibri, serif')
+                                                    b
+                                                        | Above
+                                                        | 5 years and Less than or equal to 7 years
+                                    td
+                                        p
+                                    td(colspan='2', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
+                                        p.western
+                                            font(color='#000000')
+                                                font(face='Calibri, serif')
+                                                    b A1
+                                    td(colspan='2', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
+                                        p.western
+                                            font(color='#000000')
+                                                font(face='Calibri, serif')
+                                                    b
+                                                        | Above
+                                                        | 5 years and Less than or equal to 7 years
+                                tr
+                                    td(height='6', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
+                                        p.western
+                                            font(color='#000000')
+                                                font(face='Calibri, serif')
+                                                    b B
+                                    td(valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
+                                        p.western
+                                            font(color='#000000')
+                                                font(face='Calibri, serif')
+                                                    b
+                                                        | Above
+                                                        | 7 years
+                                    td
+                                        p
+                                    td(colspan='2', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
+                                        p.western
+                                            font(color='#000000')
+                                                font(face='Calibri, serif')
+                                                    b B1
+                                    td(colspan='2', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
+                                        p.western
+                                            font(color='#000000')
+                                                font(face='Calibri, serif')
+                                                    b
+                                                        | Above
+                                                        | 7 years
+                                tr
+                                    td(colspan='8', valign='bottom', bgcolor='#ffffff', style='border: none; padding: 0cm 0.19cm')
+                                        p.western
+                                            br
+                                tr(valign='bottom')
+                                    td(colspan='2', height='6', bgcolor='#ffffff', style='border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
+                                        p.western(align='center')
+                                            font(color='#000000')
+                                                font(face='Calibri, serif')
+                                                    b
+                                                        | MA Center Programme
+                                    td(rowspan='1', colspan='1', bgcolor='#ffffff', style='border: none; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
+                                        p.western(align='center')
+                                            font(color='#000000')  
+                                    td(colspan='4', bgcolor='#ffffff', style='border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
+                                        p.western(align='center')
+                                            font(color='#000000')
+                                                font(face='Calibri, serif')
+                                                    b
+                                                        | MA
+                                                        | School Programme
+                                tr
+                                    td(height='5', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
+                                        p.western
+                                            font(color='#000000')
+                                                font(face='Calibri, serif')
+                                                    b A
+                                    td(valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
+                                        p.western
+                                            font(color='#000000')
+                                                font(face='Calibri, serif')
+                                                    b
+                                                        | Above
+                                                        | 7 years and Less than or equal to 9 years
+                                    td
+                                        b
+                                    td(colspan='2', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
+                                        p.western
+                                            font(color='#000000')
+                                                font(face='Calibri, serif')
+                                                    b A1
+                                    td(colspan='2', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
+                                        p.western
+                                            font(color='#000000')
+                                                font(face='Calibri, serif')
+                                                    b
+                                                        | Above
+                                                        | 8 years and Less than or equal to 10 years
+                                tr
+                                    td(height='5', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
+                                        p.western
+                                            font(color='#000000')
+                                                font(face='Calibri, serif')
+                                                    b B
+                                    td(valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
+                                        p.western
+                                            font(color='#000000')
+                                                font(face='Calibri, serif')
+                                                    b
+                                                        | Above
+                                                        | 9 years and Less than or equal to 11 years
+                                    td
+                                        p
+                                    td(colspan='2', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
+                                        p.western
+                                            font(color='#000000')
+                                                font(face='Calibri, serif')
+                                                    b B1
+                                    td(colspan='2', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
+                                        p.western
+                                            font(color='#000000')
+                                                font(face='Calibri, serif')
+                                                    b
+                                                        | Above
+                                                        | 10 years
+                                tr
+                                    td(height='5', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
+                                        p.western
+                                        font(color='#000000')
+                                            font(face='Calibri, serif')
+                                            b C
+                                    td(valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
+                                        p.western
+                                        font(color='#000000')
+                                            font(face='Calibri, serif')
+                                            b
+                                                | Above
+                                                | 11 years and Less than or equal to 13 years
+                                    td(colspan='1', valign='bottom', bgcolor='#ffffff', style='border: none; padding: 0cm 0.19cm')
+                                        p.western
+                                        br
+                                    td(colspan='2', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
+                                        p.western
+                                        br
+                                    td(colspan='2', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
+                                        p.western
+                                        br
+                                tr
+                                    td(height='4', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
+                                        p.western
+                                            font(color='#000000')
+                                                font(face='Calibri, serif')
+                                                    b D
+                                    td(valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
+                                        p.western
+                                            font(color='#000000')
+                                                font(face='Calibri, serif')
+                                                    b
+                                                        | Above
+                                                        | 13 years
+                                    td
+                                        p
+                                    td(colspan='2', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
+                                        p.western
+                                        br
+                                    td(colspan='2', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
+                                        p.western
+                                        br
+                        p.western(style='margin-bottom: 0cm; line-height: 115%')
+                            br
+                        p(align='justify', style='margin-bottom: 0cm; line-height: 115%')
+                            font(color='#000000')
+                                font(size='3', style='font-size: 12pt')
+                                    b Note: Age as on 30st Sept 2018 to be taken.
+                        p(align='justify', style='margin-bottom: 0cm; line-height: 100%;padding-top:15px;')
+                            font(color='#000000')
+                                font(size='3', style='font-size: 12pt') For e.g In Tiny Tots, if a student is exact 7 years or less the student will be in ‘A’ Group. If the student is 7 years and one Day old the student will be in ‘B’ Group. Same is in case of other categories. Level in which the student is going to participate will be based on the completed Level.
+                        p(style='margin-bottom: 0cm; line-height: 100%')
+                            br
+                        p(style='margin-bottom: 0cm; line-height: 100%')
+                            br
+                        p(style='margin-bottom: 0cm; line-height: 100%')
+                            font(color='#000000')
+                                font(size='3', style='font-size: 12pt')
+                                    u
+                                        b
+                                            | School Programme
+                        table(width='361', cellpadding='7', cellspacing='0', style="margin-top:15px;width:500px;float:none;")
+                            colgroup
+                                col(width='112')
+                                col(width='219')
+                            tbody
+                                tr(valign='bottom')
+                                    td(width='112', height='5', bgcolor='#ffffff', style='border-top: 1px solid #00000a; border-bottom: 1px solid #00000a; border-left: 1px solid #00000a; border-right: 1px solid #000001; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
+                                        p
+                                            font(color='#000000')
+                                                font(face='Calibri, serif') Year 1 running (TT/MA)
+                                    td(width='219', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
+                                        p
+                                            font(color='#000000')
+                                                font(face='Calibri, serif') Can participate only for Level 1 
+                                tr(valign='bottom')
+                                    td(width='112', height='6', bgcolor='#ffffff', style='border-top: 1px solid #00000a; border-bottom: 1px solid #00000a; border-left: 1px solid #00000a; border-right: 1px solid #000001; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
+                                        p
+                                            font(color='#000000')
+                                                font(face='Calibri, serif') Year 2 Running (TT/MA)
+                                    td(width='219', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
+                                        p
+                                            font(color='#000000')
+                                                font(face='Calibri, serif') Can participate for Level 2 or Level 3
+                                tr(valign='bottom')
+                                    td(width='112', height='6', bgcolor='#ffffff', style='border-top: 1px solid #00000a; border-bottom: 1px solid #00000a; border-left: 1px solid #00000a; border-right: 1px solid #000001; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
+                                        p
+                                            font(color='#000000')
+                                                font(face='Calibri, serif') Year 3 Running (TT/MA)
+                                    td(width='219', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
+                                        p
+                                            font(color='#000000')
+                                                font(face='Calibri, serif') Can participate for Level 4 or Level 5
+                                tr(valign='bottom')
+                                    td(width='112', height='5', bgcolor='#ffffff', style='border-top: 1px solid #00000a; border-bottom: 1px solid #00000a; border-left: 1px solid #00000a; border-right: 1px solid #000001; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
+                                        p
+                                            font(color='#000000')
+                                                font(face='Calibri, serif') Year 4 Running (TT/MA)
+                                    td(width='219', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
+                                        p
+                                            font(color='#000000')
+                                                font(face='Calibri, serif') Can participate for Level 6 or Level 7
+                        p(style='margin-bottom: 0cm; line-height: 100%')
+                            br
+                        p(style='margin-bottom: 0cm; line-height: 100%')
+                            br
+                        p(align='justify', style='margin-bottom: 0cm; line-height: 100%')
+                            font(color='#000000')
+                                font(size='3', style='font-size: 12pt; line-height:24px;')
+                                    b Note: All the student information provided by the franchisee must match the information available with Aloha India Corporate Office. If the details provided by the franchise are found to be mismatching the registrations will not be accepted and the registration money will be refunded.
+                        p.western(style='margin-bottom: 0cm; line-height: 115%')
+                            br
+                        p
+                            font(color='#000000')
+                                font(size='3')
+                                    u
+                                        b
+                                            | NORMS FOR THE COMPETITION:
+                        ul
+                            li
+                                p(align='justify', style='margin-bottom: 0cm; line-height: 115%')
+                                    font(color='#000000')
+                                        font(size='2', style='font-size: 10pt') 
+                                            | Registration fee of Rs. 550 /- should be collected from every participant.
+                            li
+                                p(align='justify', style='margin-bottom: 0cm; line-height: 115%')
+                                    font(color='#000000')
+                                        font(size='2', style='font-size: 10pt') 
+                                            | All original Registration froms should reach the TASK office on or before 18th Oct 2018 along with the Registration fee (DD or Cheque, Cash will not be accepted) Postal delay will not be entertained.
+                            li    
+                                p(align='justify', style='margin-bottom: 0cm; line-height: 115%')
+                                    font(color='#000000')
+                                        font(size='2', style='font-size: 10pt')
+                                            | Admit card and Fee Receipt can be downloaded by Students directly from the web portal after 20th October 2018
+                            li
+                                p(align='justify', style='margin-bottom: 0cm; line-height: 115%')
+                                    font(color='#000000')
+                                        font(size='2', style='font-size: 10pt')
+                                            | Every centre should ensure that the participant gets the ordered T – Shirt.
+                            li
+                                p(align='justify', style='margin-bottom: 0cm; line-height: 115%')
+                                    font(color='#000000')
+                                        font(size='2', style='font-size: 10pt') 
+                                            | Any appeal (complaints) should be lodged before 31st Oct 2018 only via email to our email id aloha.karnataka@gmail.com, no other mean of communication will be entertained or recognized.
+                            li
+                                p(align='justify', style='margin-bottom: 0cm; line-height: 115%')
+                                    font(color='#000000')
+                                        font(size='2', style='font-size: 10pt')
+                                            | The decision of TASK will be final in all matters relating to the event/competition.                            
+                        h5
+                            | To Download this, please click here - <a ng-href="{{center_file}}" target="_blank" style="color:blue;">Terms & Conditions</a>
+
+                div(style='text-align:center;')
+                    button.btn.btn-success(style='border-radius: 10px; margin:20px; color: #fff; background-color: #00C84F; border-color: #00C84F; cursor: pointer; box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);margin-bottom: .3125rem; font-size: 1rem; padding: 15px; font-weight: bolder; text-decoration: none; text-transform: uppercase; letter-spacing: 0; border: 0; outline: 0; transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1); will-change: box-shadow,transform;min-width:200px;', ng-click='$parent.reverse_center_terms_agreed()') I AGREE
+            
             //- Table for Students for Center and Admin
-            table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp.ng-hide(ng-controller="TableController", ng-show="loggedIn && !isStudent", ng-init="update_students()", ng-table='tableParams', show-filter='true', style="max-height:80vh;overflow-y:scroll;float:left;display:block;")
+            table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp.ng-hide(ng-controller="TableController", ng-show="loggedIn && !isStudent && $parent.center_terms_agreed", ng-init="update_students()", ng-table='tableParams', show-filter='true', style="max-height:80vh;overflow-y:scroll;float:left;display:block;")
                 thead
                     tr
                         th.mdl-data-table__cell--non-numeric(ng-show="selectMultiple")
@@ -102,7 +469,8 @@ block content
 
                     tr(ng-repeat="f in student_list | orderBy:predicate:reverse | filter:search track by $index", ng-style="f.status=='payment' && {'background-color':'burlywood'} || f.status=='admin' && {'background-color':'peachpuff'}")
                         th(class="mdl-data-table__cell--non-numeric",ng-show="selectMultiple") 
-                            input(type="checkbox",ng-model="f.checked",ng-change="selectedOneMultiple(f)",ng-show="f.status=='payment'",ng-disabled="f.photo == '' || f.photo == undefined || f.birthcertificate == '' || f.birthcertificate == undefined",style="width:21px;height:21px;")
+                            input(type="checkbox",ng-model="f.checked",ng-change="selectedOneMultiple(f)",ng-show="f.status=='payment' && f.photo != '' && f.photo != undefined && f.birthcertificate != '' && f.birthcertificate != undefined",style="width:21px;height:21px;")
+                            input(type="checkbox",title="Please upload student photo to make payment",ng-model="f.checked",ng-show="f.status=='payment' && (f.photo == '' || f.photo == undefined || f.birthcertificate == '' || f.birthcertificate == undefined)",ng-disabled="f.photo == '' || f.photo == undefined || f.birthcertificate == '' || f.birthcertificate == undefined",style="width:21px;height:21px;")
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{$index+1}}
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.phone}}
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.email}}
@@ -143,14 +511,24 @@ block content
                             form(name='registration', ng-submit='save_student()', ng-show='showStudentStatus')
                                 .panel.panel-default(style='margin-top:20px;')
                                     .panel-body(style='height:70vh; overflow-y:scroll; background-color:white;border-radius: 10px;padding: 15px;')
-                                       div(ng-if="studentStatus.status != 'closed'")
+                                       div(ng-if="studentStatus.status == 'open' || studentStatus.status == 'payment'")
                                             h5#swal2-title.swal2-title(style="color:#0080ff;margin:10px 20px;") Dear {{studentStatus.name}} <br><br>
-                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Thankyou for the registration at Aloha. Your current status is  Open. <br> <br>
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Thankyou for the registration at Aloha. Your current status is <b> Open. </b> <br> <br>
                                             h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Please make a payment of <b> Rs.550 towards Registration and of Rs.250 if opted for T-Shirt </b> to the concerned authorities. <br><br>
                                             h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Do not forget to come back after <b> 20th October 2018 </b> to print the hall ticket. <br><br>
                                             h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Incase of any doubts, please mail us at aloha.karnataka@gmail.com <br><br>
                                             h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Wishing your kid all the very best! <br><br>
                                             <a ng-href="{{file}}" target="_blank" style="color:blue;margin:20px;">Download Terms & Conditions</a>                                                                                             
+
+                                       div(ng-if="studentStatus.status == 'admin' || studentStatus.status == 'hallticket'")
+                                            h5#swal2-title.swal2-title(style="color:#0080ff;margin:10px 20px;") Dear {{studentStatus.name}} <br><br>
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Thankyou for the registration at Aloha. Your current status is <b> In Process. </b> <br> <br>
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") We have successfully received your payment, and you can download the receipt below. <br><br>
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Do not forget to come back after <b> 20th October 2018 </b> to print the hall ticket. <br><br>
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Incase of any doubts, please mail us at aloha.karnataka@gmail.com <br><br>
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Wishing your kid all the very best! <br><br>
+                                            <a ng-href="{{file}}" target="_blank" style="color:blue;margin:20px;">Download Terms & Conditions</a>                                                                                             
+                                            <a ng-click="downloadReceipt()" style="color:blue;margin:20px;text-decoration:underline;cursor:pointer;">Download Receipt</a>
 
                                        div(ng-if="studentStatus.status == 'closed'")
                                             h5#swal2-title.swal2-title(style="color:#0080ff;margin:10px 20px;") Dear {{studentStatus.name}} <br><br>
@@ -212,8 +590,8 @@ block content
                             label.mdl-textfield__label !{t('Address')}
 
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                            input.mdl-textfield__input(type="date", ng-model="student.dateofbirth", ng-required="true")
-                            label.mdl-textfield__label !{t('Date Of Birth')}
+                            input.mdl-textfield__input(type="date", ng-model="student.dateofbirth", id="datepicker", ng-required="true")
+                            label.mdl-textfield__label !{t('Date Of Birth (dd/mm/yyyy)')}
 
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                             label.mdl-textfield__label !{t('Do you want a T-Shirt?')}                                            
@@ -280,15 +658,24 @@ block content
                             input.mdl-textfield__input(type="text", ng-model="student.lastyearlevel")
                             label.mdl-textfield__label !{t('If Participated Last Year, Which Level?')}
 
-                    div(style="width:20%;float:left;overflow-y:scroll;max-height:80vh;")
+                    div(style="width:20%;float:left;overflow-y:scroll;max-height:80vh;", class="show-image")
+                        a(ng-href="https://s3.ap-south-1.amazonaws.com/alohakarnataka/{{student.photo}}",target="_blank",ng-if="student.photo != undefined && student.photo != ''")
+                            img(ng-src='https://s3.ap-south-1.amazonaws.com/alohakarnataka/{{student.photo}}', style="border:3px solid grey;width: 175px; height: 225px;margin-top:50px;margin-left:15px;", ng-if="getFileExtension(student.photo)")
+                            span(style="color:blue;padding-top:30px;font-size:20px;",ng-if="!getFileExtension(student.photo)") 
+                                br
+                                br
+                                | Download Photo (Format not supported to display)
+                        <span class="close" ng-click="deleteImage('photo')" ng-if="student.photo != undefined && student.photo != '' && isAdmin" style="cursor:pointer;"><i class="fa fa-trash" aria-hidden="true"></i></span>
+                        
                         br
-                        img(ng-src='https://s3.ap-south-1.amazonaws.com/alohakarnataka/{{student.photo}}', style="border:3px solid grey;width: 100%; height: auto;margin-top:50px;", ng-if="student.photo != undefined && student.photo != '' && getFileExtension(student.photo)")
-                        a(ng-href="https://s3.ap-south-1.amazonaws.com/alohakarnataka/{{student.photo}}",target="_blank",style="color:blue;padding-top:30px;font-size:20px;",ng-if="student.photo != undefined && student.photo != '' && !getFileExtension(student.photo)") Download Photo (Format not supported to display)
-                        br
-                        br
-                        br
-                        img(ng-src='https://s3.ap-south-1.amazonaws.com/alohakarnataka/{{student.birthcertificate}}', style="border:3px solid grey;width: 100%; height: auto;margin-top:10px;", ng-if="student.birthcertificate != undefined && student.birthcertificate != '' && getFileExtension(student.birthcertificate)")
-                        a(ng-href="https://s3.ap-south-1.amazonaws.com/alohakarnataka/{{student.birthcertificate}}",target="_blank",style="color:blue;padding-top:30px;font-size:20px;",ng-if="student.birthcertificate != undefined && student.birthcertificate != '' && !getFileExtension(student.birthcertificate)") Download Birth Certificate (Format not supported to display)
+
+                        a(ng-href="https://s3.ap-south-1.amazonaws.com/alohakarnataka/{{student.birthcertificate}}",target="_blank",ng-if="student.birthcertificate != undefined && student.birthcertificate != ''")
+                            img(ng-src='https://s3.ap-south-1.amazonaws.com/alohakarnataka/{{student.birthcertificate}}', style="border:3px solid grey;width: 175px; height: 225px;margin-top:50px;margin-left:15px;", ng-if="getFileExtension(student.birthcertificate)")
+                            span(style="color:blue;padding-top:30px;font-size:20px;",ng-if="!getFileExtension(student.birthcertificate)") 
+                                br
+                                br
+                                | Download Photo (Format not supported to display)
+                        <span class="close" ng-click="deleteImage('birthcertificate')" ng-if="student.birthcertificate != undefined && student.birthcertificate != '' && isAdmin" style="cursor:pointer;"><i class="fa fa-trash" aria-hidden="true"></i></span>
 
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.photo == undefined || student.photo == ''", style="width:90%;margin-top: 50px;")
                             span !{t('Upload Student Image')}  
@@ -304,6 +691,8 @@ block content
                 .mdl-card__actions.mdl-card--border
                     a#save-btn.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored.mdl-js-ripple-effect(ng-click="save_student()")
                         | !{t('SAVE')}
+                    a#save-btn.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored.mdl-js-ripple-effect(ng-click="swap_image()", style="margin-right:-50%;background:none;color:#3a9788;border:none;padding:0;font-size:14px;box-shadow:none;", ng-show='isAdmin')
+                        | !{t('SWAPE IMAGE')}
 
                 .mdl-card__menu
                     button.mdl-button.mdl-button--icon.mdl-js-button.mdl-js-ripple-effect(ng-click="close_card()")

@@ -8,26 +8,10 @@ angular.module('StudentApp.CardController', [])
 
         $scope.tshirtsizeoptions = ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
         $scope.programmeoptions = ['Center Programme', 'School Programme'];
-        $scope.centeroptions = [
-            { name: 'ABC Center', code: 'abc' },
-            { name: 'DEF Center', code: 'def' },
-            { name: 'GHI Center', code: 'ghi' },
-            { name: 'JKL Center', code: 'jkl' },
-            { name: 'MNOP', code: 'mno' },
-            { name: 'QRSTUVWX Y Z', code: 'xyz' }
-        ];
-        $scope.schooloptions = [
-            { name: 'ABC School', code: 'abc' },
-            { name: 'DEF School', code: 'def' },
-            { name: 'GHI School', code: 'ghi' },
-            { name: 'JKL School', code: 'jkl' },
-            { name: 'MNOP', code: 'mno' },
-            { name: 'QRSTUVWX Y Z', code: 'xyz' }
-        ];
         $scope.centergroups = ['MA', 'TT'];
         $scope.schoolgroups = ['MAS', 'TTS'];
         $scope.ttlevels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
-        $scope.malevels = ["1", "2", "3", "4", "5", "6", "7", "8"];
+        $scope.malevels = ["pre", "1", "2", "3", "4", "5", "6", "7", "8"];
 
         //Save student button handler
         $scope.msg = "";
@@ -248,7 +232,7 @@ angular.module('StudentApp.CardController', [])
                 $scope.$parent.student.venue = "Vidya Soudha School \n 9/1, 1st Main Road, \n Peenya 1st Stage, \n Bangalore 560058";
                 $scope.$parent.student.status = "closed";
                 $scope.$parent.student.admissioncardno = $scope.$parent.student.centercode + "/" + $scope.$parent.student.group + "/" +
-                    $scope.$parent.student.category + "/" + $scope.$parent.student.level + "/";
+                    $scope.$parent.student.category + "/" + ($scope.$parent.student.level == 'pre' ? "0" : $scope.$parent.student.level) + "/";
                 $scope.$parent.student.admissioncardno += getNumberOfStudents();
                 studentFactory.update({ id: $scope.$parent.student._id }, $scope.$parent.student, function (response) {
                     $scope.$parent.adminediting = false;
@@ -257,6 +241,20 @@ angular.module('StudentApp.CardController', [])
                     //error
                     console.error(response);
                 });
+            }
+        }
+
+        $scope.swap_image = function() {
+            var temp = $scope.$parent.student.photo;
+            $scope.$parent.student.photo = $scope.$parent.student.birthcertificate;
+            $scope.$parent.student.birthcertificate = temp;
+        }
+
+        $scope.deleteImage = function(type) {
+            if(type == "photo") {
+                $scope.$parent.student.photo = "";
+            } else {
+                $scope.$parent.student.birthcertificate = "";
             }
         }
 

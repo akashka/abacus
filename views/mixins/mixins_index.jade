@@ -191,8 +191,8 @@ mixin login_form
                                                 label.mdl-textfield__label !{t('Parent Name')}
 
                                             .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="(student.programmename == 'Center Programme' || student.programmename == 'School Programme') && isOTPVerified && !isPhoneDuplicate")
-                                                span !{t('Date Of Birth')}                                                
-                                                input.mdl-textfield__input(type="date", ng-model="student.dateofbirth", ng-required="true", class="active", min="2003-09-30", max="2013-09-30")
+                                                span !{t('Date Of Birth (dd/mm/yyyy)')}                                                
+                                                input.mdl-textfield__input(type="date", ng-model="student.dateofbirth", ng-required="true", id="datepicker", class="active", min="2003-09-30", max="2013-09-30")
 
                                             .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="(student.programmename == 'Center Programme' || student.programmename == 'School Programme') && isOTPVerified && !isPhoneDuplicate")
                                                 label.mdl-textfield__label !{t('Gender')}

@@ -222,9 +222,12 @@ function generateHallTicket(username, callbacks) {
     StudentModel.find({ phone: username.username }, function (err, student) {
         if (!err) {
             student = student[0];
-            var text = "Student Name: " + student.name + "\n";
-            text += "Roll No: " + student.admissioncardno + "\n";
-            text += "Competition Time: " + student.competitiontime + "\n";
+            var text = "Student Name: " + student.name + "\n \n";
+            text += "Roll No: " + student.admissioncardno + "\n \n";
+            text += "Competition Time: " + student.competitiontime + "\n \n";
+            text += "School / Center: " + ((student.centername != undefined) ? student.centername : "") + ((student.schoolname != undefined) ? student.schoolname : "") + "  /  " + ((student.centercode != undefined) ? student.centercode : "")+ "\n \n";
+            text += (student.photo != undefined) ? ('https://s3.ap-south-1.amazonaws.com/alohakarnataka/' + student.photo) : '';
+
             QRCode.toDataURL(text, function (err, body) {
                 var qrImage = "";
                 if (!err) qrImage = body;

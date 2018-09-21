@@ -5,6 +5,11 @@ angular.module('StudentApp.TableController', [])
             $scope.$parent.loading = true;
             //Load students
 
+            $scope.$parent.center_terms_agreed = false;
+            $scope.$parent.reverse_center_terms_agreed = function() {
+                $scope.$parent.center_terms_agreed = true;
+            }
+
             userFactory.query().$promise.then(function (response) {
                 $scope.$parent.user_list = response;
             }, function (response) {
