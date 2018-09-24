@@ -155,7 +155,8 @@ angular.module('StudentApp.LoginController', [])
             { name: 'KUNJEEBETTU', code: '1359' }, // 9980983815
             { name: 'JALAHALLI', code: '1364' }, // 8884012849
             { name: 'MYSORE', code: '1400' }, // 
-            { name: 'PRASHANTH NAGAR', code: '1378' } // 
+            { name: 'PRASHANTH NAGAR', code: '1378' }, // 
+            { name: 'Rajajinagar / HSR Layout', code: '1311'} // 9980994089
         ];
         $scope.schooloptions = [
             { name: 'Air Force Jalahalli', code: 'SCH1' }, // 9945179640
@@ -175,19 +176,27 @@ angular.module('StudentApp.LoginController', [])
             $scope.termsAccepted = !$scope.termsAccepted;
         }
 
+        function testDate(str) {
+            var t = str.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+            if (t === null) return false;
+            var d = +t[1], m = +t[2], y = +t[3];
+            if (m >= 1 && m <= 12 && d >= 1 && d <= 31) return true;
+            return false;
+        }
+
         //Save student button handler
         $scope.msg = "";
         $scope.save_student = function () {
             if ($('#datepicker')[0].type != 'date') {
-                    var parts = $('#datepicker')[0].value.split('/');
-                    var mydate = new Date(parts[2], parts[1] - 1, parts[0]);
-                    $scope.student.dateofbirth = mydate;
+                var parts = $('#datepicker')[0].value.split('/');
+                var mydate = new Date(parts[2], parts[1] - 1, parts[0]);
+                $scope.student.dateofbirth = mydate;
             }
             $scope.msg = "";
             if ($scope.student.address == "" || $scope.student.address == undefined) {
                 $scope.msg = "Invalid or Missing Address. Please make sure you have entered correct Address";
             }
-            else if ($scope.student.dateofbirth == "" || $scope.student.dateofbirth == undefined) {
+            else if ($scope.student.dateofbirth == "" || $scope.student.dateofbirth == undefined || Object.prototype.toString.call($scope.student.dateofbirth) != "[object Date]") {
                 $scope.msg = "Invalid or Missing Date Of Birth. Please make sure you have entered correct Date Of Birth in format dd/mm/yyyy";
             }
             else if ($scope.student.email == "" || $scope.student.email == undefined) {
