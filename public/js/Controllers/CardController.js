@@ -8,10 +8,70 @@ angular.module('StudentApp.CardController', [])
 
         $scope.tshirtsizeoptions = ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
         $scope.programmeoptions = ['Center Programme', 'School Programme'];
+        $scope.centeroptions = [
+            { name: 'HEBBAL', code: '1367' }, // 9886293723
+            { name: 'BEGUR', code: '1379' }, // 9886585107
+            { name: 'KUMARAPARK', code: '1323' }, //9900083766
+            { name: 'KOLEEGALA', code: '1321' }, // 9886017421, 7892331200
+            { name: 'HOSAKOTE', code: 'KA42' }, // 9986099408, 7259336864
+            { name: 'R P D CROSS', code: '1357' }, // 9845538279
+            { name: 'MALMARUTHI B G M', code: '1356' }, // 9844802955, 8867219679
+            { name: 'KARKALA', code: '1344' }, // 9980439868
+            { name: 'KUNJEEBETTU', code: '1359' }, // 9980983815
+            { name: 'JALAHALLI', code: '1364' }, // 8884012849
+            { name: 'MYSORE', code: '1400' }, // 
+            { name: 'PRASHANTH NAGAR', code: '1378' }, // 
+            { name: 'Rajajinagar / HSR Layout', code: '1311'} // 9980994089
+        ];
+        $scope.schooloptions = [
+            { name: 'Air Force Jalahalli', code: 'SCH1' }, // 9945179640
+            { name: 'Euro School Chimney Hills', code: 'SCH2' }, // 9591478791
+            { name: 'KMV Red Hills School', code: 'SCH3' }, // 8618576863, 9880632136, 8310810268, 7760262284
+            { name: 'Vidya Soudha Public School Peenya', code: 'SCH4' } // 9980555084, 9483047595
+        ];
+
+        $scope.centeroption = [
+            'HEBBAL', // 9886293723
+            'BEGUR', // 9886585107
+            'KUMARAPARK', //9900083766
+            'KOLEEGALA', // 9886017421, 7892331200
+            'HOSAKOTE', // 9986099408, 7259336864
+            'R P D CROSS', // 9845538279
+            'MALMARUTHI B G M', // 9844802955, 8867219679
+            'KARKALA', // 9980439868
+            'KUNJEEBETTU', // 9980983815
+            'JALAHALLI', // 8884012849
+            'MYSORE', // 
+            'PRASHANTH NAGAR', // 
+            'Rajajinagar / HSR Layout' // 9980994089
+        ];
+
+         $scope.schooloption = [
+            'Air Force Jalahalli', // 9945179640
+            'Euro School Chimney Hills', // 9591478791
+            'KMV Red Hills School', // 8618576863, 9880632136, 8310810268, 7760262284
+            'Vidya Soudha Public School Peenya' // 9980555084, 9483047595
+        ];
+
+        //admin - 9845679966
         $scope.centergroups = ['MA', 'TT'];
         $scope.schoolgroups = ['MAS', 'TTS'];
         $scope.ttlevels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
         $scope.malevels = ["pre", "1", "2", "3", "4", "5", "6", "7", "8"];
+
+        $scope.onCentChange = function(centername, key) {
+            if(key == 'center') {
+                for(var i=0; i<$scope.centeroptions.length; i++) {
+                    if($scope.centeroptions[i].name == centername)
+                        $scope.student.centercode = $scope.centeroptions[i].code;
+                } 
+            } else {
+                for(var i=0; i<$scope.schooloptions.length; i++) {
+                    if($scope.schooloptions[i].name == centername)
+                        $scope.student.centercode = $scope.schooloptions[i].code;
+                } 
+            }
+        }
 
         //Save student button handler
         $scope.msg = "";

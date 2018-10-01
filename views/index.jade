@@ -11,7 +11,7 @@ block content
             #blur.ng-hide(ng-show="editing && !loading")
             
             //- Terms & Conditions for Center
-            form(name='admintandc', ng-show="loggedIn && !isStudent && !$parent.center_terms_agreed", ng-controller="TableController")
+            form(name='admintandc', ng-show="loggedIn && isCenter && !$parent.center_terms_agreed", ng-controller="TableController")
                 .panel.panel-default(style='margin-top:100px;')
                     .panel-body(style='height:70vh; overflow-y:scroll; background-color:white;border-radius: 10px;padding:30px;')
                         h4(style="text-decoration:underline;margin:0;margin-bottom:25px;text-align:center;")
@@ -378,7 +378,7 @@ block content
                     button.btn.btn-success(style='border-radius: 10px; margin:20px; color: #fff; background-color: #00C84F; border-color: #00C84F; cursor: pointer; box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);margin-bottom: .3125rem; font-size: 1rem; padding: 15px; font-weight: bolder; text-decoration: none; text-transform: uppercase; letter-spacing: 0; border: 0; outline: 0; transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1); will-change: box-shadow,transform;min-width:200px;', ng-click='$parent.reverse_center_terms_agreed()') I AGREE
             
             //- Table for Students for Center and Admin
-            table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp.ng-hide(ng-controller="TableController", ng-show="loggedIn && !isStudent && $parent.center_terms_agreed", ng-init="update_students()", ng-table='tableParams', show-filter='true', style="max-height:80vh;overflow-y:scroll;float:left;display:block;")
+            table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp.ng-hide(ng-controller="TableController", ng-show="loggedIn && ((isCenter && $parent.center_terms_agreed) || isAdmin)", ng-init="update_students()", ng-table='tableParams', show-filter='true', style="max-height:80vh;overflow-y:scroll;float:left;display:block;")
                 thead
                     tr
                         th.mdl-data-table__cell--non-numeric(ng-show="selectMultiple")
@@ -404,7 +404,9 @@ block content
                         th.mdl-data-table__cell--non-numeric(ng-show='isAdmin') 
                             <a href="" ng-click="order('programmename')"> PROGRAMME NAME </a>                                                    
                         th.mdl-data-table__cell--non-numeric 
-                            <a href="" ng-click="order('centername')"> CENTER / SCHOOL Name </a>                                                    
+                            <a href="" ng-click="order('centername')"> CENTER NAME (If Center) </a>                                                    
+                        th.mdl-data-table__cell--non-numeric 
+                            <a href="" ng-click="order('schoolname')"> SCHOOL NAME (If School) </a>                                                    
                         th.mdl-data-table__cell--non-numeric 
                             <a href="" ng-click="order('level')"> LEVEL </a>                                                    
                         th.mdl-data-table__cell--non-numeric 
@@ -450,6 +452,8 @@ block content
                         td
                             input(type="text",ng-model="search.centername") 
                         td
+                            input(type="text",ng-model="search.schoolname") 
+                        td
                             input(type="text",ng-model="search.level") 
                         td
                             input(type="text",ng-model="search.group") 
@@ -483,9 +487,10 @@ block content
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.dateCreated | date:'dd-MMM-yyyy'}}
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)",ng-show='isAdmin') {{f.programmename}}
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)")
-                            span(ng-if="f.centername != undefined")
+                            span(ng-if="f.programmename == 'Center Programme'")
                                 | {{f.centername}}
-                            span(ng-if="f.schoolname != undefined")
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)")
+                            span(ng-if="f.programmename == 'School Programme'")
                                 | {{f.schoolname}}
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.level}}
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.group}}
@@ -544,22 +549,30 @@ block content
             .demo-card-wide.mdl-card.mdl-shadow--2dp(ng-controller="CardController", ng-show="$parent.editing")
                 .mdl-card__supporting-text(style="padding:5px;")
                     div(style="width:80%;float:left;overflow-y:scroll;max-height:80vh;")
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="isCenter")
                             input.mdl-textfield__input(type="text", ng-model='student.programmename', ng-disabled="true", ng-required="true")
                             label.mdl-textfield__label !{t('Select Programme')}
 
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'Center Programme'")
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'Center Programme' && isCenter")
                             input.mdl-textfield__input(type="text", ng-model='student.centername', ng-disabled="true", ng-required="true")
                             label.mdl-textfield__label !{t('Select Center')}
 
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'School Programme'")
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'School Programme' && isCenter")
                             input.mdl-textfield__input(type="text", ng-model='student.schoolname', ng-disabled="true", ng-required="true")
                             label.mdl-textfield__label !{t('Select School')}
-                        
-                        //- .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                        //-     input.mdl-textfield__input(type="email", ng-model='student.centercode', ng-disabled="true", ng-required="true")
-                        //-     label.mdl-textfield__label !{t('Center Code')}
 
+                        div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="isAdmin")
+                            span !{t('Select Center Type')}
+                            select.mdc-select__native-control(ng-model='student.programmename', ng-options='x for x in programmeoptions', ng-required="true")
+
+                        div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'Center Programme' && isAdmin")
+                            span !{t('Select Center')}
+                            select.mdc-select__native-control(ng-model='student.centername', ng-options='x for x in centeroption', ng-change="onCentChange(student.centername, 'center')")
+
+                        div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'School Programme' && isAdmin")
+                            span !{t('Select School')}
+                            select.mdc-select__native-control(ng-model='student.schoolname', ng-options='x for x in schooloption', ng-change="onCentChange(student.schoolname, 'school')")
+                        
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                             input.mdl-textfield__input(type="text", ng-model="student.phone", ng-minlength="10", ng-disabled="true", ng-maxlength="10", ng-required="true")
                             label.mdl-textfield__label !{t('Phone Number')}

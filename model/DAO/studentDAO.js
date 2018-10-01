@@ -75,9 +75,9 @@ function createStudent(student, callbacks) {
         photo: student.photo,
         birthcertificate: student.birthcertificate,
         programmename: student.programmename,
-        centername: student.centername,
+        centername: (student.programmename == 'Center Programme') ? student.centername : "",
         centercode: student.centercode,
-        schoolname: student.schoolname,
+        schoolname: (student.programmename == 'School Programme') ? student.schoolname : "",
         status: 'open',
         dateCreated: new Date()
     });
@@ -134,10 +134,10 @@ function updateStudent(id, student, callbacks) {
             f.tshirtsize = student.tshirtsize;
             f.photo = student.photo;
             f.birthcertificate = f.birthcertificate;
-            // f.programmename = (student.centername != undefined && student.centername != "" ? "Center Programme" : "School Programme");
-            f.centername = student.centername;
+            f.programmename = student.programmename;
+            f.centername = (student.programmename == 'Center Programme') ? student.centername : "";
             f.centercode = student.centercode;
-            f.schoolname = student.schoolname;
+            f.schoolname = (student.programmename == 'School Programme') ? student.schoolname : "";
             f.status = student.status;
             f.dateModified = new Date();
             f.group = student.group;
