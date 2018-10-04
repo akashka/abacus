@@ -133,7 +133,7 @@ function updateStudent(id, student, callbacks) {
             f.tshirtrequired = student.tshirtrequired;
             f.tshirtsize = student.tshirtsize;
             f.photo = student.photo;
-            f.birthcertificate = f.birthcertificate;
+            f.birthcertificate = student.birthcertificate;
             f.programmename = student.programmename;
             f.centername = (student.programmename == 'Center Programme') ? student.centername : "";
             f.centercode = student.centercode;

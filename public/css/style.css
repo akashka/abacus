@@ -682,10 +682,6 @@ tbody tr{
 .show-image:hover input {
     display: block;
 }
-.show-image input {
-    position:absolute;
-    display:none;
-}
 .show-image input.update {
     top:0;
     left:0;

@@ -313,8 +313,10 @@ angular.module('StudentApp.CardController', [])
         $scope.deleteImage = function(type) {
             if(type == "photo") {
                 $scope.$parent.student.photo = "";
+                $scope.$parent.isPhoto = false;
             } else {
                 $scope.$parent.student.birthcertificate = "";
+                $scope.$parent.isBirthcertificate = false;
             }
         }
 
