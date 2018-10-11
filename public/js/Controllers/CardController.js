@@ -104,7 +104,8 @@ angular.module('StudentApp.CardController', [])
             if ($scope.count == 1) {
                 $scope.$parent.loading = true;
                 $scope.$parent.student.centername = $scope.$parent.student.centername;
-                $scope.$parent.student.status = 'payment';
+                if($scope.$parent.isCenter) $scope.$parent.student.status = 'payment';
+                else $scope.$parent.student.status = $scope.$parent.student.status;
                 if ($scope.$parent.student._id === undefined) {
                     //Adding Student -> POST
                     studentFactory.save($scope.$parent.student, function (response) {
