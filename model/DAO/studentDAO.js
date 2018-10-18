@@ -222,17 +222,19 @@ function generateHallTicket(username, callbacks) {
     StudentModel.find({ phone: username.username }, function (err, student) {
         if (!err) {
             student = student[0];
-            var text = "Student Name: " + student.name + "\n \n";
-            text += "Roll No: " + student.admissioncardno + "\n \n";
-            text += "Competition Time: " + student.competitiontime + "\n \n";
-            text += "School / Center: " + ((student.centername != undefined) ? student.centername : "") + ((student.schoolname != undefined) ? student.schoolname : "") + "  /  " + ((student.centercode != undefined) ? student.centercode : "")+ "\n \n";
+            var text = "Student Name:   " + student.name + "\n \n";
+            text += "Roll No:   " + student.admissioncardno + "\n \n";
+            text += "Comp. Time:   " + student.competitiontime + "\n \n";
+            text += "School / Center:   " + (student.centername != undefined ? student.centername : "") + (student.schoolname != undefined ? student.schoolname : "") + ("  /  " + student.centercode) + "\n \n";
+            text += "DOB / Gender:   " + student.dateofbirth + "  /  " + student.gender + "  " + student.tshirtsize;
             text += (student.photo != undefined) ? ('https://s3.ap-south-1.amazonaws.com/alohakarnataka/' + student.photo) : '';
+            text += "Phone No:   " + student.phone + "\n \n";
 
             QRCode.toDataURL(text, function (err, body) {
                 var qrImage = "";
                 if (!err) qrImage = body;
                 var stringTemplate = fs.readFileSync(path.join(__dirname, '../../helpers') + '/hallticket.html', "utf8");
-                stringTemplate = stringTemplate.replace('{{CenterOrSchoolName}}', ((student.centername != undefined) ? student.centername : "") + (student.schoolname != undefined) ? student.schoolname : "");
+                stringTemplate = stringTemplate.replace('{{CenterOrSchoolName}}', ((student.centername != undefined ? student.centername : "") + (student.schoolname != undefined ? student.schoolname : "") + ("   /   " + student.centercode)));
                 stringTemplate = stringTemplate.replace('{{StudentName}}', (student.name != undefined) ? student.name : "");
                 stringTemplate = stringTemplate.replace('{{EntryTime}}', (student.entrytime != undefined) ? student.entrytime : "");
                 stringTemplate = stringTemplate.replace('{{CompetitionTime}}', (student.competitiontime != undefined) ? student.competitiontime : "");
