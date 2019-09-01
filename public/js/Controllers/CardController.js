@@ -57,7 +57,7 @@ angular.module('StudentApp.CardController', [])
 
         $scope.save = function () {
             $scope.count++;
-            if ($scope.count == 1) {
+            if ($scope.count >= 1) {
                 $scope.$parent.loading = true;
                 $scope.$parent.student.centername = $scope.$parent.student.centername;
                 $scope.$parent.student.status = 'payment';
@@ -95,9 +95,9 @@ angular.module('StudentApp.CardController', [])
                 days: -1
         };
         $scope.calculateAge = function () {
-            var yearNow = 118;
-            var monthNow = 8;
-            var dateNow = 30;
+            var yearNow = 119;
+            var monthNow = 9;
+            var dateNow = 31;
             var dob = new Date($scope.$parent.student.dateofbirth);
             var yearDob = dob.getYear();
             var monthDob = dob.getMonth();

@@ -54,6 +54,23 @@ angular.module('StudentApp.FormController', [])
             getStudentStatus();
         });
 
+        $scope.downloadFormCopy = function (student) {
+            var fileurl = "/api/0.1/student/downloadCopy/" + student.phone;
+            window.open(fileurl, '_self', '');
+        }
+
+        $scope.downloadReceipt = function () {
+            var username = getCookie('username');
+            var fileurl = "/api/0.1/student/download/" + username;
+            window.open(fileurl, '_self', '');
+        }
+
+        $scope.downloadHallTicket = function (username) {
+            // var username = getCookie('username');
+            var fileurl = "/api/0.1/student/generateHallTicket/" + username;
+            window.open(fileurl, '_self', '');
+        }
+
         $timeout( function(){
             getStudentStatus();
         }, 1000 );

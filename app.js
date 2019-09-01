@@ -18,7 +18,7 @@ var routes = require('./routes/index');
 var userAPI = require('./routes/api/0.1/userAPI');
 var studentAPI = require('./routes/api/0.1/studentAPI');
 
-const BUCKET_NAME = 'alohakarnataka';
+const BUCKET_NAME = 'alohakarnataka2019';
 const IAM_USER_KEY = 'AKIAJ5YI3ULII2UU4HWA';
 const IAM_USER_SECRET1 = 'V717KGCwHmm';
 const IAM_USER_SECRET2 = 'AZ2FzCAaMV3DAJ';

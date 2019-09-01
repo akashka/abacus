@@ -129,7 +129,7 @@ block content
                             button(style="border:none;color:white;padding:8px;border-radius:5px;background:#3f51b5;cursor:pointer;box-shadow: 0 0 0 0 rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.14), 0 0 0 0 rgba(0,0,0,.12);margin: 0 3px;",confirmed-click="approveStudent(f)",ng-confirm-click="Are you sure you want to Confirm payment for this entry?",ng-show="f.status=='admin' && !f.paymentapproved") Approve
 
             //- Student Form
-            div(ng-controller="FormController", ng-show='loggedIn && isStudent', style='margin-top:100px;')
+            div.ng-hide(ng-controller="FormController", ng-show='loggedIn && isStudent', style='margin-top:100px;')
                 div
                     ncy-breadcrumb
                 .container
@@ -137,18 +137,39 @@ block content
                         .col-md-8.col-md-offset-2
                             form(name='registration', ng-submit='save_student()', ng-show='showStudentStatus')
                                 .panel.panel-default(style='margin-top:20px;')
-                                    .panel-body(style='height:70vh; overflow-y:scroll; background-color:white;border-radius: 10px;padding: 15px;')
-                                       div(ng-if="studentStatus.status == 'open'")
+                                    .panel-body(style='height:70vh; overflow-y:scroll; background-color:white;border-radius: 0px;padding: 15px;')
+                                       div(ng-if="studentStatus.status == 'open' || studentStatus.status == 'payment'")
                                             h5#swal2-title.swal2-title(style="color:#0080ff;margin:10px 20px;") Dear {{studentStatus.name}} <br><br>
                                             h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Thankyou for the registration at Aloha. Your current status is  Open. <br> <br>
                                             h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Please make a payment of <b> Rs.550 towards Registration and of Rs.250 if opted for T-Shirt </b> to the concerned authorities. <br><br>
-                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Do not forget to come back after <b> 20th October 2018 </b> to print the hall ticket. <br><br>
-                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Incase of any doubts, please mail us at aloha.karnataka@gmail.com <br><br>
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Do not forget to come back after <b> 4th November 2019 </b> to print the hall ticket. <br><br>
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Incase of any doubts, please mail us at <a href="mailto:info@alohakarnataka.com" style="color:blue;text-decoration:none;">info@alohakarnataka.com</a> <br><br>
                                             h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Wishing your kid all the very best! <br><br>
-                                            <a ng-href="{{file}}" target="_blank" style="color:blue;margin:20px;">Download Terms & Conditions</a>                                                                                             
+                                            <a ng-href="{{file}}" target="_blank" style="color:blue;margin:20px;text-decoration:none;">Download Terms & Conditions</a>
+                                            <a style="color:blue;float:left;margin:0px 0px 0px 20px;cursor:pointer;text-align:center;" ng-click='downloadFormCopy(studentStatus)'>Download Copy of Form</a> 
+
+                                        div(ng-if="studentStatus.status == 'admin' || studentStatus.status == 'hallticket'")
+                                            h5#swal2-title.swal2-title(style="color:#0080ff;margin:10px 20px;") Dear {{studentStatus.name}} <br><br>
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Thankyou for the registration at Aloha. Your current status is <b> In Process. </b> <br>
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") We have successfully received your payment, and you can download the receipt below. <br>
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Do not forget to come back after <b> 4th November 2019 </b> to print the hall ticket. <br>
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Incase of any doubts, please mail us at <a href="info@alohakarnataka.com" style="color:blue;text-decoration:none;">info@alohakarnataka.com</a> <br>
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Wishing your kid all the very best! <br>
+                                            <a ng-href="{{file}}" target="_blank" style="color:blue;margin:30px 20px;text-decoration:none;">Download Terms & Conditions</a>                                                                                             
+                                            <a ng-click="downloadReceipt()" style="color:blue;margin:30px 20px;text-decoration:none;cursor:pointer;">Download Receipt</a>   
+
+                                        div(ng-if="studentStatus.status == 'closed'")
+                                            h5#swal2-title.swal2-title(style="color:#0080ff;margin:10px 20px;") Dear {{studentStatus.name}} <br><br>
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Thankyou for the registration at Aloha.<br>
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") You can download the Hall Ticket and Receipt below. Do not forget to carry printed Hall Ticket to the Exam Venue. <br>
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Incase of any doubts, pls email us at <a href="mailto:info@alohakarnataka.com" style="color:blue;text-decoration:none;">info@alohakarnataka.com</a> <br>
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Wishing your kid all the very best! <br> <br>
+                                            <a ng-href="{{file}}" target="_blank" style="color:blue;margin:20px;text-decoration:none;">Download Terms & Conditions</a>
+                                            <a ng-click="downloadHallTicket(studentStatus.phone)" style="color:blue;text-decoration:none;cursor:pointer;"><b>Download Hall Ticket</b></a>                                                                                          
+                                            <a ng-click="downloadReceipt()" style="color:blue;margin:20px;text-decoration:none;cursor:pointer;">Download Receipt</a>
 
             //- Card for center to be updated
-            .demo-card-wide.mdl-card.mdl-shadow--2dp(ng-controller="CardController", ng-show="$parent.editing")
+            .demo-card-wide.mdl-card.mdl-shadow--2dp.ng-hide(ng-controller="CardController", ng-show="$parent.editing")
                 .mdl-card__supporting-text
                     div(style="width:80%;float:left;overflow-y:scroll;max-height:80vh;")
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
@@ -231,7 +252,7 @@ block content
                             label.mdl-textfield__label !{t('Category')}
         
                         p(ng-show="age.years != -1 && age.months != -1", style="display:-webkit-inline-box;margin-left:-27%;")
-                            | Age as on 31/Sept/2018 - {{age.years}} Yrs, {{age.months}} Month
+                            | Age as on 31/Oct/2019 - {{age.years}} Yrs, {{age.months}} Month
 
                         div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.group == 'MA' || student.group == 'MAS'")
                             span !{t('Level Applying For')}
@@ -295,7 +316,7 @@ block content
                         i.material-icons close
 
             //- Card for Payment details to be added
-            .demo-card-wide.mdl-card.mdl-shadow--2dp.paymenting(ng-show="paymenting")
+            .demo-card-wide.mdl-card.mdl-shadow--2dp.paymenting.ng-hide(ng-show="paymenting")
                 .mdl-card__supporting-text
                     div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                         span !{t('Payment Mode')}

@@ -1,6 +1,8 @@
 var express = require('express'),
     router = express.Router(),
     domain = require('domain'),
+    path = require('path'),
+    fs = require('fs'),
     studentDAO = require('./../../../model/DAO/studentDAO');
 
 //CREATE a new student
@@ -185,5 +187,80 @@ router.delete('/:id', function (req, res) {
         });
     });
 });
+
+router.get('/downloadCopy/:username', function (req, res) {
+    console.log("success");
+    var d = domain.create();
+    d.run(function () {
+        studentDAO.downloadCopy({
+            username: req.params.username,
+        }, {
+                success: function (pdf) {
+                    console.log(pdf);
+                    var output = fs.createWriteStream('./form_copy.pdf');
+                    console.log(output);
+                    
+                    pdf.stream.pipe(output);
+                    let filename = "form_copy";
+                    filename = encodeURIComponent(filename) + '.pdf';
+                    console.log("success3");
+                    var file = fs.readFileSync('./form_copy.pdf');
+                    res.setHeader('Content-Type', 'application/pdf');
+                    res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"');
+                    pdf.stream.pipe(res);
+                },
+                error: function (err) {
+                    res.status(403).send(err);
+                }
+            });
+    });
+});
+
+router.get('/download/:username', function (req, res) {
+    var d = domain.create();
+    d.run(function () {
+        studentDAO.downloadReceipt({
+            username: req.params.username,
+        }, {
+                success: function (pdf) {
+                    var output = fs.createWriteStream('./output.pdf');
+                    pdf.stream.pipe(output);
+                    let filename = "invoice";
+                    filename = encodeURIComponent(filename) + '.pdf';
+                    var file = fs.readFileSync('./output.pdf');
+                    res.setHeader('Content-Type', 'application/pdf');
+                    res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"');
+                    pdf.stream.pipe(res);
+                },
+                error: function (err) {
+                    res.status(403).send(err);
+                }
+            });
+    });
+});
+
+router.get('/generateHallTicket/:username', function (req, res) {
+    var d = domain.create();
+    d.run(function () {
+        studentDAO.generateHallTicket({
+            username: req.params.username,
+            program: req.params.program,
+        }, {
+                success: function (pdf) {
+                    var output = fs.createWriteStream('./hallticket.pdf');
+                    pdf.stream.pipe(output);
+                    let filename = "hallticket";
+                    filename = encodeURIComponent(filename) + '.pdf';
+                    var file = fs.readFileSync('./hallticket.pdf');
+                    res.setHeader('Content-Type', 'application/pdf');
+                    res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"');
+                    pdf.stream.pipe(res);
+                },
+                error: function (err) {
+                    res.status(403).send(err);
+                }
+            });
+    });
+})
 
 module.exports = router;

@@ -5,6 +5,7 @@ angular.module('StudentApp.LoginController', [])
         var working = false;
         $scope.otpSent = false;
         $scope.msg = '';
+        var formcopy = false;
 
         $scope.send = function (username, password) {
             $("#login img").hide();
@@ -142,29 +143,31 @@ angular.module('StudentApp.LoginController', [])
         $scope.dataSaved = false;
 
         $scope.tshirtsizeoptions = ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
-        $scope.programmeoptions = ['Center Programme', 'School Programme'];
+        // $scope.programmeoptions = ['Center Programme', 'School Programme'];
         $scope.centeroptions = [
-            { name: 'HEBBAL', code: '1367' }, // 9886293723
-            { name: 'BEGUR', code: '1379' }, // 9886585107
-            { name: 'KUMARAPARK', code: '1323' }, //9900083766
-            { name: 'KOLEEGALA', code: '1321' }, // 9886017421, 7892331200
-            { name: 'HOSAKOTE', code: 'KA42' }, // 9986099408, 7259336864
-            { name: 'R P D CROSS', code: '1357' }, // 9845538279
-            { name: 'MALMARUTHI B G M', code: '1356' }, // 9844802955, 8867219679
-            { name: 'KARKALA', code: '1344' }, // 9980439868
-            { name: 'KUNJEEBETTU', code: '1359' }, // 9980983815
-            { name: 'JALAHALLI', code: '1364' }, // 8884012849
-            { name: 'MYSORE', code: '1400' }, // 
-            { name: 'PRASHANTH NAGAR', code: '1378' } // 
+            { name: 'HEBBAL', code: '1367', program:'center'}, // 9886293723
+            { name: 'BEGUR', code: '1379', program:'center'}, // 9886585107
+            { name: 'KUMARAPARK', code: '1323', program:'center'}, //9900083766
+            { name: 'KOLEEGALA', code: '1321', program:'center'}, // 9886017421, 7892331200
+            { name: 'HOSAKOTE', code: 'KA42', program:'center'}, // 9986099408, 7259336864
+            { name: 'R P D CROSS', code: '1357', program:'center'}, // 9845538279
+            { name: 'MALMARUTHI B G M', code: '1356', program:'center'}, // 9844802955, 8867219679
+            { name: 'KARKALA', code: '1344', program:'center'}, // 9980439868
+            { name: 'JALAHALLI', code: '1364', program:'center'}, // 8884012849
+            { name: 'MYSORE', code: '1400', program:'center'}, //
+            { name: 'Air Force Jalahalli', code: 'SCH1', program:'school'}, // 9945179640
+            { name: 'Euro School Chimney Hills', code: 'SCH2', program:'scholl'}, // 9591478791
+            { name: 'KMV Red Hills School', code: 'SCH3', program:'school'}, // 8618576863, 9880632136, 8310810268, 7760262284
+            { name: 'Vidya Soudha Public School Peenya', code: 'SCH4', program:'school'} // 9980555084, 9483047595 
         ];
-        $scope.schooloptions = [
-            { name: 'Air Force Jalahalli', code: 'SCH1' }, // 9945179640
-            { name: 'Euro School Chimney Hills', code: 'SCH2' }, // 9591478791
-            { name: 'KMV Red Hills School', code: 'SCH3' }, // 8618576863, 9880632136, 8310810268, 7760262284
-            { name: 'Vidya Soudha Public School Peenya', code: 'SCH4' } // 9980555084, 9483047595
-        ];
+        // $scope.schooloptions = [
+            
+        // ];
 
         //admin - 9845679966
+        $scope.dayOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31];
+        $scope.monthOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+        $scope.yearOptions = [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016];
         $scope.centergroups = ['MA', 'TT'];
         $scope.schoolgroups = ['MAS', 'TTS'];
         $scope.malevels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
@@ -175,13 +178,13 @@ angular.module('StudentApp.LoginController', [])
             $scope.termsAccepted = !$scope.termsAccepted;
         }
 
-        //Save student button handler
+        $scope.confirmRegistrationSubmit = false;
         $scope.msg = "";
-        $scope.save_student = function () {
+        $scope.copy_form = function(){
             $scope.msg = "";
-            if ($scope.student.address == "" || $scope.student.dateofbirth == "" || $scope.student.email == "" ||
+            if ($scope.student.address == "" || $scope.student.email == "" ||
                 $scope.student.gender == "" || $scope.student.name == "" || $scope.student.parentname == "" || $scope.student.phone == "" ||
-                $scope.student.address == undefined || $scope.student.dateofbirth == undefined || $scope.student.email == undefined ||
+                $scope.student.address == undefined || $scope.student.email == undefined ||
                 $scope.student.gender == undefined || $scope.student.name == undefined || $scope.student.parentname == undefined || $scope.student.phone == undefined       
             ) {
                 $scope.msg = "Invalid or Missing Data. Please make sure you have filled all the details correctly";
@@ -189,14 +192,45 @@ angular.module('StudentApp.LoginController', [])
                 $scope.msg = "Please refer to our terms and conditions document and agree to it!";
             } else {
                 $scope.count++;
-                if ($scope.count == 1) {
+                if ($scope.count >= 1) {
                     $scope.uploadFile($scope.myFile);
                 }
             }
-        };
+        }
 
-        $scope.onCenterChange = function (centername, program) {
-            $scope.student.centercode = centername.code;
+        $scope.closeCopyForm = function(){
+            $scope.confirmRegistrationSubmit = false;
+        }
+
+        //Save student button handler
+        
+        $scope.save_student = function () {
+            $scope.confirmRegistrationSubmit = false;
+            $scope.save();
+        };
+        
+        $scope.getFileExtension = function(fileName) {
+            var ext = fileName.split('.').pop();
+            if(ext == 'jpg' || ext == 'png' || ext == 'jpeg' || ext =='svg' || ext == 'gif') return true;
+            return false;
+        }
+
+
+        $scope.selectedCenter={};
+
+        $scope.onCenterChange = function () {
+            if($scope.selectedCenter.program == 'center'){
+                $scope.student.centercode = $scope.selectedCenter.code;
+                $scope.student.programmename = 'Center Programme';
+                $scope.student.schoolname = '';
+                $scope.student.centername = $scope.selectedCenter.name;
+            }
+            else{
+                $scope.student.centercode = $scope.selectedCenter.code;
+                $scope.student.programmename = 'School Programme';
+                $scope.student.centername='';
+                $scope.student.schoolname = $scope.selectedCenter.name;
+            }
         }
 
         $scope.calculateAge = function () {
@@ -1673,22 +1707,26 @@ angular.module('StudentApp.LoginController', [])
                     headers: { 'Content-Type': undefined }
                 }).success(function (response) {
                     // $scope.student.birthcertificate = response.filename;
-                    $scope.save();
+                    // $scope.save();
+                    $scope.confirmRegistrationSubmit = true;
                 }).error(function (error) {
                     console.log(error);
                 });
             } else {
-                   $scope.save();                
+                //    $scope.save(); 
+                $scope.confirmRegistrationSubmit = true;               
             }
         };
 
         $scope.save = function () {
             $scope.$parent.loading = true;
-            if ($scope.student.centername != undefined && $scope.student.centername != "")
-                $scope.student.centername = $scope.student.centername.name;
-            if ($scope.student.schoolname != undefined && $scope.student.schoolname != "")
-                $scope.student.schoolname = $scope.student.schoolname.name;
-            $scope.student.status = 'center';
+            // if ($scope.student.centername != undefined && $scope.student.centername != "")
+            //     $scope.student.centername = $scope.student.centername.name;
+            // if ($scope.student.schoolname != undefined && $scope.student.schoolname != "")
+            //     $scope.student.schoolname = $scope.student.schoolname.name;
+            // $scope.student.status = 'center';
+            $scope.student.dateofbirth = new Date($scope.dob.year, $scope.dob.month-1, $scope.dob.day, 0, 0, 0, 0);
+            console.log($scope.student.dateofbirth);
             if ($scope.student.dateCreated == undefined) $scope.student.dateCreated = new Date();
             if ($scope.student._id === undefined) {
                 //Adding Student -> POST
@@ -1725,6 +1763,11 @@ angular.module('StudentApp.LoginController', [])
         $scope.programmeSelected = false;
         $scope.onProgrammeChange = function () {
 
+        }
+
+        $scope.downloadFormCopy = function () {
+            var fileurl = "/api/0.1/student/downloadCopy/" + $scope.student.phone;
+            window.open(fileurl, '_self', '');
         }
 
         $scope.$parent.file = "http://alohakarnataka.com/terms_conditions.pdf";

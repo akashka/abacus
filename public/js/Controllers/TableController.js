@@ -18,7 +18,7 @@ angular.module('StudentApp.TableController', [])
                 $scope.$parent.loading = false;
 
                 if ($scope.$parent.isCenter) {
-                    $scope.$parent.center = getCookie('center');;
+                    $scope.$parent.center = getCookie('center');
                     for (var s = 0; s < $scope.$parent.student_list.length; s++) {
                         if ($scope.$parent.student_list[s].centercode != $scope.$parent.center) {
                             $scope.$parent.student_list.splice(s, 1);
@@ -96,6 +96,16 @@ angular.module('StudentApp.TableController', [])
                 $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
                 $scope.predicate = predicate;
             };
+
+            $scope.displayHallTicket = function (username) {
+                var fileurl = "/api/0.1/student/generateHallTicket/" + username;
+                window.open(fileurl, '_self', '');
+            }
+
+            $scope.downloadHallTicket = function (username, program_id) {
+                var fileurl = "/api/0.1/student/generateHallTicket/" + username + "/" + program_id;
+                window.open(fileurl, '_self', '');
+            }
 
         };
     }]);

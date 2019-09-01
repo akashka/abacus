@@ -3,6 +3,7 @@ var db = require('../../config/mongodb').init(),
 var otpGenerator = require('otp-generator');
 var curl = require('curlrequest');
 
+
 var smsUrl = "http://alerts.valueleaf.com/api/v4/?api_key=A172d1e496771a5758651f00704e4ad18";
 var senderID = "LILWON";
 
