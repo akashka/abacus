@@ -193,6 +193,7 @@ angular.module('StudentApp.LoginController', [])
             } else {
                 $scope.count++;
                 if ($scope.count >= 1) {
+                    $scope.$parent.loading = true;
                     $scope.uploadFile($scope.myFile);
                 }
             }
@@ -210,7 +211,7 @@ angular.module('StudentApp.LoginController', [])
         };
         
         $scope.getFileExtension = function(fileName) {
-            var ext = fileName.split('.').pop();
+            var ext = fileName.split('.').pop().toLowerCase();
             if(ext == 'jpg' || ext == 'png' || ext == 'jpeg' || ext =='svg' || ext == 'gif') return true;
             return false;
         }
@@ -1677,15 +1678,16 @@ angular.module('StudentApp.LoginController', [])
         $scope.uploadFile = function (myFile) {
             if(myFile != undefined && myFile.name != undefined) {
                 var file = myFile;
-                var uploadUrl = "/savedata";
+                var uploadUrl = "/savedata/" + $scope.student.phone;
                 var fd = new FormData();
+                // fd.append('phone', $scope.student.phone);
                 fd.append('file', file);
-                $scope.student.photo = (myFile != undefined && myFile.name != undefined) ? myFile.name : "";
                 $http.post(uploadUrl, fd, {
                     transformRequest: angular.identity,
                     headers: { 'Content-Type': undefined }
                 }).success(function (response) {
                     // $scope.student.photo = response.filename;
+                    $scope.student.photo = response;
                     $scope.uploadFile1($scope.myFile1);
                 }).error(function (error) {
                     console.log(error);
@@ -1698,23 +1700,26 @@ angular.module('StudentApp.LoginController', [])
         $scope.uploadFile1 = function (myFile) {
             if(myFile != undefined && myFile.name != undefined) {            
                 var file = myFile;
-                var uploadUrl = "/savedata";
+                var uploadUrl = "/savedata/" + $scope.student.phone;
                 var fd = new FormData();
+                // fd.append('phone', $scope.student.phone);
                 fd.append('file', file);
-                $scope.student.birthcertificate = (myFile != undefined && myFile.name != undefined) ? myFile.name : "";            
                 $http.post(uploadUrl, fd, {
                     transformRequest: angular.identity,
                     headers: { 'Content-Type': undefined }
                 }).success(function (response) {
                     // $scope.student.birthcertificate = response.filename;
                     // $scope.save();
+                    $scope.student.birthcertificate = response;            
                     $scope.confirmRegistrationSubmit = true;
+                    $scope.$parent.loading = false;
                 }).error(function (error) {
                     console.log(error);
                 });
             } else {
                 //    $scope.save(); 
-                $scope.confirmRegistrationSubmit = true;               
+                $scope.confirmRegistrationSubmit = true;
+                $scope.$parent.loading = false;               
             }
         };
 

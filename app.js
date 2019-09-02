@@ -104,34 +104,33 @@ app.use(function (error, req, res, next) {
     }
 });
 
-function uploadToS3(file) {
+app.post('/savedata/:phone', upload.single('file'), function (req, res, next) {
+    var file = req.files.file;
+    console.log(req.params);
     console.log("Uploading File to S3");
     let s3bucket = new AWS.S3({
         accessKeyId: IAM_USER_KEY,
         secretAccessKey: IAM_USER_SECRET1+IAM_USER_SECRET2+IAM_USER_SECRET3,
         Bucket: BUCKET_NAME
     });
-    console.log(s3bucket);
+    // console.log(s3bucket);
     s3bucket.createBucket(function () {
         var params = {
-            Bucket: BUCKET_NAME,
+            Bucket: (BUCKET_NAME + "/" + req.params.phone),
             Key: file.name,
             Body: file.data
         };
+        console.log(params.Bucket);
         s3bucket.upload(params, function (err, data) {
             if (err) {
                 console.log('error in callback');
                 console.log(err);
             }
+            console.log(data);
             console.log('success');
+            res.send(data.Location);
         });
     });
-}
-
-app.post('/savedata', upload.single('file'), function (req, res, next) {
-    uploadToS3(req.files.file);
-    console.log('Uploade Successful ', req.file, req.body);
-    res.send(req.file);
 });
 
 module.exports = app;

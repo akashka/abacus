@@ -215,7 +215,7 @@ angular.module('StudentApp.CardController', [])
         };
 
         $scope.getFileExtension = function(fileName) {
-            var ext = fileName.split('.').pop();
+            var ext = fileName.split('.').pop().toLowerCase();
             if(ext == 'jpg' || ext == 'png' || ext == 'jpeg') return true;
             return false;
         }

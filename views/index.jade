@@ -6,7 +6,7 @@ block content
         .clearfix
             +login_form
 
-            .mdl-spinner.mdl-spinner--single-color.mdl-js-spinner.is-active(ng-show='loading')
+            .mdl-spinner.mdl-spinner--single-color.mdl-js-spinner.is-active.ng-hide(ng-show='loading')
                 
             #blur.ng-hide(ng-show="editing && !loading")
             
@@ -288,13 +288,13 @@ block content
 
                     div(style="width:20%;float:left;")
                         br
-                        img(ng-src='https://s3.ap-south-1.amazonaws.com/alohakarnataka2019/{{student.photo}}', style="border:3px solid grey;width: 100%; height: auto;margin-top:50px;", ng-if="student.photo != undefined && getFileExtension(student.photo)")
-                        a(ng-href="https://s3.ap-south-1.amazonaws.com/alohakarnataka2019/{{student.photo}}",target="_blank",style="color:blue;padding-top:30px;font-size:20px;",ng-if="student.photo != undefined && !getFileExtension(student.photo)") Download Photo (Format not supported to display)
+                        img(ng-src='{{student.photo}}', style="border:3px solid grey;width: 100%; height: auto;margin-top:50px;", ng-if="student.photo != undefined && getFileExtension(student.photo)")
+                        a(ng-href="{{student.photo}}",target="_blank",style="color:blue;padding-top:30px;font-size:20px;",ng-if="student.photo != undefined && !getFileExtension(student.photo)") Download Photo (Format not supported to display)
                         br
                         br
                         br
-                        img(ng-src='https://s3.ap-south-1.amazonaws.com/alohakarnataka2019/{{student.birthcertificate}}', style="border:3px solid grey;width: 100%; height: auto;margin-top:10px;", ng-if="student.birthcertificate != undefined && getFileExtension(student.birthcertificate)")
-                        a(ng-href="https://s3.ap-south-1.amazonaws.com/alohakarnataka2019/{{student.birthcertificate}}",target="_blank",style="color:blue;padding-top:30px;font-size:20px;",ng-if="student.birthcertificate != undefined && !getFileExtension(student.birthcertificate)") Download Birth Certificate (Format not supported to display)
+                        img(ng-src='{{student.birthcertificate}}', style="border:3px solid grey;width: 100%; height: auto;margin-top:10px;", ng-if="student.birthcertificate != undefined && getFileExtension(student.birthcertificate)")
+                        a(ng-href="{{student.birthcertificate}}",target="_blank",style="color:blue;padding-top:30px;font-size:20px;",ng-if="student.birthcertificate != undefined && !getFileExtension(student.birthcertificate)") Download Birth Certificate (Format not supported to display)
 
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.photo == undefined", style="width:90%;margin-top: 50px;")
                             span !{t('Upload Student Image')}  
