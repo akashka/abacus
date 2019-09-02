@@ -294,8 +294,8 @@ function downloadCopy(username, callbacks) {
             stringTemplate = stringTemplate.replace('{{address}}', (student.address) ? student.address : "");
             stringTemplate = stringTemplate.replace('{{dateOfBirth}}', (student.dateofbirth) ? formatDate(student.dateofbirth) : "");
             stringTemplate = stringTemplate.replace('{{tShirtSize}}', (student.tshirtsize) ? student.tshirtsize : "N/A");
-            stringTemplate = stringTemplate.replace('{{photo}}', (student.photo != undefined && student.photo != '') ? ('https://s3.ap-south-1.amazonaws.com/alohakarnataka/' + student.photo) : 'https://consumercomplaintscourt.com/wp-content/uploads/2015/12/no_uploaded.png');
-            stringTemplate = stringTemplate.replace('{{birthCertificate}}', (student.birthcertificate != undefined && student.birthcertificate != '') ? ('https://s3.ap-south-1.amazonaws.com/alohakarnataka/' + student.birthcertificate) : 'https://consumercomplaintscourt.com/wp-content/uploads/2015/12/no_uploaded.png');
+            stringTemplate = stringTemplate.replace('{{photo}}', (student.photo != undefined && student.photo != '') ? ('https://s3.ap-south-1.amazonaws.com/alohakarnataka2019/' + student.photo) : 'https://consumercomplaintscourt.com/wp-content/uploads/2015/12/no_uploaded.png');
+            stringTemplate = stringTemplate.replace('{{birthCertificate}}', (student.birthcertificate != undefined && student.birthcertificate != '') ? ('https://s3.ap-south-1.amazonaws.com/alohakarnataka2019/' + student.birthcertificate) : 'https://consumercomplaintscourt.com/wp-content/uploads/2015/12/no_uploaded.png');
             console.log(stringTemplate);
             conversion({ html: stringTemplate }, function (err, pdf) {
                 console.log("successs2");
