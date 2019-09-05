@@ -5,6 +5,8 @@ var db = require('../../config/mongodb').init(),
     QRCode = require('qrcode');
     mongoose = require('mongoose');
 var sgMail = require('@sendgrid/mail');
+var base64 = require('node-base64-image'); 
+var base64Img = require('base64-img');
 
 var isInTest = typeof global.it === 'function';
 
@@ -260,54 +262,85 @@ function formatDate(date) {
 function downloadCopy(username, callbacks) {
     StudentModel.find({ phone: username.username }, function (err, student) {
         if (!err) {
-            console.log("success1");
+            // console.log("success1");
             student = student[0];
-            var programName;
-            switch(student.group){
-                case "TT":
-                    programName = "Tiny Tots";
-                    break;
-                case "TTS":
-                    programName = "Tiny Tots School";
-                    break;
-                case "MA":
-                    programName = "Mental Airthmetic";
-                    break;
-                case "MAS":
-                    programName = "Mental Airthmetic School";
-                    break;
+            if(student.photo != undefined && student.photo != '') {
+                // base64.encode(student.photo, {string: true}, function (err, imageB) { 
+                //     if (err) { 
+                //         console.log(err);
+                //     } 
+                base64Img.base64(student.photo, function(err, data) {
+                    if(err){
+                        console.log(err);
+                    }
+                    else{
+                        student.photo = data;
+                    }
+                });
+                    // console.log(student.photo);
+                    // student.photo = imageB;
+                    var stringTemplate = tempFunc(student);
+                    console.log('----------------------------------------------------------------');
+                    console.log(stringTemplate);
+                    conversion({ html: stringTemplate }, function (err, pdf) {
+                        console.log("successs2");
+                        console.log(pdf);
+                        callbacks.success(pdf);
+                    });
+                }    
             }
-            var stringTemplate = fs.readFileSync(path.join(__dirname, '../../helpers') + '/copy.html', "utf8");
-            // stringTemplate = stringTemplate.replace('{{sstateName}}', (student.sstatename) ? student.sstatename : "");
-            if(student.programmename == "Center Programme"){
-                stringTemplate = stringTemplate.replace('{{centerName}}', (student.centername) ? student.centername : "");
-            }
-            else if(student.programmename == "School Programme"){
-                stringTemplate = stringTemplate.replace('{{centerName}}', (student.schoolname) ? student.schoolname : "");
-            }
-            stringTemplate = stringTemplate.replace('{{programmes}}', student.programmename);
-            stringTemplate = stringTemplate.replace('{{phoneNo}}', (student.phone) ? student.phone : "");
-            stringTemplate = stringTemplate.replace('{{emailId}}', (student.email) ? student.email : "");
-            stringTemplate = stringTemplate.replace('{{studentName}}', (student.name) ? student.name : "");
-            stringTemplate = stringTemplate.replace('{{gender}}', (student.gender) ? student.gender : "");
-            stringTemplate = stringTemplate.replace('{{parentName}}', (student.parentname) ? student.parentname : "");
-            stringTemplate = stringTemplate.replace('{{address}}', (student.address) ? student.address : "");
-            stringTemplate = stringTemplate.replace('{{dateOfBirth}}', (student.dateofbirth) ? formatDate(student.dateofbirth) : "");
-            stringTemplate = stringTemplate.replace('{{tShirtSize}}', (student.tshirtsize) ? student.tshirtsize : "N/A");
-            stringTemplate = stringTemplate.replace('{{photo}}', (student.photo != undefined && student.photo != '') ? (student.photo) : 'https://consumercomplaintscourt.com/wp-content/uploads/2015/12/no_uploaded.png');
-            stringTemplate = stringTemplate.replace('{{birthCertificate}}', (student.birthcertificate != undefined && student.birthcertificate != '') ? (student.birthcertificate) : 'https://consumercomplaintscourt.com/wp-content/uploads/2015/12/no_uploaded.png');
-            console.log(stringTemplate);
-            conversion({ html: stringTemplate }, function (err, pdf) {
-                console.log("successs2");
-                console.log(pdf);
-                callbacks.success(pdf);
-            });
-        } else {
-            sendInfoMail('Student form copy download failed: ' + username, err);
-            console.log("success3");
-            callbacks.error(err);
-        }
-    });
+        });
+    }
+            // else{
+            //     var stringTemplate = tempFunc(student);
+            //     conversion({ html: stringTemplate }, function (err, pdf) {
+            //         console.log("successs2");
+            //         console.log(pdf);
+            //         callbacks.success(pdf);
+            //     });
+            // }
+        // } else {
+        //     sendInfoMail('Student form copy download failed: ' + username, err);
+        //     console.log("success3");
+        //     callbacks.error(err);
+        // }
+
+function tempFunc(student) {
+    var programName;
+    switch(student.group){
+        case "TT":
+            programName = "Tiny Tots";
+            break;
+        case "TTS":
+            programName = "Tiny Tots School";
+            break;
+        case "MA":
+            programName = "Mental Airthmetic";
+            break;
+        case "MAS":
+            programName = "Mental Airthmetic School";
+            break;
+    }
+    var stringTemplate = fs.readFileSync(path.join(__dirname, '../../helpers') + '/copy.html', "utf8");
+    // stringTemplate = stringTemplate.replace('{{sstateName}}', (student.sstatename) ? student.sstatename : "");
+    if(student.programmename == "Center Programme"){
+        stringTemplate = stringTemplate.replace('{{centerName}}', (student.centername) ? student.centername : "");
+    }
+    else if(student.programmename == "School Programme"){
+        stringTemplate = stringTemplate.replace('{{centerName}}', (student.schoolname) ? student.schoolname : "");
+    }
+    stringTemplate = stringTemplate.replace('{{programmes}}', programName);
+    stringTemplate = stringTemplate.replace('{{phoneNo}}', (student.phone) ? student.phone : "");
+    stringTemplate = stringTemplate.replace('{{emailId}}', (student.email) ? student.email : "");
+    stringTemplate = stringTemplate.replace('{{studentName}}', (student.name) ? student.name : "");
+    stringTemplate = stringTemplate.replace('{{gender}}', (student.gender) ? student.gender : "");
+    stringTemplate = stringTemplate.replace('{{parentName}}', (student.parentname) ? student.parentname : "");
+    stringTemplate = stringTemplate.replace('{{address}}', (student.address) ? student.address : "");
+    stringTemplate = stringTemplate.replace('{{dateOfBirth}}', (student.dateofbirth) ? formatDate(student.dateofbirth) : "");
+    stringTemplate = stringTemplate.replace('{{tShirtSize}}', (student.tshirtsize) ? student.tshirtsize : "N/A");
+    stringTemplate = stringTemplate.replace('{{photo}}', (student.photo != undefined && student.photo != '') ? (student.photo) : 'https://consumercomplaintscourt.com/wp-content/uploads/2015/12/no_uploaded.png');
+    stringTemplate = stringTemplate.replace('{{birthCertificate}}', (student.birthcertificate != undefined && student.birthcertificate != '') ? (student.birthcertificate) : 'https://consumercomplaintscourt.com/wp-content/uploads/2015/12/no_uploaded.png');
+    return stringTemplate;
 }
 
 function downloadReceipt(username, callbacks) {
