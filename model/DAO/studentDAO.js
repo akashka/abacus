@@ -306,21 +306,6 @@ function downloadCopy(username, callbacks) {
         // }
 
 function tempFunc(student) {
-    var programName;
-    switch(student.group){
-        case "TT":
-            programName = "Tiny Tots";
-            break;
-        case "TTS":
-            programName = "Tiny Tots School";
-            break;
-        case "MA":
-            programName = "Mental Airthmetic";
-            break;
-        case "MAS":
-            programName = "Mental Airthmetic School";
-            break;
-    }
     var stringTemplate = fs.readFileSync(path.join(__dirname, '../../helpers') + '/copy.html', "utf8");
     // stringTemplate = stringTemplate.replace('{{sstateName}}', (student.sstatename) ? student.sstatename : "");
     if(student.programmename == "Center Programme"){
@@ -339,7 +324,7 @@ function tempFunc(student) {
     stringTemplate = stringTemplate.replace('{{dateOfBirth}}', (student.dateofbirth) ? formatDate(student.dateofbirth) : "");
     stringTemplate = stringTemplate.replace('{{tShirtSize}}', (student.tshirtsize) ? student.tshirtsize : "N/A");
     stringTemplate = stringTemplate.replace('{{photo}}', (student.photo != undefined && student.photo != '') ? (student.photo) : 'https://consumercomplaintscourt.com/wp-content/uploads/2015/12/no_uploaded.png');
-    stringTemplate = stringTemplate.replace('{{birthCertificate}}', (student.birthcertificate != undefined && student.birthcertificate != '') ? (student.birthcertificate) : 'https://consumercomplaintscourt.com/wp-content/uploads/2015/12/no_uploaded.png');
+    // stringTemplate = stringTemplate.replace('{{birthCertificate}}', (student.birthcertificate != undefined && student.birthcertificate != '') ? (student.birthcertificate) : 'https://consumercomplaintscourt.com/wp-content/uploads/2015/12/no_uploaded.png');
     return stringTemplate;
 }
 
