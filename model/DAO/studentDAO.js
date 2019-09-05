@@ -314,7 +314,7 @@ function tempFunc(student) {
     else if(student.programmename == "School Programme"){
         stringTemplate = stringTemplate.replace('{{centerName}}', (student.schoolname) ? student.schoolname : "");
     }
-    stringTemplate = stringTemplate.replace('{{programmes}}', programName);
+    // stringTemplate = stringTemplate.replace('{{programmes}}', programName);
     stringTemplate = stringTemplate.replace('{{phoneNo}}', (student.phone) ? student.phone : "");
     stringTemplate = stringTemplate.replace('{{emailId}}', (student.email) ? student.email : "");
     stringTemplate = stringTemplate.replace('{{studentName}}', (student.name) ? student.name : "");
