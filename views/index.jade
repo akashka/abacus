@@ -289,18 +289,18 @@ block content
                     div(style="width:20%;float:left;")
                         br
                         img(ng-src='{{student.photo}}', style="border:3px solid grey;width: 100%; height: auto;margin-top:50px;", ng-if="student.photo != undefined && getFileExtension(student.photo)")
-                        a(ng-href="{{student.photo}}",target="_blank",style="color:blue;padding-top:30px;font-size:20px;",ng-if="student.photo != undefined && !getFileExtension(student.photo)") Download Photo (Format not supported to display)
+                        a(ng-href="{{student.photo}}",target="_blank",style="color:blue;padding-top:30px;font-size:20px;",ng-if="student.photo != undefined && !getFileExtension(student.photo)&& student.photo != '' ") Download Photo (Format not supported to display)
                         br
                         br
                         br
                         img(ng-src='{{student.birthcertificate}}', style="border:3px solid grey;width: 100%; height: auto;margin-top:10px;", ng-if="student.birthcertificate != undefined && getFileExtension(student.birthcertificate)")
-                        a(ng-href="{{student.birthcertificate}}",target="_blank",style="color:blue;padding-top:30px;font-size:20px;",ng-if="student.birthcertificate != undefined && !getFileExtension(student.birthcertificate)") Download Birth Certificate (Format not supported to display)
+                        a(ng-href="{{student.birthcertificate}}",target="_blank",style="color:blue;padding-top:30px;font-size:20px;",ng-if="student.birthcertificate != undefined && !getFileExtension(student.birthcertificate) && student.birthcertificate != '' ") Download Birth Certificate (Format not supported to display)
 
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.photo == undefined", style="width:90%;margin-top: 50px;")
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.photo == undefined || student.photo == '' ", style="width:90%;margin-top: 50px;")
                             span !{t('Upload Student Image')}  
                             input(type = 'file', file-model = 'myFile', ng-src='{{student.photo}}', accept="image/*")
                         
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.birthcertificate == undefined", style="width:90%;margin-top: 50px;")
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.birthcertificate == undefined || student.birthcertificate == '' ", style="width:90%;margin-top: 50px;")
                             span !{t('Upload Birth Certificate / Aadhaar Card')}  
                             input(type = 'file', file-model = 'myFile1', ng-src='{{student.birthcertificate}}', accept="image/*")
 

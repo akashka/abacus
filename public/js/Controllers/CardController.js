@@ -56,10 +56,12 @@ angular.module('StudentApp.CardController', [])
         };
 
         $scope.save = function () {
+            // console.log("enter in the save");
+            // console.log("---------------------------------");
             $scope.count++;
-            if ($scope.count >= 1) {
+            if ($scope.count >= 1 && $scope.student.birthcertificate != "") {
                 $scope.$parent.loading = true;
-                $scope.$parent.student.centername = $scope.$parent.student.centername;
+                // $scope.$parent.student.centername = $scope.$parent.student.centername;
                 $scope.$parent.student.status = 'payment';
                 if ($scope.$parent.student._id === undefined) {
                     //Adding Student -> POST
@@ -175,15 +177,15 @@ angular.module('StudentApp.CardController', [])
                 $scope.msg = "Upload Student Image";
             } else {
                 var file = myFile;
-                var uploadUrl = "/savedata";
+                var uploadUrl = "/savedata/" + $scope.student.phone;
                 var fd = new FormData();
-                $scope.student.photo = (myFile != undefined && myFile.name != undefined) ? myFile.name : "";
+                // $scope.student.photo = (myFile != undefined && myFile.name != undefined) ? myFile.name : "";
                 fd.append('file', file);
                 $http.post(uploadUrl, fd, {
                     transformRequest: angular.identity,
                     headers: { 'Content-Type': undefined }
                 }).success(function (response) {
-                    // $scope.$parent.student.photo = response.filename;
+                    $scope.student.photo = response;
                     $scope.uploadFile1($scope.myFile1);
                 }).error(function (error) {
                     console.log(error);
@@ -193,20 +195,24 @@ angular.module('StudentApp.CardController', [])
 
         $scope.uploadFile1 = function (myFile) {
             if($scope.$parent.isBirthcertificate) {
+                // console.log("enter into ");
+                // console.log("----------------------------------------");
                 $scope.save();
             } else if(myFile == "" || myFile == undefined) {
                 $scope.msg = "Upload Birth Certificate or Aadhaar Card";
             } else {
                 var file = myFile;
-                var uploadUrl = "/savedata";
+                var uploadUrl = "/savedata/" + $scope.student.phone;
                 var fd = new FormData();
                 fd.append('file', file);
-                $scope.student.birthcertificate = (myFile != undefined && myFile.name != undefined) ? myFile.name : "";
+                // $scope.student.birthcertificate = (myFile != undefined && myFile.name != undefined) ? myFile.name : "";
                 $http.post(uploadUrl, fd, {
                     transformRequest: angular.identity,
                     headers: { 'Content-Type': undefined }
                 }).success(function (response) {
-                    // $scope.$parent.student.birthcertificate = response.filename;
+                    $scope.student.birthcertificate = response;
+                     // console.log(student.birthcertificate);
+                    // console.log("-----------------------");  
                     $scope.save();
                 }).error(function (error) {
                     console.log(error);
@@ -216,7 +222,7 @@ angular.module('StudentApp.CardController', [])
 
         $scope.getFileExtension = function(fileName) {
             var ext = fileName.split('.').pop().toLowerCase();
-            if(ext == 'jpg' || ext == 'png' || ext == 'jpeg') return true;
+            if(ext == 'jpg' || ext == 'png' || ext == 'jpeg' || ext =='svg' || ext == 'gif') return true;
             return false;
         }
 

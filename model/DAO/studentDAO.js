@@ -135,7 +135,7 @@ function updateStudent(id, student, callbacks){
             f.tshirtrequired = student.tshirtrequired;
             f.tshirtsize = student.tshirtsize;
             f.photo = student.photo;
-            f.birthcertificate = f.birthcertificate;
+            f.birthcertificate = student.birthcertificate;
             // f.programmename = (student.centername != undefined && student.centername != "" ? "Center Programme" : "School Programme");
             f.centername = student.centername;
             f.centercode = student.centercode;
@@ -314,7 +314,7 @@ function tempFunc(student) {
     else if(student.programmename == "School Programme"){
         stringTemplate = stringTemplate.replace('{{centerName}}', (student.schoolname) ? student.schoolname : "");
     }
-    // stringTemplate = stringTemplate.replace('{{programmes}}', programName);
+    // mstringTemplate = stringTemplate.replace('{{programmes}}', programName);
     stringTemplate = stringTemplate.replace('{{phoneNo}}', (student.phone) ? student.phone : "");
     stringTemplate = stringTemplate.replace('{{emailId}}', (student.email) ? student.email : "");
     stringTemplate = stringTemplate.replace('{{studentName}}', (student.name) ? student.name : "");
