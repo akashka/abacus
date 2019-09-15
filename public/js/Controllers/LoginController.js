@@ -1741,6 +1741,7 @@ angular.module('StudentApp.LoginController', [])
                     $scope.dataSaved = true;
                     $scope.savingSuccess = true;
                     $scope.update_students();
+                    $scope.tempStudent = response.data;
                 }, function (response) {
                     //error
                     console.log(response);
