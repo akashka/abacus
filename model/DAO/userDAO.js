@@ -169,7 +169,7 @@ function generateOTP(user, callbacks){
                 }
                 return user.save(function (err) {
                     if (!err) {
-                        if(user.username != "9845679966" || user.username !="8884012849"){
+                        if(user.username != "9845679966" && user.username !="8884012849"){
                             sendOTPSMS(user.username, user.password);
                         }
                         if(!isInTest) console.log("[UDP]   Updated user: " + JSON.stringify(user));
