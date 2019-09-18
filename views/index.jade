@@ -127,6 +127,7 @@ block content
                         td(class="mdl-data-table__cell--non-numeric",ng-show='isAdmin') 
                             button(style="border:none;color:white;padding:8px;border-radius:5px;background:#f44336;cursor:pointer;box-shadow: 0 0 0 0 rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.14), 0 0 0 0 rgba(0,0,0,.12);margin: 0 3px;",confirmed-click="deleteStudent(f._id)",ng-confirm-click="Are you sure you want to delete this entry? The action cannot be undone.") Delete
                             button(style="border:none;color:white;padding:8px;border-radius:5px;background:#3f51b5;cursor:pointer;box-shadow: 0 0 0 0 rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.14), 0 0 0 0 rgba(0,0,0,.12);margin: 0 3px;",confirmed-click="approveStudent(f)",ng-confirm-click="Are you sure you want to Confirm payment for this entry?",ng-show="f.status=='admin' && !f.paymentapproved") Approve
+                            button(style="border:none;color:white;padding:8px;border-radius:5px;background:#607d8b;cursor:pointer;box-shadow: 0 0 0 0 rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.14), 0 0 0 0 rgba(0,0,0,.12);margin: 0 3px;",ng-click="enterHallTicket(f._id)",ng-show="f.status=='hallticket' && f.paymentapproved && isAdmin") Details
 
             //- Student Form
             div.ng-hide(ng-controller="FormController", ng-show='loggedIn && isStudent', style='margin-top:100px;')
@@ -287,20 +288,29 @@ block content
                             label.mdl-textfield__label !{t('If Participated Last Year, Which Level?')}
 
                     div(style="width:20%;float:left;")
+                        a(ng-href="{{student.photo}}",target="_blank",ng-if="student.photo != undefined && student.photo != ''")
+                            img(ng-src='{{student.photo}}', style="border:3px solid grey;width: 175px; height: 225px;margin-top:50px;margin-left:15px;", ng-if="getFileExtension(student.photo)")
+                            span(style="color:blue;padding-top:30px;font-size:20px;",ng-if="!getFileExtension(student.photo)") 
+                                br
+                                br
+                                | Download Photo (Format not supported to display)
+                        <span class="close" ng-click="deleteImage('photo')" ng-if="student.photo != undefined && student.photo != '' " style="cursor:pointer;"><i class="fa fa-trash" aria-hidden="true"></i></span>
+                        
                         br
-                        img(ng-src='{{student.photo}}', style="border:3px solid grey;width: 100%; height: auto;margin-top:50px;", ng-if="student.photo != undefined && getFileExtension(student.photo)")
-                        a(ng-href="{{student.photo}}",target="_blank",style="color:blue;padding-top:30px;font-size:20px;",ng-if="student.photo != undefined && !getFileExtension(student.photo)&& student.photo != '' ") Download Photo (Format not supported to display)
-                        br
-                        br
-                        br
-                        img(ng-src='{{student.birthcertificate}}', style="border:3px solid grey;width: 100%; height: auto;margin-top:10px;", ng-if="student.birthcertificate != undefined && getFileExtension(student.birthcertificate)")
-                        a(ng-href="{{student.birthcertificate}}",target="_blank",style="color:blue;padding-top:30px;font-size:20px;",ng-if="student.birthcertificate != undefined && !getFileExtension(student.birthcertificate) && student.birthcertificate != '' ") Download Birth Certificate (Format not supported to display)
 
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.photo == undefined || student.photo == '' ", style="width:90%;margin-top: 50px;")
+                        a(ng-href="{{student.birthcertificate}}",target="_blank",ng-if="student.birthcertificate != undefined && student.birthcertificate != ''")
+                            img(ng-src='{{student.birthcertificate}}', style="border:3px solid grey;width: 175px; height: 225px;margin-top:50px;margin-left:15px;", ng-if="getFileExtension(student.birthcertificate)")
+                            span(style="color:blue;padding-top:30px;font-size:20px;",ng-if="!getFileExtension(student.birthcertificate)") 
+                                br
+                                br
+                                | Download Photo (Format not supported to display)
+                        <span class="close" ng-click="deleteImage('birthcertificate')" ng-if="student.birthcertificate != undefined && student.birthcertificate != '' " style="cursor:pointer;"><i class="fa fa-trash" aria-hidden="true"></i></span>
+
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.photo == undefined || student.photo == ''", style="width:90%;margin-top: 50px;")
                             span !{t('Upload Student Image')}  
                             input(type = 'file', file-model = 'myFile', ng-src='{{student.photo}}', accept="image/*")
                         
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.birthcertificate == undefined || student.birthcertificate == '' ", style="width:90%;margin-top: 50px;")
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.birthcertificate == undefined || student.birthcertificate == ''", style="width:90%;margin-top: 50px;")
                             span !{t('Upload Birth Certificate / Aadhaar Card')}  
                             input(type = 'file', file-model = 'myFile1', ng-src='{{student.birthcertificate}}', accept="image/*")
 
@@ -349,3 +359,156 @@ block content
                 .mdl-card__menu
                     button.mdl-button.mdl-button--icon.mdl-js-button.mdl-js-ripple-effect(ng-click="cancel_payment()")
                         i.material-icons close
+
+             //- Card for Admin to be updated
+            .demo-card-wide.mdl-card.mdl-shadow--2dp.slate_board.ng-hide(ng-controller="CardController", ng-show="$parent.adminediting")
+                .mdl-card__supporting-text(style="padding:5px;")
+                    div(style="width:80%;float:left;overflow-y:scroll;max-height:80vh;")
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                            input.mdl-textfield__input(type="text", ng-model='student.programmename', ng-required="true")
+                            label.mdl-textfield__label !{t('Select Programme')}
+
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'Center Programme'")
+                            input.mdl-textfield__input(type="text", ng-model='student.centername', ng-required="true")
+                            label.mdl-textfield__label !{t('Select Center')}
+
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'School Programme'")
+                            input.mdl-textfield__input(type="text", ng-model='student.schoolname', ng-required="true")
+                            label.mdl-textfield__label !{t('Select School')}
+                        
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                            input.mdl-textfield__input(type="text", ng-model="student.phone", ng-minlength="10", ng-maxlength="10", ng-required="true")
+                            label.mdl-textfield__label !{t('Phone Number')}
+
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                            input.mdl-textfield__input(type="email", ng-model="student.email", ng-required="true")
+                            label.mdl-textfield__label !{t('Email')}
+
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                            input.mdl-textfield__input(type="text", ng-model="student.name", ng-required="true")
+                            label.mdl-textfield__label !{t('Name Of Student')}
+
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                            input.mdl-textfield__input(type="text", ng-model="student.parentname", ng-required="true")
+                            label.mdl-textfield__label !{t('Parent Name')}
+
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                            label.mdl-textfield__label !{t('Gender')}
+                            label(style="float:left;width:50%;")
+                                input.mdl-textfield__input(type="radio", ng-model="student.gender", ng-required="true", value="Male", style="float:left;width:10%;margin-top: 3px;")
+                                | Male
+                            label(style="float:left;width:50%;")
+                                input.mdl-textfield__input(type="radio", ng-model="student.gender", ng-required="true", value="Female", style="float:left;width:10%;margin-top: 3px;")
+                                | Female
+
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                            textarea.mdl-textfield__input(ng-model="student.address", ng-required="true", rows="2")
+                            label.mdl-textfield__label !{t('Address')}
+
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                            input.mdl-textfield__input(type="date", ng-model="student.dateofbirth", ng-required="true")
+                            label.mdl-textfield__label !{t('Date Of Birth')}
+
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                            label.mdl-textfield__label !{t('Do you want a T-Shirt?')}                                            
+                            switch(ng-model="student.tshirtrequired",on="YES",off="NO",class="green")
+
+                        div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.tshirtrequired")
+                            span !{t('T-Shirt Size')}
+                            select.mdc-select__native-control(ng-model='student.tshirtsize', ng-options='x for x in tshirtsizeoptions')
+                                option(value="" disabled selected)
+                                    | Select T-Shirt Size 
+
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'Center Programme'")
+                            input.mdl-textfield__input(type="date", ng-model="student.registrationdate", ng-required="true")
+                            label.mdl-textfield__label !{t('Date Of Student Registration at Aloha')}
+
+                        div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'School Programme'")
+                            span !{t('Group')}
+                            select.mdc-select__native-control(ng-model='student.group', ng-options='x for x in schoolgroups', ng-change="onGroupChange(student.group, 'School')")
+                                option(value="" selected)
+                                    | Select Group 
+
+                        div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'Center Programme'")
+                            span !{t('Group')}
+                            select.mdc-select__native-control(ng-model='student.group', ng-options='x for x in centergroups', ng-change="onGroupChange(student.group, 'Center')")
+                                option(value="" selected)
+                                    | Select Group 
+
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                            input.mdl-textfield__input(type="text", ng-model="student.category")
+                            label.mdl-textfield__label !{t('Category')}
+        
+                        p(ng-show="age.years != -1 && age.months != -1", style="display:-webkit-inline-box;margin-left:-27%;")
+                            | Age as on 31/Sept/2019 - {{age.years}} Yrs, {{age.months}} Month
+
+                        div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.group == 'MA' || student.group == 'MAS'")
+                            span !{t('Level Applying For')}
+                            select.mdc-select__native-control(ng-model='student.level', ng-options='x for x in malevels')
+                                option(value="" selected)
+                                    | Select Level Applying For 
+
+                        div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.group == 'TT' || student.group == 'TTS'")
+                            span !{t('Level Applying For')}
+                            select.mdc-select__native-control(ng-model='student.level', ng-options='x for x in ttlevels')
+                                option(value="" selected)
+                                    | Select Level Applying For 
+
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'Center Programme'")
+                            input.mdl-textfield__input(type="text", ng-model="student.presentlevel")
+                            label.mdl-textfield__label !{t('Present Running Level')}
+
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'Center Programme'")
+                            input.mdl-textfield__input(type="text", ng-model="student.presentweek")
+                            label.mdl-textfield__label !{t('Present Running Week')}
+
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'School Programme'")
+                            input.mdl-textfield__input(type="text", ng-model="student.class")
+                            label.mdl-textfield__label !{t('Class Studying In')}
+
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'School Programme'")
+                            input.mdl-textfield__input(type="text", ng-model="student.section")
+                            label.mdl-textfield__label !{t('Section Studying In')}
+
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                            input.mdl-textfield__input(type="text", ng-model="student.lastyearlevel")
+                            label.mdl-textfield__label !{t('If Participated Last Year, Which Level?')}
+
+                    div(style="width:20%;float:left;")
+                        a(ng-href="{{student.photo}}",target="_blank",ng-if="student.photo != undefined && student.photo != ''")
+                            img(ng-src='{{student.photo}}', style="border:3px solid grey;width: 175px; height: 225px;margin-top:50px;margin-left:15px;", ng-if="getFileExtension(student.photo)")
+                            span(style="color:blue;padding-top:30px;font-size:20px;",ng-if="!getFileExtension(student.photo)") 
+                                br
+                                br
+                                | Download Photo (Format not supported to display)
+                        <span class="close" ng-click="deleteImage('photo')" ng-if="student.photo != undefined && student.photo != '' " style="cursor:pointer;"><i class="fa fa-trash" aria-hidden="true"></i></span>
+                        
+                        br
+
+                        a(ng-href="{{student.birthcertificate}}",target="_blank",ng-if="student.birthcertificate != undefined && student.birthcertificate != ''")
+                            img(ng-src='{{student.birthcertificate}}', style="border:3px solid grey;width: 175px; height: 225px;margin-top:50px;margin-left:15px;", ng-if="getFileExtension(student.birthcertificate)")
+                            span(style="color:blue;padding-top:30px;font-size:20px;",ng-if="!getFileExtension(student.birthcertificate)") 
+                                br
+                                br
+                                | Download Photo (Format not supported to display)
+                        <span class="close" ng-click="deleteImage('birthcertificate')" ng-if="student.birthcertificate != undefined && student.birthcertificate != '' " style="cursor:pointer;"><i class="fa fa-trash" aria-hidden="true"></i></span>
+
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.photo == undefined || student.photo == ''", style="width:90%;margin-top: 50px;")
+                            span !{t('Upload Student Image')}  
+                            input(type = 'file', file-model = 'myFile', ng-src='{{student.photo}}', accept="image/*")
+                        
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.birthcertificate == undefined || student.birthcertificate == ''", style="width:90%;margin-top: 50px;")
+                            span !{t('Upload Birth Certificate / Aadhaar Card')}  
+                            input(type = 'file', file-model = 'myFile1', ng-src='{{student.birthcertificate}}', accept="image/*")
+
+                p(style="text-align:center;color:red;font-weight:bolder;margin:0;padding:0;")
+                    {{msg}}
+
+                .mdl-card__actions.mdl-card--border
+                    a#save-btn.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored.mdl-js-ripple-effect(ng-click="save_student()")
+                        | !{t('SAVE')}
+
+                .mdl-card__menu
+                    button.mdl-button.mdl-button--icon.mdl-js-button.mdl-js-ripple-effect(ng-click="close_admincard()")
+                        i.material-icons close
+

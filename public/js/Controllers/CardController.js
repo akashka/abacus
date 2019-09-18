@@ -62,7 +62,12 @@ angular.module('StudentApp.CardController', [])
             if ($scope.count >= 1 && $scope.student.birthcertificate != "") {
                 $scope.$parent.loading = true;
                 // $scope.$parent.student.centername = $scope.$parent.student.centername;
-                $scope.$parent.student.status = 'payment';
+                if($scope.$parent.student.status == 'hallticket'){
+                    $scope.$parent.student.status = 'hallticket';
+                }
+                else{
+                    $scope.$parent.student.status = 'payment';
+                }
                 if ($scope.$parent.student._id === undefined) {
                     //Adding Student -> POST
                     studentFactory.save($scope.$parent.student, function (response) {
@@ -86,6 +91,35 @@ angular.module('StudentApp.CardController', [])
                 }
             }
         }
+
+        // $scope.save_adminstudent = function () {
+        //     $scope.count++;
+        //     if ($scope.count >= 1 && $scope.student.birthcertificate != "") {
+        //         $scope.$parent.loading = true;
+        //         // $scope.$parent.student.centername = $scope.$parent.student.centername;
+        //         if ($scope.$parent.student._id === undefined) {
+        //             //Adding Student -> POST
+        //             studentFactory.save($scope.$parent.student, function (response) {
+        //                 $scope.$parent.adminediting = false;
+        //                 $scope.$parent.update_students();
+        //             }, function (response) {
+        //                 //error
+        //                 console.error(response);
+        //             });
+
+        //         } else {
+        //             //Editing Student -> PUT
+        //             studentFactory.update({ id: $scope.$parent.student._id }, $scope.$parent.student, function (response) {
+        //                 console.log(response);
+        //                 $scope.$parent.adminediting = false;
+        //                 $scope.$parent.update_students();
+        //             }, function (response) {
+        //                 //error
+        //                 console.error(response);
+        //             });
+        //         }
+        //     }
+        // }
 
         $scope.onCenterChange = function (centername, program) {
             $scope.$parent.student.centercode = centername.code;
@@ -224,6 +258,20 @@ angular.module('StudentApp.CardController', [])
             var ext = fileName.split('.').pop().toLowerCase();
             if(ext == 'jpg' || ext == 'png' || ext == 'jpeg' || ext =='svg' || ext == 'gif') return true;
             return false;
+        }
+
+        $scope.deleteImage = function (type) {
+            if (type == "photo") {
+                $scope.$parent.student.photo = "";
+                $scope.$parent.isPhoto = false;
+            } else {
+                $scope.$parent.student.birthcertificate = "";
+                $scope.$parent.isBirthcertificate = false;
+            }
+        }
+
+        $scope.close_admincard = function () {
+            $scope.$parent.adminediting = false;
         }
 
     }]);
