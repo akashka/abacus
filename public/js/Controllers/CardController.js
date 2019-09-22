@@ -295,10 +295,10 @@ angular.module('StudentApp.CardController', [])
         $scope.uploadFileAdmin = function (myFile) {
             if($scope.$parent.isPhoto) {
                 $scope.uploadFileAdmin1($scope.myFile1);
-            } else if(myFile == "" || myFile == undefined) {
+            } else if($scope.myFile == "" || $scope.myFile == undefined) {
                 $scope.msg = "Upload Student Image";
             } else {
-                var file = myFile;
+                var file = $scope.myFile;
                 var uploadUrl = "/savedata/" + $scope.student.phone;
                 var fd = new FormData();
                 // $scope.student.photo = (myFile != undefined && myFile.name != undefined) ? myFile.name : "";
@@ -320,10 +320,10 @@ angular.module('StudentApp.CardController', [])
                 // console.log("enter into ");
                 // console.log("----------------------------------------");
                 $scope.admin_save();
-            } else if(myFile == "" || myFile == undefined) {
+            } else if($scope.myFile == "" || $scope.myFile == undefined) {
                 $scope.msg = "Upload Birth Certificate or Aadhaar Card";
             } else {
-                var file = myFile;
+                var file = $scope.myFile;
                 var uploadUrl = "/savedata/" + $scope.student.phone;
                 var fd = new FormData();
                 fd.append('file', file);
