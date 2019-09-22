@@ -62,12 +62,7 @@ angular.module('StudentApp.CardController', [])
             if ($scope.count >= 1 && $scope.student.birthcertificate != "") {
                 $scope.$parent.loading = true;
                 // $scope.$parent.student.centername = $scope.$parent.student.centername;
-                if($scope.$parent.student.status == 'hallticket'){
-                    $scope.$parent.student.status = 'hallticket';
-                }
-                else{
-                    $scope.$parent.student.status = 'payment';
-                }
+                $scope.$parent.student.status = 'payment';
                 if ($scope.$parent.student._id === undefined) {
                     //Adding Student -> POST
                     studentFactory.save($scope.$parent.student, function (response) {
@@ -272,6 +267,110 @@ angular.module('StudentApp.CardController', [])
 
         $scope.close_admincard = function () {
             $scope.$parent.adminediting = false;
+        }
+
+        // $scope.update_student = function () {
+        //     $scope.msg = "";
+        //     if ($scope.$parent.student.address == "" || $scope.$parent.student.dateofbirth == "" || $scope.$parent.student.email == "" ||
+        //         $scope.$parent.student.gender == "" || $scope.$parent.student.name == "" || $scope.$parent.student.parentname == "" || 
+        //         $scope.$parent.student.phone == "" || $scope.$parent.student.group == "" || $scope.$parent.student.category == "" || 
+        //         $scope.$parent.student.level == "" || $scope.$parent.student.address == undefined || $scope.$parent.student.dateofbirth == undefined 
+        //         || $scope.$parent.student.email == undefined || $scope.$parent.student.gender == undefined || $scope.$parent.student.name == undefined 
+        //         || $scope.$parent.student.parentname == undefined || $scope.$parent.student.phone == undefined || $scope.$parent.student.group == undefined 
+        //         || $scope.$parent.student.category == undefined || $scope.$parent.student.level == undefined) {
+        //             $scope.msg = "Invalid or Missing Data. Please make sure you have filled all the details correctly";
+        //     // } else if ($scope.$parent.student.programmename == 'School Programme' && 
+        //     //     ($scope.$parent.student.class == undefined || $scope.$parent.student.class == '' ||
+        //     //     $scope.$parent.student.section == undefined || $scope.$parent.student.section == '')) {
+        //     //         $scope.msg = "Invalid or Missing Data. Please make sure you have filled all the details correctly";
+        //     // } else if ($scope.$parent.student.programmename == 'Center Programme' && 
+        //     //     ($scope.$parent.student.presentlevel == undefined || $scope.$parent.student.presentlevel == '' ||
+        //     //     $scope.$parent.student.presentweek == undefined || $scope.$parent.student.presentweek == '')) {
+        //     //         $scope.msg = "Invalid or Missing Data. Please make sure you have filled all the details correctly";
+        //     } else {
+        //             $scope.uploadFileAdmin($scope.myFile);
+        //     }
+        // };
+
+        $scope.uploadFileAdmin = function (myFile) {
+            if($scope.$parent.isPhoto) {
+                $scope.uploadFileAdmin1($scope.myFile1);
+            } else if(myFile == "" || myFile == undefined) {
+                $scope.msg = "Upload Student Image";
+            } else {
+                var file = myFile;
+                var uploadUrl = "/savedata/" + $scope.student.phone;
+                var fd = new FormData();
+                // $scope.student.photo = (myFile != undefined && myFile.name != undefined) ? myFile.name : "";
+                fd.append('file', file);
+                $http.post(uploadUrl, fd, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                }).success(function (response) {
+                    $scope.student.photo = response;
+                    $scope.uploadFileAdmin1($scope.myFile1);
+                }).error(function (error) {
+                    console.log(error);
+                });
+            }
+        };
+
+        $scope.uploadFileAdmin1 = function (myFile) {
+            if($scope.$parent.isBirthcertificate) {
+                // console.log("enter into ");
+                // console.log("----------------------------------------");
+                $scope.admin_save();
+            } else if(myFile == "" || myFile == undefined) {
+                $scope.msg = "Upload Birth Certificate or Aadhaar Card";
+            } else {
+                var file = myFile;
+                var uploadUrl = "/savedata/" + $scope.student.phone;
+                var fd = new FormData();
+                fd.append('file', file);
+                // $scope.student.birthcertificate = (myFile != undefined && myFile.name != undefined) ? myFile.name : "";
+                $http.post(uploadUrl, fd, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                }).success(function (response) {
+                    $scope.student.birthcertificate = response;
+                     // console.log(student.birthcertificate);
+                    // console.log("-----------------------");  
+                    $scope.admin_save();
+                }).error(function (error) {
+                    console.log(error);
+                });
+            }
+        };
+
+        $scope.admin_save = function () {
+            // console.log("enter in the save");
+            // console.log("---------------------------------");
+            $scope.count++;
+            if ($scope.count >= 1 && $scope.student.birthcertificate != "") {
+                $scope.$parent.loading = true;
+                // $scope.$parent.student.centername = $scope.$parent.student.centername;
+                if ($scope.$parent.student._id === undefined) {
+                    //Adding Student -> POST
+                    studentFactory.save($scope.$parent.student, function (response) {
+                        $scope.$parent.editing = false;
+                        $scope.$parent.update_students();
+                    }, function (response) {
+                        //error
+                        console.error(response);
+                    });
+
+                } else {
+                    //Editing Student -> PUT
+                    studentFactory.update({ id: $scope.$parent.student._id }, $scope.$parent.student, function (response) {
+                        console.log(response);
+                        $scope.$parent.editing = false;
+                        $scope.$parent.update_students();
+                    }, function (response) {
+                        //error
+                        console.error(response);
+                    });
+                }
+            }
         }
 
     }]);
