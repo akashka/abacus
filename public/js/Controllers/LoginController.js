@@ -170,8 +170,8 @@ angular.module('StudentApp.LoginController', [])
         $scope.yearOptions = [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016];
         $scope.centergroups = ['MA', 'TT'];
         $scope.schoolgroups = ['MAS', 'TTS'];
-        $scope.malevels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
-        $scope.ttlevels = ["1", "2", "3", "4", "5", "6", "7", "8"];
+        $scope.malevels = ["pre", "1", "2", "3", "4", "5", "6", "7", "8"];
+        $scope.ttlevels = ["pre", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 
         $scope.termsAccepted = false;
         $scope.onTCChange = function () {
