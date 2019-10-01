@@ -26,8 +26,8 @@ angular.module('StudentApp.CardController', [])
         ];
         $scope.centergroups = ['MA', 'TT'];
         $scope.schoolgroups = ['MAS', 'TTS'];
-        $scope.ttlevels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
-        $scope.malevels = ["1", "2", "3", "4", "5", "6", "7", "8"];
+        $scope.ttlevels = ["pre", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+        $scope.malevels = ["pre", "1", "2", "3", "4", "5", "6", "7", "8"];
 
         //Save student button handler
         $scope.msg = "";
