@@ -8,22 +8,7 @@ angular.module('StudentApp.CardController', [])
 
         $scope.tshirtsizeoptions = ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
         $scope.programmeoptions = ['Center Programme', 'School Programme'];
-        $scope.centeroptions = [
-            { name: 'ABC Center', code: 'abc' },
-            { name: 'DEF Center', code: 'def' },
-            { name: 'GHI Center', code: 'ghi' },
-            { name: 'JKL Center', code: 'jkl' },
-            { name: 'MNOP', code: 'mno' },
-            { name: 'QRSTUVWX Y Z', code: 'xyz' }
-        ];
-        $scope.schooloptions = [
-            { name: 'ABC School', code: 'abc' },
-            { name: 'DEF School', code: 'def' },
-            { name: 'GHI School', code: 'ghi' },
-            { name: 'JKL School', code: 'jkl' },
-            { name: 'MNOP', code: 'mno' },
-            { name: 'QRSTUVWX Y Z', code: 'xyz' }
-        ];
+        
         $scope.centergroups = ['MA', 'TT'];
         $scope.schoolgroups = ['MAS', 'TTS'];
         $scope.ttlevels = ["pre", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
@@ -87,37 +72,14 @@ angular.module('StudentApp.CardController', [])
             }
         }
 
-        // $scope.save_adminstudent = function () {
-        //     $scope.count++;
-        //     if ($scope.count >= 1 && $scope.student.birthcertificate != "") {
-        //         $scope.$parent.loading = true;
-        //         // $scope.$parent.student.centername = $scope.$parent.student.centername;
-        //         if ($scope.$parent.student._id === undefined) {
-        //             //Adding Student -> POST
-        //             studentFactory.save($scope.$parent.student, function (response) {
-        //                 $scope.$parent.adminediting = false;
-        //                 $scope.$parent.update_students();
-        //             }, function (response) {
-        //                 //error
-        //                 console.error(response);
-        //             });
-
-        //         } else {
-        //             //Editing Student -> PUT
-        //             studentFactory.update({ id: $scope.$parent.student._id }, $scope.$parent.student, function (response) {
-        //                 console.log(response);
-        //                 $scope.$parent.adminediting = false;
-        //                 $scope.$parent.update_students();
-        //             }, function (response) {
-        //                 //error
-        //                 console.error(response);
-        //             });
-        //         }
-        //     }
-        // }
-
-        $scope.onCenterChange = function (centername, program) {
+        $scope.onCenterChange = function (centername) {
             $scope.$parent.student.centercode = centername.code;
+        }
+
+        $scope.onProgramChange = function() {
+            $scope.$parent.student.centercode = '';
+            $scope.$parent.student.centername = '';
+            $scope.$parent.student.schoolcode = '';
         }
 
         $scope.age = {
@@ -293,11 +255,7 @@ angular.module('StudentApp.CardController', [])
         // };
 
         $scope.uploadFileAdmin = function (myFile) {
-            if($scope.$parent.isPhoto) {
-                $scope.uploadFileAdmin1($scope.myFile1);
-            } else if($scope.myFile == "" || $scope.myFile == undefined) {
-                $scope.msg = "Upload Student Image";
-            } else {
+            if($scope.myFile != "" && $scope.myFile != undefined) {
                 var file = $scope.myFile;
                 var uploadUrl = "/savedata/" + $scope.student.phone;
                 var fd = new FormData();
@@ -312,41 +270,34 @@ angular.module('StudentApp.CardController', [])
                 }).error(function (error) {
                     console.log(error);
                 });
+            } else {
+                $scope.uploadFileAdmin1($scope.myFile1);
             }
         };
 
         $scope.uploadFileAdmin1 = function (myFile) {
-            if($scope.$parent.isBirthcertificate) {
-                // console.log("enter into ");
-                // console.log("----------------------------------------");
-                $scope.admin_save();
-            } else if($scope.myFile == "" || $scope.myFile == undefined) {
-                $scope.msg = "Upload Birth Certificate or Aadhaar Card";
-            } else {
-                var file = $scope.myFile;
+            if($scope.myFile1 != "" && $scope.myFile1 != undefined) {
+                var file = $scope.myFile1;
                 var uploadUrl = "/savedata/" + $scope.student.phone;
                 var fd = new FormData();
                 fd.append('file', file);
-                // $scope.student.birthcertificate = (myFile != undefined && myFile.name != undefined) ? myFile.name : "";
                 $http.post(uploadUrl, fd, {
                     transformRequest: angular.identity,
                     headers: { 'Content-Type': undefined }
                 }).success(function (response) {
                     $scope.student.birthcertificate = response;
-                     // console.log(student.birthcertificate);
-                    // console.log("-----------------------");  
                     $scope.admin_save();
                 }).error(function (error) {
                     console.log(error);
                 });
+            } else {
+                $scope.admin_save();
             }
         };
 
         $scope.admin_save = function () {
-            // console.log("enter in the save");
-            // console.log("---------------------------------");
             $scope.count++;
-            if ($scope.count >= 1 && $scope.student.birthcertificate != "") {
+            if ($scope.count >= 1) {
                 $scope.$parent.loading = true;
                 // $scope.$parent.student.centername = $scope.$parent.student.centername;
                 if ($scope.$parent.student._id === undefined) {
@@ -365,6 +316,7 @@ angular.module('StudentApp.CardController', [])
                         console.log(response);
                         $scope.$parent.editing = false;
                         $scope.$parent.update_students();
+                        location.reload();
                     }, function (response) {
                         //error
                         console.error(response);
@@ -372,5 +324,25 @@ angular.module('StudentApp.CardController', [])
                 }
             }
         }
+
+        $scope.centeroptions = [
+            { name: 'HEBBAL', code: '1367', program:'center'}, // 9886293723
+            { name: 'BEGUR', code: '1379', program:'center'}, // 9886585107
+            { name: 'KUMARAPARK', code: '1323', program:'center'}, //9900083766
+            { name: 'KOLEEGALA', code: '1321', program:'center'}, // 9886017421, 7892331200
+            { name: 'HOSAKOTE', code: 'KA42', program:'center'}, // 9986099408, 7259336864
+            { name: 'R P D CROSS', code: '1357', program:'center'}, // 9845538279
+            { name: 'MALMARUTHI B G M', code: '1356', program:'center'}, // 9844802955, 8867219679
+            { name: 'KARKALA', code: '1344', program:'center'}, // 9980439868
+            { name: 'JALAHALLI', code: '1364', program:'center'}, // 8884012849
+            { name: 'MYSORE', code: '1400', program:'center'}, //
+        ];
+
+        $scope.schooloptions = [
+            { name: 'Air Force Jalahalli', code: 'SCH1', program:'school'}, // 9945179640
+            { name: 'Euro School Chimney Hills', code: 'SCH2', program:'scholl'}, // 9591478791
+            { name: 'KMV Red Hills School', code: 'SCH3', program:'school'}, // 8618576863, 9880632136, 8310810268, 7760262284
+            { name: 'Vidya Soudha Public School Peenya', code: 'SCH4', program:'school'} // 9980555084, 9483047595             
+        ];
 
     }]);

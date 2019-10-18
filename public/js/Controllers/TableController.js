@@ -1,5 +1,5 @@
 angular.module('StudentApp.TableController', [])
-    .controller('TableController', ['$scope', 'studentFactory', 'userFactory', function ($scope, studentFactory, userFactory) {
+    .controller('TableController', ['$scope', 'studentFactory', 'userFactory', '$rootScope', function ($scope, studentFactory, userFactory, $rootScope) {
         //Update students
         $scope.$parent.update_students = function () {
             $scope.$parent.loading = true;
@@ -25,6 +25,10 @@ angular.module('StudentApp.TableController', [])
                             s--;
                         }
                     }
+                }
+
+                if($scope.$parent.isStudent) {
+                    $rootScope.$broadcast('loggedin');
                 }
 
                 $scope.studentClick = function (status, id) {
