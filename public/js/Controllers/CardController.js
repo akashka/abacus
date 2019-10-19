@@ -72,8 +72,12 @@ angular.module('StudentApp.CardController', [])
             }
         }
 
-        $scope.onCenterChange = function (centername) {
-            $scope.$parent.student.centercode = centername.code;
+        $scope.onCenterChange = function (centername, options) {
+            for(var i=0; i< options.length; i++) {
+                if(options[i].name == centername) {
+                    $scope.$parent.student.centercode = options[i].code;
+                }
+            }
         }
 
         $scope.onProgramChange = function() {

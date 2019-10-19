@@ -15,6 +15,16 @@ angular.module('StudentApp.TableController', [])
             studentFactory.query().$promise.then(function (response) {
                 //$('tbody').html('');
                 $scope.$parent.student_list = response;
+
+                $scope.$parent.all_student_list = [];
+                for(var u=0; u<response.length; u++) {
+                    var tempVar = response[u];
+                    if(tempVar.centername == undefined || tempVar.centername == '') {
+                        tempVar.centername = tempVar.schoolname;
+                    }
+                    $scope.$parent.all_student_list.push(tempVar);
+                }
+
                 $scope.$parent.loading = false;
 
                 if ($scope.$parent.isCenter) {
