@@ -37,6 +37,15 @@ angular.module('StudentApp.TableController', [])
                     }
                 }
 
+                $scope.$parent.all_student_list = [];
+                for(var u=0; u<$scope.$parent.student_list.length; u++) {
+                    var tempVar = $scope.$parent.student_list[u];
+                    if(tempVar.centername == undefined || tempVar.centername == '') {
+                        tempVar.centername = tempVar.schoolname;
+                    }
+                    $scope.$parent.all_student_list.push(tempVar);
+                }
+
                 if($scope.$parent.isStudent) {
                     $rootScope.$broadcast('loggedin');
                 }
