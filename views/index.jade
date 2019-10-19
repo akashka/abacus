@@ -36,7 +36,7 @@ block content
                         th.mdl-data-table__cell--non-numeric(ng-show='isAdmin') 
                             <a href="" ng-click="order('programmename')"> PROGRAMME NAME </a>                                                    
                         th.mdl-data-table__cell--non-numeric 
-                            <a href="" ng-click="order('centername')"> CENTER / SCHOOL Name </a>                                                    
+                            <a href="" ng-click="order('centername')"> CENTER / SCHOOL NAME </a>                                                    
                         th.mdl-data-table__cell--non-numeric 
                             <a href="" ng-click="order('level')"> LEVEL </a>                                                    
                         th.mdl-data-table__cell--non-numeric 
@@ -98,7 +98,7 @@ block content
                             input(type="text",ng-model="search.bankname") 
                         td(ng-show='isAdmin')
 
-                    tr(ng-repeat="f in all_student_list | orderBy:predicate:reverse | filter:search", ng-style="f.status=='payment' && {'background-color':'burlywood'} || f.status=='admin' && {'background-color':'peachpuff'}")
+                    tr(ng-repeat="f in student_list | orderBy:predicate:reverse | filter:search", ng-style="f.status=='payment' && {'background-color':'burlywood'} || f.status=='admin' && {'background-color':'peachpuff'}")
                         th(class="mdl-data-table__cell--non-numeric",ng-show="selectMultiple") 
                             input(type="checkbox",ng-model="f.checked",ng-change="selectedOneMultiple(f)",ng-show="f.status=='payment'",style="width:21px;height:21px;")
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.phone}}
@@ -111,7 +111,11 @@ block content
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.status}}
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.dateCreated | date:'dd-MMM-yyyy'}}
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)",ng-show='isAdmin') {{f.programmename}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.centername}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)")
+                            span(ng-if="f.centername != undefined")
+                                | {{f.centername}}
+                            span(ng-if="f.schoolname != undefined")
+                                | {{f.schoolname}}
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.level}}
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.group}}
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.category}}
