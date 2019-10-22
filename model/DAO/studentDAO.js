@@ -138,7 +138,7 @@ function updateStudent(id, student, callbacks){
             f.tshirtsize = student.tshirtsize;
             f.photo = student.photo;
             f.birthcertificate = student.birthcertificate;
-            // f.programmename = (student.centername != undefined && student.centername != "" ? "Center Programme" : "School Programme");
+            f.programmename = student.programmename;
             f.centername = student.centername;
             f.centercode = student.centercode;
             f.schoolname = student.schoolname;
