@@ -83,7 +83,7 @@ angular.module('StudentApp.CardController', [])
         $scope.onProgramChange = function() {
             $scope.$parent.student.centercode = '';
             $scope.$parent.student.centername = '';
-            $scope.$parent.student.schoolcode = '';
+            $scope.$parent.student.schoolname = '';
         }
 
         $scope.age = {
