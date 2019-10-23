@@ -17,7 +17,7 @@ angular.module('StudentApp.TableController', [])
                 $scope.$parent.student_list = response;
 
                 $scope.$parent.loading = false;
-
+    
                 if ($scope.$parent.isCenter) {
                     $scope.$parent.center = getCookie('center');
                     for (var s = 0; s < $scope.$parent.student_list.length; s++) {
