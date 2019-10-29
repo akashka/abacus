@@ -302,7 +302,7 @@ angular.module('StudentApp.CardController', [])
         $scope.admin_save = function () {
             $scope.count++;
             if ($scope.count >= 1) {
-                $scope.$parent.loading = true;
+                // $scope.$parent.loading = true;
                 // $scope.$parent.student.centername = $scope.$parent.student.centername;
                 if ($scope.$parent.student._id === undefined) {
                     //Adding Student -> POST
@@ -320,7 +320,7 @@ angular.module('StudentApp.CardController', [])
                         console.log(response);
                         $scope.$parent.editing = false;
                         $scope.$parent.update_students();
-                        location.reload();
+                        // location.reload();
                     }, function (response) {
                         //error
                         console.error(response);
