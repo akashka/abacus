@@ -75,6 +75,11 @@ html
         //-     | (function(t,e){var r=function(t){try{var r=e.head||e.getElementsByTagName("head")[0];a=e.createElement("script");a.setAttribute("type","text/javascript");a.setAttribute("src",t);r.appendChild(a);}catch(t){}};t.CollectId = "5b90bd9c17717184f1710e2a";r("https://collectcdn.com/launcher.js");})(window,document);
 
         script
+            |$(document).ready(function(){
+            |$('[data-toggle="tooltip"]').tooltip(); 
+            |});
+
+        script
             | (function(h,o,t,j,a,r){
             |     h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
             |     h._hjSettings={hjid:1004459,hjsv:6};
@@ -85,6 +90,14 @@ html
             | })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
 
     body(ng-app='StudentApp', ng-controller='MainController')
+        div.navbar-inverse(style="background-color:#76b51b;width: 100%; text-align: center;")
+            div#notification-banner.secondary
+                div#notification-container
+            span.cta(style="font-weight:bolder;color: white; font-size: 20px;text-align:center;")
+                | REGISTERATIONS ARE NOW CLOSED! PLEASE CONTACT YOUR CENTER OR HEAD OFFICE!!!
+                <br/>
+                | Hall Tickets can be downloaded from 5th November 2019
+
         +custom_header('Aloha Karnataka', 'exit')
         block content
 
