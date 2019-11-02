@@ -85,6 +85,20 @@ angular.module('StudentApp.TableController', [])
                 });
             }
 
+            $scope.closeStudent = function(stu) {
+                stu.status = 'closed';
+                studentFactory.update({ id: stu._id }, stu, function (response) {
+                    $scope.$parent.update_students();
+                }, function (response) {
+                    console.error(response);
+                });
+            }
+
+            $scope.printHallTicket = function(stu) {
+                var fileurl = "/api/0.1/student/generatehallticket/" + stu.phone;
+                window.open(fileurl, '_self', '');    
+            }
+
             $scope.approveStudent = function (stu) {
                 stu.paymentapproved = true;
                 stu.status = "hallticket";
