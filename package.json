@@ -30,8 +30,7 @@
     "ng-csv": "^0.3.6",
     "node-base64-image": "^1.0.6",
     "otp-generator": "^1.1.0",
-    "phantom-html-to-pdf": "^0.6.0",
-    "phantomjs-prebuilt": "^2.1.16",
+    "phantom-html-to-pdf": "0.5.6",
     "qrcode": "^1.4.2",
     "serve-favicon": "~2.3.0"
   },
