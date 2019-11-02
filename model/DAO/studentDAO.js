@@ -1,10 +1,10 @@
 var db = require("../../config/mongodb").init(),
   fs = require("fs"),
   path = require("path"),
-  conversion = require("phantom-html-to-pdf")(),
-//   conversion = require("phantom-html-to-pdf")({
-//     phantomPath: require("phantomjs-prebuilt").path
-//   }),
+//   conversion = require("phantom-html-to-pdf")(),
+  conversion = require("phantom-html-to-pdf")({
+    phantomPath: require("phantomjs-prebuilt").path
+  }),
   QRCode = require("qrcode");
 mongoose = require("mongoose");
 var sgMail = require("@sendgrid/mail");
