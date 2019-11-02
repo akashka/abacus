@@ -250,7 +250,9 @@ function generateHallTicket(username, callbacks) {
                 stringTemplate = stringTemplate.replace('{{StudentQRCode}}', (qrImage != undefined) ? qrImage : "");
 
                 conversion({ html: stringTemplate }, function (err, pdf) {
+                  setTimeout(function () {
                     callbacks.success(pdf);
+                  }, 1000);
                 });
             });
         } else {
