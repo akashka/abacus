@@ -16,9 +16,11 @@
     "busboy-body-parser": "^0.3.2",
     "connect-busboy": "0.0.2",
     "cookie-parser": "~1.4.1",
+    "csv-parser": "^2.3.1",
     "curlrequest": "^1.0.1",
     "debug": "~2.2.0",
     "express": "~4.13.1",
+    "html-pdf": "^2.2.0",
     "i18next": "1.10.3",
     "jade": "~1.11.0",
     "moment": "^2.22.2",
@@ -30,7 +32,7 @@
     "otp-generator": "^1.1.0",
     "phantom-html-to-pdf": "^0.6.0",
     "phantomjs-prebuilt": "^2.1.16",
-    "qrcode": "^1.4.1",
+    "qrcode": "^1.4.2",
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {

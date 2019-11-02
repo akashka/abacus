@@ -239,27 +239,26 @@ router.get('/download/:username', function (req, res) {
     });
 });
 
-router.get('/generateHallTicket/:username', function (req, res) {
+router.get('/generateHallTicket/:username', function(req, res){
     var d = domain.create();
-    d.run(function () {
+    d.run(function(){
         studentDAO.generateHallTicket({
-            username: req.params.username,
-            program: req.params.program,
-        }, {
-                success: function (pdf) {
-                    var output = fs.createWriteStream('./hallticket.pdf');
-                    pdf.stream.pipe(output);
-                    let filename = "hallticket";
-                    filename = encodeURIComponent(filename) + '.pdf';
-                    var file = fs.readFileSync('./hallticket.pdf');
-                    res.setHeader('Content-Type', 'application/pdf');
-                    res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"');
-                    pdf.stream.pipe(res);
-                },
-                error: function (err) {
-                    res.status(403).send(err);
-                }
-            });
+                username:   req.params.username,
+            }, {
+            success: function(pdf){
+                var output = fs.createWriteStream('./hallticket.pdf');
+                pdf.stream.pipe(output);
+                let filename = "hallticket";
+                filename = encodeURIComponent(filename) + '.pdf';
+                var file = fs.readFileSync('./hallticket.pdf');
+                res.setHeader('Content-Type', 'application/pdf');
+                res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"');
+                pdf.stream.pipe(res);
+            },
+            error: function(err){
+                res.status(403).send(err);
+            }
+        });
     });
 })
 
