@@ -10,7 +10,8 @@ function _init(){
         // return mongoose.createConnection('mongodb://admin:Abcd123$0@ds213612.mlab.com:13612/heroku_49cdczxx');
 
         // Live
-        return mongoose.createConnection('mongodb://admin:abcd1234@cluster0-shard-00-00.cjv0p.mongodb.net:27017,cluster0-shard-00-01.cjv0p.mongodb.net:27017,cluster0-shard-00-02.cjv0p.mongodb.net:27017/alohaindia?ssl=true&replicaSet=atlas-xm4jo5-shard-0&authSource=admin&retryWrites=true&w=majority');
+        return mongoose.createConnection('mongodb://akash:akash@ac-ao8t6fk-shard-00-00.shyoqs4.mongodb.net:27017,ac-ao8t6fk-shard-00-01.shyoqs4.mongodb.net:27017,ac-ao8t6fk-shard-00-02.shyoqs4.mongodb.net:27017/test?replicaSet=atlas-fblq6e-shard-0&ssl=true&authSource=admin
+');
     }catch(err){
         console.log("No internet connection :(");
     }
