@@ -10,7 +10,7 @@ function _init(){
         // return mongoose.createConnection('mongodb://admin:Abcd123$0@ds213612.mlab.com:13612/heroku_49cdczxx');
 
         // Live
-        return mongoose.createConnection('mongodb+srv://akash:akash@cluster0.shyoqs4.mongodb.net/?retryWrites=true&w=majority');
+        return mongoose.createConnection('mongodb://akash:<password>@ac-ao8t6fk-shard-00-00.shyoqs4.mongodb.net:27017,ac-ao8t6fk-shard-00-01.shyoqs4.mongodb.net:27017,ac-ao8t6fk-shard-00-02.shyoqs4.mongodb.net:27017/?ssl=true&replicaSet=atlas-fblq6e-shard-0&authSource=admin&retryWrites=true&w=majorityy');
     }catch(err){
         console.log("No internet connection :(");
     }
